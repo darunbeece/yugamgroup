@@ -1,0 +1,308 @@
+// ===== Mobile Menu Toggle =====
+const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+const navLinks = document.getElementById('navLinks');
+
+if (mobileMenuToggle) {
+    mobileMenuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        mobileMenuToggle.classList.toggle('active');
+    });
+}
+
+// Close mobile menu when clicking on a link
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        mobileMenuToggle.classList.remove('active');
+    });
+});
+
+// ===== Navbar Scroll Effect =====
+const navbar = document.getElementById('navbar');
+let lastScroll = 0;
+
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+    
+    lastScroll = currentScroll;
+});
+
+// ===== Active Navigation Link =====
+const sections = document.querySelectorAll('section[id]');
+const navLinksAll = document.querySelectorAll('.nav-link');
+
+window.addEventListener('scroll', () => {
+    let current = '';
+    
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (window.pageYOffset >= sectionTop - 200) {
+            current = section.getAttribute('id');
+        }
+    });
+    
+    navLinksAll.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').includes(current)) {
+            link.classList.add('active');
+        }
+    });
+});
+
+// ===== Security Assessment =====
+const assessmentBtn = document.getElementById('assessmentBtn');
+const assessmentResults = document.getElementById('assessmentResults');
+const scoreValue = document.getElementById('scoreValue');
+const scoreDescription = document.getElementById('scoreDescription');
+const findingsList = document.getElementById('findingsList');
+const recommendationsList = document.getElementById('recommendationsList');
+
+if (assessmentBtn) {
+    assessmentBtn.addEventListener('click', () => {
+        // Get selected values
+        const infrastructure = document.querySelector('input[name="infrastructure"]:checked');
+        const monitoring = document.querySelector('input[name="monitoring"]:checked');
+        
+        if (!infrastructure || !monitoring) {
+            alert('Please answer all questions to get your assessment.');
+            return;
+        }
+        
+        // Calculate score based on selections
+        let score = 50; // Base score
+        
+        // Infrastructure scoring
+        if (infrastructure.value === 'multi') score += 15;
+        else if (infrastructure.value === 'aws' || infrastructure.value === 'azure' || infrastructure.value === 'gcp') score += 10;
+        
+        // Monitoring scoring
+        if (monitoring.value === 'managed') score += 25;
+        else if (monitoring.value === 'automated') score += 20;
+        else if (monitoring.value === 'manual') score += 10;
+        else if (monitoring.value === 'none') score -= 10;
+        
+        // Generate findings based on selections
+        const findings = [];
+        const recommendations = [];
+        
+        if (infrastructure.value === 'multi') {
+            findings.push('<li><i class="fas fa-check-circle"></i> Multi-cloud infrastructure provides redundancy</li>');
+        } else {
+            findings.push('<li><i class="fas fa-info-circle"></i> Single cloud provider detected</li>');
+            recommendations.push('<li>Consider multi-cloud strategy for better resilience</li>');
+        }
+        
+        if (monitoring.value === 'managed') {
+            findings.push('<li><i class="fas fa-check-circle"></i> Professional security monitoring in place</li>');
+        } else if (monitoring.value === 'automated') {
+            findings.push('<li><i class="fas fa-check-circle"></i> Automated security monitoring active</li>');
+            recommendations.push('<li>Consider upgrading to managed security service for 24/7 expert support</li>');
+        } else if (monitoring.value === 'manual') {
+            findings.push('<li><i class="fas fa-exclamation-triangle"></i> Manual security review may miss critical threats</li>');
+            recommendations.push('<li>Implement automated threat detection immediately</li>');
+        } else {
+            findings.push('<li><i class="fas fa-exclamation-triangle"></i> No active security monitoring detected - HIGH RISK</li>');
+            recommendations.push('<li>Implement immediate security monitoring solution</li>');
+            recommendations.push('<li>Conduct comprehensive security audit</li>');
+        }
+        
+        // Additional universal recommendations
+        recommendations.push('<li>Regular security audits and penetration testing</li>');
+        recommendations.push('<li>Ensure compliance with industry standards (SOC 2, ISO 27001)</li>');
+        recommendations.push('<li>Implement zero-trust security architecture</li>');
+        
+        // Determine risk level
+        let riskLevel = '';
+        if (score >= 80) {
+            riskLevel = 'Low Risk - Excellent Security Posture';
+        } else if (score >= 60) {
+            riskLevel = 'Moderate Risk - Good Foundation';
+        } else if (score >= 40) {
+            riskLevel = 'Elevated Risk - Improvements Needed';
+        } else {
+            riskLevel = 'High Risk - Immediate Action Required';
+        }
+        
+        // Animate score
+        let currentScore = 0;
+        const targetScore = score;
+        const increment = targetScore / 50;
+        
+        const scoreInterval = setInterval(() => {
+            currentScore += increment;
+            if (currentScore >= targetScore) {
+                currentScore = targetScore;
+                clearInterval(scoreInterval);
+            }
+            scoreValue.textContent = Math.round(currentScore);
+        }, 20);
+        
+        // Update results
+        scoreDescription.textContent = riskLevel;
+        findingsList.innerHTML = findings.join('');
+        recommendationsList.innerHTML = recommendations.join('');
+        
+        // Show results with animation
+        assessmentResults.style.display = 'block';
+        assessmentResults.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+}
+
+// ===== Real-Time Dashboard Updates =====
+function updateDashboardMetrics() {
+    // Animate threats blocked
+    const threatsBlocked = document.getElementById('threatsBlocked');
+    if (threatsBlocked) {
+        let currentValue = parseInt(threatsBlocked.textContent.replace(/,/g, ''));
+        const increment = Math.floor(Math.random() * 5) + 1;
+        currentValue += increment;
+        threatsBlocked.textContent = currentValue.toLocaleString();
+    }
+    
+    // Randomly update health metrics
+    const progressBars = document.querySelectorAll('.progress-fill');
+    progressBars.forEach(bar => {
+        const currentWidth = parseInt(bar.style.width);
+        const change = Math.floor(Math.random() * 10) - 5; // -5 to +5
+        let newWidth = currentWidth + change;
+        newWidth = Math.max(20, Math.min(90, newWidth)); // Keep between 20-90%
+        bar.style.width = newWidth + '%';
+        
+        // Update corresponding value text
+        const healthItem = bar.closest('.health-item');
+        if (healthItem) {
+            const valueSpan = healthItem.querySelector('.health-value');
+            if (valueSpan) {
+                valueSpan.textContent = newWidth + '%';
+            }
+        }
+    });
+}
+
+// Update dashboard every 3 seconds
+setInterval(updateDashboardMetrics, 3000);
+
+// ===== Smooth Scroll =====
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href !== '#' && href.startsWith('#')) {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+    });
+});
+
+// ===== Intersection Observer for Animations =====
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+// Observe cards and sections for fade-in animation
+document.addEventListener('DOMContentLoaded', () => {
+    const animateElements = document.querySelectorAll(
+        '.service-card, .dashboard-widget, .question-card, .assessment-results'
+    );
+    
+    animateElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+    });
+});
+
+// ===== Simple Chart Animation for Dashboard =====
+const chartCanvas = document.getElementById('threatsChart');
+if (chartCanvas) {
+    const ctx = chartCanvas.getContext('2d');
+    const width = chartCanvas.parentElement.clientWidth;
+    const height = 150;
+    chartCanvas.width = width;
+    chartCanvas.height = height;
+    
+    const dataPoints = 20;
+    const data = Array.from({ length: dataPoints }, () => Math.random() * 100);
+    
+    function drawChart() {
+        ctx.clearRect(0, 0, width, height);
+        
+        // Draw gradient
+        const gradient = ctx.createLinearGradient(0, 0, 0, height);
+        gradient.addColorStop(0, 'rgba(99, 102, 241, 0.4)');
+        gradient.addColorStop(1, 'rgba(99, 102, 241, 0.05)');
+        
+        ctx.fillStyle = gradient;
+        ctx.strokeStyle = '#6366f1';
+        ctx.lineWidth = 2;
+        
+        ctx.beginPath();
+        
+        const xStep = width / (dataPoints - 1);
+        
+        for (let i = 0; i < dataPoints; i++) {
+            const x = i * xStep;
+            const y = height - (data[i] / 100 * height * 0.8) - 10;
+            
+            if (i === 0) {
+                ctx.moveTo(x, y);
+            } else {
+                ctx.lineTo(x, y);
+            }
+        }
+        
+        ctx.stroke();
+        
+        // Fill area under curve
+        ctx.lineTo(width, height);
+        ctx.lineTo(0, height);
+        ctx.closePath();
+        ctx.fill();
+    }
+    
+    drawChart();
+    
+    // Animate chart
+    setInterval(() => {
+        data.shift();
+        data.push(Math.random() * 100);
+        drawChart();
+    }, 2000);
+}
+
+// ===== Console Easter Egg =====
+console.log(
+    '%c🔒 YuGam Group - Enterprise Security',
+    'font-size: 20px; font-weight: bold; color: #6366f1;'
+);
+console.log(
+    '%cSecure your cloud infrastructure with expert solutions.',
+    'font-size: 14px; color: #94a3b8;'
+);
+console.log(
+    '%cInterested in joining our team? Email: careers@yugamgroup.com',
+    'font-size: 12px; color: #10b981;'
+);
