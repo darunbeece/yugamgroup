@@ -33,16 +33,21 @@
                 <li><a href="careers.html" class="nav-link">Careers</a></li>
                 <li><a href="index.html#contact" class="nav-link">Contact</a></li>
             </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon" style="display: none;"></i>
+            </button>
         </div>
     </nav>
 
     <!-- Page Header -->
     <section class="page-header">
         <div class="hero-background">
+            <canvas class="particle-canvas"></canvas>
             <div class="grid-overlay"></div>
             <div class="gradient-overlay"></div>
         </div>
-        <div class="container">
+        <div class="container" data-animate="fade-up">
             <h1 class="page-title">Real World <span class="gradient-text">Results</span></h1>
             <p class="page-subtitle">See how we help organizations secure their digital future</p>
         </div>
@@ -50,7 +55,7 @@
 
     <!-- Case Studies Section -->
     <section class="case-studies-section">
-        <div class="container">
+        <div class="container" data-animate="fade-up">
             <div class="jobs-grid"> <!-- Reusing grid layout -->
 
                 <!-- Case Study 1 -->
@@ -81,6 +86,10 @@
                             <li>40% Reduction in infrastructure costs</li>
                             <li>Zero downtime during migration</li>
                         </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon" style="display: none;"></i>
+            </button>
                     </div>
                 </div>
 
@@ -111,6 +120,10 @@
                             <li>90% reduction in critical vulnerabilities</li>
                             <li>Achieved ATO in record time</li>
                         </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon" style="display: none;"></i>
+            </button>
                     </div>
                 </div>
 
@@ -141,6 +154,10 @@
                             <li>Successfully passed DIBCAC audit</li>
                             <li>Secured $50M in new contracts</li>
                         </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon" style="display: none;"></i>
+            </button>
                     </div>
                 </div>
 
@@ -150,7 +167,7 @@
 
     <!-- CTA Section -->
     <section class="cta-section">
-        <div class="container">
+        <div class="container" data-animate="fade-up">
             <div class="cta-content">
                 <h2>Ready to Write Your Success Story?</h2>
                 <p>Partner with YuGam Group to secure your infrastructure and accelerate your mission.</p>
@@ -164,7 +181,7 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
+        <div class="container" data-animate="fade-up">
             <div class="footer-grid">
                 <div class="footer-col">
                     <div class="footer-logo">
@@ -183,6 +200,10 @@
                         <li><a href="services.html">24/7 Monitoring</a></li>
                         <li><a href="services.html">Resource Supply</a></li>
                     </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon" style="display: none;"></i>
+            </button>
                 </div>
 
                 <div class="footer-col">
@@ -193,6 +214,10 @@
                         <li><a href="careers.html">Careers</a></li>
                         <li><a href="about.html">Our Team</a></li>
                     </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon" style="display: none;"></i>
+            </button>
                 </div>
 
                 <div class="footer-col">
@@ -203,6 +228,10 @@
                         <li><i class="fas fa-map-marker-alt"></i> Chicago, Illinois | São Paulo, Brazil | Chennai, India
                         </li>
                     </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon" style="display: none;"></i>
+            </button>
                 </div>
             </div>
 
@@ -216,6 +245,8 @@
         </div>
     </footer>
 
+    <script src="particles.js"></script>
+    <script src="cursor-trail.js"></script>
     <script src="script.js"></script>
 </body>
 
