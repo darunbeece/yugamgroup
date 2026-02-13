@@ -19,9 +19,9 @@
     --bg-glass: rgba(255, 255, 255, 0.1);
 
     /* Text */
-    --text-primary: #1a2332;
-    --text-secondary: #4a5568;
-    --text-muted: #718096;
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
 
     /* Gradients */
     --gradient-primary: linear-gradient(135deg, #2B5876 0%, #4682b4 100%);
@@ -79,9 +79,9 @@
     --bg-glass: rgba(255, 255, 255, 0.05);
 
     /* Dark Text */
-    --text-primary: #f8fafc;
-    --text-secondary: #cbd5e1;
-    --text-muted: #94a3b8;
+    --text-primary: #f1f5f9;
+    --text-secondary: #d1d5db;
+    --text-muted: #9ca3af;
 
     /* Dark Gradients */
     --gradient-primary: linear-gradient(135deg, #00d4ff 0%, #0ea5e9 100%);
