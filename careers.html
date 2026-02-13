@@ -33,16 +33,21 @@
                 <li><a href="careers.html" class="nav-link active">Careers</a></li>
                 <li><a href="index.html#contact" class="nav-link">Contact</a></li>
             </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon" style="display: none;"></i>
+            </button>
         </div>
     </nav>
 
     <!-- Page Header -->
     <section class="page-header">
         <div class="hero-background">
+            <canvas class="particle-canvas"></canvas>
             <div class="grid-overlay"></div>
             <div class="gradient-overlay"></div>
         </div>
-        <div class="container">
+        <div class="container" data-animate="fade-up">
             <h1 class="page-title">Join Our <span class="gradient-text">Team</span></h1>
             <p class="page-subtitle">Build the future of secure cloud solutions with YuGam Group</p>
         </div>
@@ -50,7 +55,7 @@
 
     <!-- Careers Intro Section -->
     <section class="careers-intro-section">
-        <div class="container">
+        <div class="container" data-animate="fade-up">
             <div class="careers-intro-content">
                 <h2>Why Join YuGam Group?</h2>
                 <p class="lead">We're seeking talented professionals to join our client and support team for DoD
@@ -85,7 +90,7 @@
 
     <!-- Application Process Section -->
     <section class="application-process-section">
-        <div class="container">
+        <div class="container" data-animate="fade-up">
             <div class="section-header">
                 <h2 class="section-title">Application Process</h2>
                 <p class="section-subtitle">How to join our team</p>
@@ -125,7 +130,7 @@
 
                             <!-- CTA Section -->
                             <section class="cta-section">
-                                <div class="container">
+                                <div class="container" data-animate="fade-up">
                                     <div class="cta-content">
                                         <h2>Ready to Make an Impact?</h2>
                                         <p>Join YuGam Group and work on mission-critical defense systems that make a
@@ -141,7 +146,7 @@
 
                             <!-- Footer -->
                             <footer class="footer">
-                                <div class="container">
+                                <div class="container" data-animate="fade-up">
                                     <div class="footer-grid">
                                         <div class="footer-col">
                                             <div class="footer-logo">
@@ -162,6 +167,10 @@
                                                 <li><a href="services.html">24/7 Monitoring</a></li>
                                                 <li><a href="services.html">Resource Supply</a></li>
                                             </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon" style="display: none;"></i>
+            </button>
                                         </div>
 
                                         <div class="footer-col">
@@ -172,6 +181,10 @@
                                                 <li><a href="about.html">Our Team</a></li>
                                                 <li><a href="careers.html">Careers</a></li>
                                             </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon" style="display: none;"></i>
+            </button>
                                         </div>
 
                                         <div class="footer-col">
@@ -183,6 +196,10 @@
                                                     Brazil | Chennai, India
                                                 </li>
                                             </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon" style="display: none;"></i>
+            </button>
                                         </div>
                                     </div>
 
@@ -196,7 +213,9 @@
                                 </div>
                             </footer>
 
-                            <script src="script.js"></script>
+                            <script src="particles.js"></script>
+    <script src="cursor-trail.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

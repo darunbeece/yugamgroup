@@ -1,3 +1,247 @@
+// ===== Theme Toggle System =====
+const themeToggle = document.getElementById('themeToggle');
+const html = document.documentElement;
+
+// Check for saved theme preference or default to system preference
+const getSavedTheme = () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        return savedTheme;
+    }
+    
+    // Check system preference
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return 'dark';
+    }
+    
+    return 'light';
+};
+
+// Initialize theme
+const currentTheme = getSavedTheme();
+html.setAttribute('data-theme', currentTheme);
+
+// Theme toggle handler
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        
+        // Dispatch custom event for particle colors update
+        document.dispatchEvent(new CustomEvent('themeChange', { detail: { theme: newTheme } }));
+        
+        // Add transition effect
+        document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+        setTimeout(() => {
+            document.body.style.transition = '';
+        }, 300);
+    });
+}
+
+// Listen for system theme changes
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+        const newTheme = e.matches ? 'dark' : 'light';
+        html.setAttribute('data-theme', newTheme);
+        document.dispatchEvent(new CustomEvent('themeChange', { detail: { theme: newTheme } }));
+    }
+});
+
+// ===== Typing Effect =====
+class TypingEffect {
+    constructor(element, texts, options = {}) {
+        this.element = element;
+        this.texts = texts;
+        this.textIndex = 0;
+        this.charIndex = 0;
+        this.isDeleting = false;
+        this.typeSpeed = options.typeSpeed || 100;
+        this.deleteSpeed = options.deleteSpeed || 50;
+        this.pauseTime = options.pauseTime || 2000;
+        
+        this.init();
+    }
+    
+    init() {
+        this.element.innerHTML = '<span class="typing-text"></span><span class="typing-cursor"></span>';
+        this.textElement = this.element.querySelector('.typing-text');
+        this.type();
+    }
+    
+    type() {
+        const currentText = this.texts[this.textIndex];
+        
+        if (this.isDeleting) {
+            this.textElement.textContent = currentText.substring(0, this.charIndex - 1);
+            this.charIndex--;
+        } else {
+            this.textElement.textContent = currentText.substring(0, this.charIndex + 1);
+            this.charIndex++;
+        }
+        
+        let typeTimeout = this.isDeleting ? this.deleteSpeed : this.typeSpeed;
+        
+        if (!this.isDeleting && this.charIndex === currentText.length) {
+            typeTimeout = this.pauseTime;
+            this.isDeleting = true;
+        } else if (this.isDeleting && this.charIndex === 0) {
+            this.isDeleting = false;
+            this.textIndex = (this.textIndex + 1) % this.texts.length;
+        }
+        
+        setTimeout(() => this.type(), typeTimeout);
+    }
+}
+
+// Initialize typing effect on hero title
+document.addEventListener('DOMContentLoaded', () => {
+    const typingElement = document.querySelector('[data-typing]');
+    if (typingElement) {
+        const texts = typingElement.getAttribute('data-typing').split('|');
+        new TypingEffect(typingElement, texts, {
+            typeSpeed: 100,
+            deleteSpeed: 50,
+            pauseTime: 2000
+        });
+    }
+});
+
+// ===== 3D Tilt Effect =====
+class TiltEffect {
+    constructor(elements, options = {}) {
+        this.elements = elements;
+        this.maxTilt = options.maxTilt || 15;
+        this.perspective = options.perspective || 1000;
+        this.scale = options.scale || 1.05;
+        this.speed = options.speed || 400;
+        
+        this.init();
+    }
+    
+    init() {
+        this.elements.forEach(element => {
+            element.style.transformStyle = 'preserve-3d';
+            element.style.transition = `transform ${this.speed}ms cubic-bezier(0.03, 0.98, 0.52, 0.99)`;
+            
+            element.addEventListener('mouseenter', (e) => this.handleMouseEnter(e, element));
+            element.addEventListener('mousemove', (e) => this.handleMouseMove(e, element));
+            element.addEventListener('mouseleave', (e) => this.handleMouseLeave(e, element));
+        });
+    }
+    
+    handleMouseEnter(e, element) {
+        element.style.transition = `transform ${this.speed / 2}ms cubic-bezier(0.03, 0.98, 0.52, 0.99)`;
+    }
+    
+    handleMouseMove(e, element) {
+        const rect = element.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const percentX = (x - centerX) / centerX;
+        const percentY = (y - centerY) / centerY;
+        
+        const tiltX = percentY * this.maxTilt;
+        const tiltY = -percentX * this.maxTilt;
+        
+        element.style.transform = `perspective(${this.perspective}px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(${this.scale}, ${this.scale}, ${this.scale})`;
+    }
+    
+    handleMouseLeave(e, element) {
+        element.style.transition = `transform ${this.speed}ms cubic-bezier(0.03, 0.98, 0.52, 0.99)`;
+        element.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+    }
+}
+
+// Initialize 3D tilt on desktop
+if (window.innerWidth > 768) {
+    document.addEventListener('DOMContentLoaded', () => {
+        const tiltElements = document.querySelectorAll('.service-card, .dashboard-widget, .dashboard-card');
+        if (tiltElements.length > 0) {
+            new TiltEffect(tiltElements, {
+                maxTilt: 10,
+                perspective: 1000,
+                scale: 1.03,
+                speed: 400
+            });
+        }
+    });
+}
+
+// ===== Animated Counter =====
+class AnimatedCounter {
+    constructor(element, options = {}) {
+        this.element = element;
+        this.target = parseInt(element.getAttribute('data-target')) || parseInt(element.textContent.replace(/[^0-9]/g, ''));
+        this.duration = options.duration || 2000;
+        this.suffix = element.getAttribute('data-suffix') || '';
+        this.hasStarted = false;
+    }
+    
+    animate() {
+        if (this.hasStarted) return;
+        this.hasStarted = true;
+        
+        const start = 0;
+        const increment = this.target / (this.duration / 16);
+        let current = start;
+        
+        const updateCounter = () => {
+            current += increment;
+            if (current < this.target) {
+                this.element.textContent = Math.floor(current).toLocaleString() + this.suffix;
+                requestAnimationFrame(updateCounter);
+            } else {
+                this.element.textContent = this.target.toLocaleString() + this.suffix;
+            }
+        };
+        
+        updateCounter();
+    }
+}
+
+// ===== Scroll Reveal Animations =====
+const scrollReveal = () => {
+    const reveals = document.querySelectorAll('[data-animate]');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+                
+                // Trigger counter animation if element has counter
+                if (entry.target.hasAttribute('data-target') || entry.target.querySelector('[data-target]')) {
+                    const counterElements = entry.target.hasAttribute('data-target') 
+                        ? [entry.target] 
+                        : entry.target.querySelectorAll('[data-target]');
+                    
+                    counterElements.forEach(el => {
+                        const counter = new AnimatedCounter(el);
+                        counter.animate();
+                    });
+                }
+                
+                // Optionally unobserve after animation
+                // observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+    });
+    
+    reveals.forEach(reveal => observer.observe(reveal));
+};
+
+// Initialize scroll reveal
+document.addEventListener('DOMContentLoaded', scrollReveal);
+
 // ===== Mobile Menu Toggle =====
 const mobileMenuToggle = document.getElementById('mobileMenuToggle');
 const navLinks = document.getElementById('navLinks');
