@@ -546,6 +546,14 @@ body {
     background-clip: text;
 }
 
+.gradient-text.text-glow {
+    background: white;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: white;
+    background-clip: unset;
+    color: white;
+}
+
 .hero-subtitle {
     font-size: 1.25rem;
     color: rgba(255, 255, 255, 0.9);
