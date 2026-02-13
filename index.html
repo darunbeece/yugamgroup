@@ -46,48 +46,6 @@
             <canvas class="particle-canvas"></canvas>
             <div class="grid-overlay"></div>
             <div class="gradient-overlay"></div>
-            <!-- Clouds Background -->
-            <div class="clouds-container">
-                <div class="cloud cloud-1"></div>
-                <div class="cloud cloud-2"></div>
-                <div class="cloud cloud-3"></div>
-                <div class="cloud cloud-4"></div>
-                <div class="cloud cloud-5"></div>
-            </div>
-            <!-- Spider Web Protection -->
-            <div class="spider-web-container">
-                <svg class="spider-web" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <radialGradient id="webGradient" cx="50%" cy="50%" r="50%">
-                            <stop offset="0%" style="stop-color:var(--primary);stop-opacity:0.1" />
-                            <stop offset="100%" style="stop-color:var(--primary);stop-opacity:0" />
-                        </radialGradient>
-                    </defs>
-                    <!-- Radial lines -->
-                    <g stroke="url(#webGradient)" stroke-width="0.5" fill="none">
-                        <line x1="400" y1="300" x2="400" y2="0" />
-                        <line x1="400" y1="300" x2="565" y2="75" />
-                        <line x1="400" y1="300" x2="650" y2="200" />
-                        <line x1="400" y1="300" x2="650" y2="400" />
-                        <line x1="400" y1="300" x2="565" y2="525" />
-                        <line x1="400" y1="300" x2="400" y2="600" />
-                        <line x1="400" y1="300" x2="235" y2="525" />
-                        <line x1="400" y1="300" x2="150" y2="400" />
-                        <line x1="400" y1="300" x2="150" y2="200" />
-                        <line x1="400" y1="300" x2="235" y2="75" />
-                    </g>
-                    <!-- Concentric circles -->
-                    <ellipse cx="400" cy="300" rx="60" ry="45" stroke="url(#webGradient)" stroke-width="0.5" fill="none"/>
-                    <ellipse cx="400" cy="300" rx="120" ry="90" stroke="url(#webGradient)" stroke-width="0.4" fill="none"/>
-                    <ellipse cx="400" cy="300" rx="180" ry="135" stroke="url(#webGradient)" stroke-width="0.4" fill="none"/>
-                    <ellipse cx="400" cy="300" rx="240" ry="180" stroke="url(#webGradient)" stroke-width="0.3" fill="none"/>
-                    <ellipse cx="400" cy="300" rx="300" ry="225" stroke="url(#webGradient)" stroke-width="0.3" fill="none"/>
-                </svg>
-                <!-- Spider Guardian -->
-                <div class="spider-guardian">
-                    <i class="fas fa-spider"></i>
-                </div>
-            </div>
         </div>
         <div class="container hero-content">
             <div class="hero-text" data-animate="fade-right">
@@ -113,10 +71,6 @@
             <div class="hero-visual" data-animate="fade-left">
                 <div class="dashboard-preview">
                     <div class="dashboard-card glass-card">
-                        <div class="spider-badge">
-                            <i class="fas fa-spider"></i>
-                            <span>Protected</span>
-                        </div>
                         <div class="stat-item" data-animate="fade-up" data-animate-delay="1">
                             <i class="fas fa-check-circle"></i>
                             <div class="stat-content">
@@ -146,22 +100,6 @@
 
     <!-- Security Assessment Section -->
     <section class="assessment-section">
-        <div class="assessment-web-pattern">
-            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <pattern id="webPattern" patternUnits="userSpaceOnUse" width="100" height="100">
-                        <circle cx="50" cy="50" r="45" stroke="var(--primary)" stroke-width="0.2" fill="none" opacity="0.1"/>
-                        <circle cx="50" cy="50" r="35" stroke="var(--primary)" stroke-width="0.2" fill="none" opacity="0.1"/>
-                        <circle cx="50" cy="50" r="25" stroke="var(--primary)" stroke-width="0.2" fill="none" opacity="0.1"/>
-                        <line x1="50" y1="5" x2="50" y2="95" stroke="var(--primary)" stroke-width="0.2" opacity="0.1"/>
-                        <line x1="5" y1="50" x2="95" y2="50" stroke="var(--primary)" stroke-width="0.2" opacity="0.1"/>
-                        <line x1="15" y1="15" x2="85" y2="85" stroke="var(--primary)" stroke-width="0.2" opacity="0.1"/>
-                        <line x1="85" y1="15" x2="15" y2="85" stroke="var(--primary)" stroke-width="0.2" opacity="0.1"/>
-                    </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#webPattern)"/>
-            </svg>
-        </div>
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Free Security Risk Assessment</h2>
@@ -294,10 +232,6 @@
                 <div class="dashboard-widget glass-card" data-animate="fade-up" data-animate-delay="1">
                     <div class="widget-header">
                         <h3>Threat Detection</h3>
-                        <div class="widget-protection">
-                            <i class="fas fa-spider"></i>
-                            <span>Protected</span>
-                        </div>
                         <span class="status-badge status-active">Active</span>
                     </div>
                     <div class="widget-content">
@@ -314,10 +248,6 @@
                 <div class="dashboard-widget glass-card" data-animate="fade-up" data-animate-delay="2">
                     <div class="widget-header">
                         <h3>System Health</h3>
-                        <div class="widget-protection">
-                            <i class="fas fa-spider"></i>
-                            <span>Protected</span>
-                        </div>
                         <span class="status-badge status-success">Healthy</span>
                     </div>
                     <div class="widget-content">
@@ -389,9 +319,6 @@
 
             <div class="services-grid">
                 <div class="service-card glass-card" data-animate="fade-up" data-animate-delay="1">
-                    <div class="service-protection-badge">
-                        <i class="fas fa-spider"></i>
-                    </div>
                     <div class="service-icon">
                         <i class="fas fa-user-shield"></i>
                     </div>
@@ -404,9 +331,6 @@
                 </div>
 
                 <div class="service-card glass-card" data-animate="fade-up" data-animate-delay="2">
-                    <div class="service-protection-badge">
-                        <i class="fas fa-spider"></i>
-                    </div>
                     <div class="service-icon">
                         <i class="fas fa-cloud-upload-alt"></i>
                     </div>
@@ -419,9 +343,6 @@
                 </div>
 
                 <div class="service-card glass-card" data-animate="fade-up" data-animate-delay="3">
-                    <div class="service-protection-badge">
-                        <i class="fas fa-spider"></i>
-                    </div>
                     <div class="service-icon">
                         <i class="fas fa-clipboard-check"></i>
                     </div>
