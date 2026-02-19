@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
         content="YuGam Group - Enterprise cloud security consulting services. Protecting your digital assets with expert solutions.">
-    <title>YuGam Group - Enterprise Cloud & Security Solutions</title>
+    <title>YuGam Group - Enterprise Cloud &amp; Security Solutions</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -18,7 +18,7 @@
     <nav class="navbar" id="navbar">
         <div class="container nav-container">
             <div class="logo">
-                <img src="logo-full.png" alt="YUGAM GROUP - Secure by Design" style="height: 50px;">
+                <img src="logo-full.png" alt="YUGAM GROUP">
             </div>
             <button class="mobile-menu-toggle" id="mobileMenuToggle">
                 <span></span>
@@ -31,69 +31,16 @@
                 <li><a href="case-studies.html" class="nav-link">Case Studies</a></li>
                 <li><a href="about.html" class="nav-link">About</a></li>
                 <li><a href="careers.html" class="nav-link">Careers</a></li>
-                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                <li><a href="index.html#contact" class="btn btn-primary">Get Consultation</a></li>
             </ul>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                <i class="fas fa-sun"></i>
-                <i class="fas fa-moon" style="display: none;"></i>
-            </button>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-background">
-            <canvas class="particle-canvas"></canvas>
-            <div class="grid-overlay"></div>
-            <div class="gradient-overlay"></div>
-            <!-- Clouds Background -->
-            <div class="clouds-container">
-                <div class="cloud cloud-1"></div>
-                <div class="cloud cloud-2"></div>
-                <div class="cloud cloud-3"></div>
-                <div class="cloud cloud-4"></div>
-                <div class="cloud cloud-5"></div>
-            </div>
-            <!-- Spider Web Protection -->
-            <div class="spider-web-container">
-                <svg class="spider-web" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <radialGradient id="webGradient" cx="50%" cy="50%" r="50%">
-                            <stop offset="0%" style="stop-color:var(--primary);stop-opacity:0.1" />
-                            <stop offset="100%" style="stop-color:var(--primary);stop-opacity:0" />
-                        </radialGradient>
-                    </defs>
-                    <!-- Radial lines -->
-                    <g stroke="url(#webGradient)" stroke-width="0.5" fill="none">
-                        <line x1="400" y1="300" x2="400" y2="0" />
-                        <line x1="400" y1="300" x2="565" y2="75" />
-                        <line x1="400" y1="300" x2="650" y2="200" />
-                        <line x1="400" y1="300" x2="650" y2="400" />
-                        <line x1="400" y1="300" x2="565" y2="525" />
-                        <line x1="400" y1="300" x2="400" y2="600" />
-                        <line x1="400" y1="300" x2="235" y2="525" />
-                        <line x1="400" y1="300" x2="150" y2="400" />
-                        <line x1="400" y1="300" x2="150" y2="200" />
-                        <line x1="400" y1="300" x2="235" y2="75" />
-                    </g>
-                    <!-- Concentric circles -->
-                    <ellipse cx="400" cy="300" rx="60" ry="45" stroke="url(#webGradient)" stroke-width="0.5" fill="none"/>
-                    <ellipse cx="400" cy="300" rx="120" ry="90" stroke="url(#webGradient)" stroke-width="0.4" fill="none"/>
-                    <ellipse cx="400" cy="300" rx="180" ry="135" stroke="url(#webGradient)" stroke-width="0.4" fill="none"/>
-                    <ellipse cx="400" cy="300" rx="240" ry="180" stroke="url(#webGradient)" stroke-width="0.3" fill="none"/>
-                    <ellipse cx="400" cy="300" rx="300" ry="225" stroke="url(#webGradient)" stroke-width="0.3" fill="none"/>
-                </svg>
-                <!-- Spider Guardian -->
-                <div class="spider-guardian">
-                    <i class="fas fa-spider"></i>
-                </div>
-            </div>
-        </div>
         <div class="container hero-content">
-            <div class="hero-text" data-animate="fade-right">
-                <h1 class="hero-title">
-                    <span class="gradient-text text-glow" data-typing="Secure|Protect|Optimize|Modernize"> Secure</span> Your Cloud Infrastructure
-                </h1>
+            <div class="hero-text">
+                <h1 class="hero-title">Secure Your Cloud Infrastructure</h1>
                 <p class="hero-subtitle">
                     Expert cloud security consulting services to protect your digital assets.
                     Comprehensive assessments, compliance solutions, and 24/7 monitoring for
@@ -106,37 +53,31 @@
                     </a>
                     <a href="#contact" class="btn btn-secondary">
                         <i class="fas fa-phone"></i>
-                        <span>Get Consultation</span>
+                        <span>Contact Us</span>
                     </a>
                 </div>
             </div>
-            <div class="hero-visual" data-animate="fade-left">
-                <div class="dashboard-preview">
-                    <div class="dashboard-card glass-card">
-                        <div class="spider-badge">
-                            <i class="fas fa-spider"></i>
-                            <span>Protected</span>
+            <div class="hero-visual">
+                <div class="dashboard-card">
+                    <div class="stat-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div class="stat-content">
+                            <span class="stat-value">99.9%</span>
+                            <span class="stat-label">Uptime Guarantee</span>
                         </div>
-                        <div class="stat-item" data-animate="fade-up" data-animate-delay="1">
-                            <i class="fas fa-check-circle"></i>
-                            <div class="stat-content">
-                                <span class="stat-value" data-target="99">99.9%</span>
-                                <span class="stat-label">Uptime</span>
-                            </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-lock"></i>
+                        <div class="stat-content">
+                            <span class="stat-value">24/7</span>
+                            <span class="stat-label">Security Monitoring</span>
                         </div>
-                        <div class="stat-item" data-animate="fade-up" data-animate-delay="2">
-                            <i class="fas fa-lock"></i>
-                            <div class="stat-content">
-                                <span class="stat-value">24/7</span>
-                                <span class="stat-label">Monitoring</span>
-                            </div>
-                        </div>
-                        <div class="stat-item" data-animate="fade-up" data-animate-delay="3">
-                            <i class="fas fa-check-circle"></i>
-                            <div class="stat-content">
-                                <span class="stat-value" data-target="100">100%</span>
-                                <span class="stat-label">Compliant</span>
-                            </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <div class="stat-content">
+                            <span class="stat-value">100%</span>
+                            <span class="stat-label">Compliance Rate</span>
                         </div>
                     </div>
                 </div>
@@ -144,24 +85,58 @@
         </div>
     </section>
 
+    <!-- Services Section -->
+    <section class="services-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Security Services</h2>
+                <p class="section-subtitle">
+                    Comprehensive cloud and security solutions tailored to your business needs.
+                </p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3>Security Audits</h3>
+                    <p>Comprehensive security assessments including penetration testing, vulnerability scanning, and
+                        compliance reviews.</p>
+                    <a href="services.html" class="service-link">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h3>Cloud Migration</h3>
+                    <p>Secure cloud migration services with zero downtime, data integrity protection, and ongoing
+                        optimization.</p>
+                    <a href="services.html" class="service-link">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <h3>Compliance Management</h3>
+                    <p>Achieve and maintain compliance with SOC 2, ISO 27001, NIST, HIPAA, and other regulatory
+                        frameworks.</p>
+                    <a href="services.html" class="service-link">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Security Assessment Section -->
     <section class="assessment-section">
-        <div class="assessment-web-pattern">
-            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <pattern id="webPattern" patternUnits="userSpaceOnUse" width="100" height="100">
-                        <circle cx="50" cy="50" r="45" stroke="var(--primary)" stroke-width="0.2" fill="none" opacity="0.1"/>
-                        <circle cx="50" cy="50" r="35" stroke="var(--primary)" stroke-width="0.2" fill="none" opacity="0.1"/>
-                        <circle cx="50" cy="50" r="25" stroke="var(--primary)" stroke-width="0.2" fill="none" opacity="0.1"/>
-                        <line x1="50" y1="5" x2="50" y2="95" stroke="var(--primary)" stroke-width="0.2" opacity="0.1"/>
-                        <line x1="5" y1="50" x2="95" y2="50" stroke="var(--primary)" stroke-width="0.2" opacity="0.1"/>
-                        <line x1="15" y1="15" x2="85" y2="85" stroke="var(--primary)" stroke-width="0.2" opacity="0.1"/>
-                        <line x1="85" y1="15" x2="15" y2="85" stroke="var(--primary)" stroke-width="0.2" opacity="0.1"/>
-                    </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#webPattern)"/>
-            </svg>
-        </div>
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Free Security Risk Assessment</h2>
@@ -240,10 +215,12 @@
                     </div>
                 </div>
 
-                <button class="btn btn-primary btn-large" id="assessmentBtn">
-                    <span>Get My Assessment</span>
-                    <i class="fas fa-chart-line"></i>
-                </button>
+                <div style="text-align: center; margin-top: 32px;">
+                    <button class="btn btn-primary btn-large" id="assessmentBtn">
+                        <span>Get My Assessment</span>
+                        <i class="fas fa-chart-line"></i>
+                    </button>
+                </div>
             </div>
 
             <div class="assessment-results" id="assessmentResults" style="display: none;">
@@ -251,35 +228,25 @@
                     <h3>Your Security Risk Assessment</h3>
                     <div class="risk-score">
                         <div class="score-circle">
-                            <span class="score-value" id="scoreValue">75</span>
+                            <span class="score-value" id="scoreValue">0</span>
                             <span class="score-label">/ 100</span>
                         </div>
-                        <p class="score-description" id="scoreDescription">Moderate Risk Level</p>
+                        <p class="score-description" id="scoreDescription">Risk Level</p>
                     </div>
-
                     <div class="findings">
                         <h4>Key Findings</h4>
-                        <ul id="findingsList">
-                            <li><i class="fas fa-check-circle"></i> Cloud infrastructure properly configured</li>
-                            <li><i class="fas fa-exclamation-triangle"></i> Security monitoring needs improvement</li>
-                            <li><i class="fas fa-info-circle"></i> Consider implementing automated threat detection</li>
-                        </ul>
+                        <ul id="findingsList"></ul>
                     </div>
-
                     <div class="recommendations">
                         <h4>Recommendations</h4>
-                        <ul id="recommendationsList">
-                            <li>Implement 24/7 automated security monitoring</li>
-                            <li>Regular security audits and penetration testing</li>
-                            <li>Enhance compliance documentation</li>
-                        </ul>
+                        <ul id="recommendationsList"></ul>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Real-Time Dashboard Section -->
+    <!-- Dashboard Section -->
     <section class="dashboard-section">
         <div class="container">
             <div class="section-header">
@@ -291,33 +258,29 @@
             </div>
 
             <div class="dashboard-grid">
-                <div class="dashboard-widget glass-card" data-animate="fade-up" data-animate-delay="1">
+                <div class="dashboard-widget">
                     <div class="widget-header">
                         <h3>Threat Detection</h3>
-                        <div class="widget-protection">
-                            <i class="fas fa-spider"></i>
-                            <span>Protected</span>
-                        </div>
                         <span class="status-badge status-active">Active</span>
                     </div>
                     <div class="widget-content">
                         <div class="metric-large">
-                            <span class="metric-value" id="threatsBlocked" data-target="1247">1,247</span>
+                            <span class="metric-value">1,247</span>
                             <span class="metric-label">Threats Blocked Today</span>
                         </div>
                         <div class="chart-placeholder">
-                            <canvas id="threatsChart"></canvas>
+                            <div
+                                style="height:100%; display:flex; align-items:center; justify-content:center; color:#94a3b8;">
+                                <i class="fas fa-chart-area" style="font-size: 2rem; margin-right: 10px;"></i>
+                                Live Threat Activity
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="dashboard-widget glass-card" data-animate="fade-up" data-animate-delay="2">
+                <div class="dashboard-widget">
                     <div class="widget-header">
                         <h3>System Health</h3>
-                        <div class="widget-protection">
-                            <i class="fas fa-spider"></i>
-                            <span>Protected</span>
-                        </div>
                         <span class="status-badge status-success">Healthy</span>
                     </div>
                     <div class="widget-content">
@@ -347,7 +310,7 @@
                     </div>
                 </div>
 
-                <div class="dashboard-widget glass-card" data-animate="fade-up" data-animate-delay="3">
+                <div class="dashboard-widget">
                     <div class="widget-header">
                         <h3>Compliance Status</h3>
                         <span class="status-badge status-success">Compliant</span>
@@ -377,65 +340,6 @@
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section class="services-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Our Security Services</h2>
-                <p class="section-subtitle">
-                    Comprehensive cloud and security solutions tailored to your business needs.
-                </p>
-            </div>
-
-            <div class="services-grid">
-                <div class="service-card glass-card" data-animate="fade-up" data-animate-delay="1">
-                    <div class="service-protection-badge">
-                        <i class="fas fa-spider"></i>
-                    </div>
-                    <div class="service-icon">
-                        <i class="fas fa-user-shield"></i>
-                    </div>
-                    <h3>Security Audits</h3>
-                    <p>Comprehensive security assessments including penetration testing, vulnerability scanning, and
-                        compliance reviews.</p>
-                    <a href="services.html" class="service-link">
-                        Learn More <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-
-                <div class="service-card glass-card" data-animate="fade-up" data-animate-delay="2">
-                    <div class="service-protection-badge">
-                        <i class="fas fa-spider"></i>
-                    </div>
-                    <div class="service-icon">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                    </div>
-                    <h3>Cloud Migration</h3>
-                    <p>Secure cloud migration services with zero downtime, data integrity protection, and ongoing
-                        optimization.</p>
-                    <a href="services.html" class="service-link">
-                        Learn More <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-
-                <div class="service-card glass-card" data-animate="fade-up" data-animate-delay="3">
-                    <div class="service-protection-badge">
-                        <i class="fas fa-spider"></i>
-                    </div>
-                    <div class="service-icon">
-                        <i class="fas fa-clipboard-check"></i>
-                    </div>
-                    <h3>Compliance Management</h3>
-                    <p>Achieve and maintain compliance with SOC 2, ISO 27001, NIST, HIPAA, and other regulatory
-                        frameworks.</p>
-                    <a href="services.html" class="service-link">
-                        Learn More <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- CTA Section -->
     <section id="contact" class="cta-section">
         <div class="container">
@@ -445,7 +349,7 @@
                     actionable recommendations.</p>
                 <a href="tel:224-442-0650" class="btn btn-large btn-primary">
                     <i class="fas fa-phone"></i>
-                    <span>Call Now:+1 (224) 442-0650</span>
+                    <span>Call Now: +1 (224) 442-0650</span>
                 </a>
             </div>
         </div>
@@ -457,7 +361,7 @@
             <div class="footer-grid">
                 <div class="footer-col">
                     <div class="footer-logo">
-                        <img src="logo-full.png" alt="YUGAM GROUP - Secure by Design" style="height: 40px;">
+                        <img src="logo-full.png" alt="YUGAM GROUP">
                     </div>
                     <p>Enterprise cloud security consulting services. Protecting your digital assets with expert
                         solutions.</p>
@@ -487,7 +391,7 @@
                 <div class="footer-col">
                     <h4>Contact</h4>
                     <ul>
-                        <li><i class="fas fa-phone"></i> +1 224-442-0650</li>
+                        <li><i class="fas fa-phone"></i> +1 (224) 442-0650</li>
                         <li><i class="fas fa-envelope"></i> info@yugamgroup.com</li>
                         <li><i class="fas fa-map-marker-alt"></i> Chicago, Illinois | São Paulo, Brazil | Chennai, India
                         </li>
@@ -505,8 +409,6 @@
         </div>
     </footer>
 
-    <script src="particles.js"></script>
-    <script src="cursor-trail.js"></script>
     <script src="script.js"></script>
 </body>
 
