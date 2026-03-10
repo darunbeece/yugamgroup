@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Contact YuGam Group - Enterprise cloud security consulting services. Get in touch with our team.">
+    <title>Contact Us - YuGam Group</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .contact-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #f0f4f8 100%);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .contact-info-section {
+            padding: 40px;
+        }
+
+        .contact-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--text-primary);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 32px;
+        }
+
+        .contact-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 20px;
+            flex-shrink: 0;
+            font-size: 1.4rem;
+        }
+
+        .contact-icon.email {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+        }
+
+        .contact-icon.phone {
+            background: linear-gradient(135deg, #10b981, #34d399);
+        }
+
+        .contact-icon.location {
+            background: linear-gradient(135deg, #f97316, #fb923c);
+        }
+
+        .contact-item-content h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .contact-item-content p {
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+            font-size: 0.95rem;
+        }
+
+        .contact-item-content a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .contact-item-content a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-divider {
+            margin: 40px 0;
+            height: 1px;
+            background: rgba(30, 64, 175, 0.1);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .social-link {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link.linkedin {
+            background: linear-gradient(135deg, #0a66c2, #0d66c2);
+            color: white;
+        }
+
+        .social-link.linkedin:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(10, 102, 194, 0.3);
+        }
+
+        .social-link.twitter {
+            background: #000;
+            color: white;
+        }
+
+        .social-link.twitter:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-section {
+            background: white;
+            padding: 50px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(30, 64, 175, 0.08);
+        }
+
+        .form-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--text-primary);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .form-row.full {
+            grid-template-columns: 1fr;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .form-label .required {
+            color: var(--danger);
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            background: #f8fafc;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            background: white;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin: 30px 0;
+        }
+
+        .form-checkbox input[type="checkbox"] {
+            margin-top: 4px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+
+        .form-checkbox label {
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .form-checkbox a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .form-checkbox a:hover {
+            text-decoration: underline;
+        }
+
+        .form-button {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .form-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30, 64, 175, 0.3);
+        }
+
+        .form-button:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .contact-info-section {
+                padding: 20px;
+            }
+
+            .form-section {
+                padding: 30px;
+            }
+
+            .contact-title,
+            .form-title {
+                font-size: 1.5rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .contact-section {
+                padding: 40px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="logo-yugam.svg" alt="YUGAM GROUP" class="site-logo">
+            </div>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="case-studies.html" class="nav-link">Case Studies</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="careers.html" class="nav-link">Careers</a></li>
+                <li><a href="contact.html" class="nav-link active">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-container">
+                <!-- Left Side - Contact Info -->
+                <div class="contact-info-section">
+                    <h2 class="contact-title">Get in Touch</h2>
+
+                    <!-- Email -->
+                    <div class="contact-item">
+                        <div class="contact-icon email">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-item-content">
+                            <h3>Email Us</h3>
+                            <a href="mailto:info@yugamgroup.com">info@yugamgroup.com</a>
+                            <p style="margin-top: 4px; font-size: 0.85rem;">For general inquiries</p>
+                            <a href="mailto:sales@yugamgroup.com" style="display: block; margin-top: 4px;">sales@yugamgroup.com</a>
+                            <p style="margin-top: 4px; font-size: 0.85rem;">For sales</p>
+                        </div>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="contact-item">
+                        <div class="contact-icon phone">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-item-content">
+                            <h3>Call Us</h3>
+                            <a href="tel:+12244420650">+1 (224) 442-0650</a>
+                            <p style="margin-top: 4px; font-size: 0.85rem;">Mon - Fri, 9am - 6pm CST</p>
+                        </div>
+                    </div>
+
+                    <!-- Locations -->
+                    <div class="contact-item">
+                        <div class="contact-icon location">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-item-content">
+                            <h3>Headquarters</h3>
+                            <p>Chicago, Illinois, USA</p>
+                            <p style="margin-top: 10px; font-weight: 500;">Regional Offices</p>
+                            <p>São Paulo, Brazil</p>
+                            <p>Chennai, India</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-divider"></div>
+
+                    <!-- Social Links -->
+                    <h3 style="font-size: 1rem; margin-bottom: 16px; color: var(--text-primary);">Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="https://linkedin.com/company/yugamgroup" target="_blank" class="social-link linkedin" title="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://twitter.com/yugamgroup" target="_blank" class="social-link twitter" title="Twitter">
+                            <i class="fab fa-x-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Side - Contact Form -->
+                <div class="form-section">
+                    <h2 class="form-title">Send Us a Message</h2>
+
+                    <form id="contactForm">
+                        <!-- Name and Email Row -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Your Name <span class="required">*</span></label>
+                                <input type="text" class="form-input" name="name" placeholder="Enter your full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email Address <span class="required">*</span></label>
+                                <input type="email" class="form-input" name="email" placeholder="your.email@company.com" required>
+                            </div>
+                        </div>
+
+                        <!-- Company Name -->
+                        <div class="form-group">
+                            <label class="form-label">Company Name</label>
+                            <input type="text" class="form-input" name="company" placeholder="Your company name">
+                        </div>
+
+                        <!-- Subject -->
+                        <div class="form-group">
+                            <label class="form-label">Subject <span class="required">*</span></label>
+                            <select class="form-select" name="subject" required>
+                                <option value="">Select a subject</option>
+                                <option value="ai-services">AI & Intelligence Services</option>
+                                <option value="cloud-services">Cloud & Infrastructure</option>
+                                <option value="engineering">Engineering & Modernization</option>
+                                <option value="consultation">Free Consultation</option>
+                                <option value="other">Other Inquiry</option>
+                            </select>
+                        </div>
+
+                        <!-- Message -->
+                        <div class="form-group form-row full">
+                            <label class="form-label">Your Message <span class="required">*</span></label>
+                            <textarea class="form-textarea" name="message" placeholder="Tell us about your project, goals, or challenges..." required></textarea>
+                        </div>
+
+                        <!-- Checkbox -->
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="consent" name="consent" required>
+                            <label for="consent">
+                                I agree to receive SMS messages, phone calls, and emails from YuGam Group regarding my inquiry, scheduling, and customer support. Message and data rates may apply. You may opt out of SMS at any time by replying STOP and unsubscribe from emails using the unsubscribe link provided in any email.
+                            </label>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="form-button">
+                            <i class="fas fa-paper-plane"></i>
+                            <span>Send Message</span>
+                        </button>
+                    </form>
+
+                    <!-- Success Message (hidden by default) -->
+                    <div id="successMessage" style="display: none; margin-top: 20px; padding: 16px; background: #ecfdf5; border: 1px solid #86efac; border-radius: 8px; color: #166534;">
+                        <i class="fas fa-check-circle" style="margin-right: 8px;"></i>
+                        Thank you! Your message has been sent successfully. We'll get back to you shortly.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Transform Your Enterprise?</h2>
+                <p>Get a free consultation with our experts. We'll help you navigate your digital transformation journey.</p>
+                <a href="tel:+12244420650" class="btn btn-large btn-primary">
+                    <i class="fas fa-phone"></i>
+                    <span>Call Now: +1 (224) 442-0650</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="logo-yugam.svg" alt="YUGAM GROUP" class="site-logo footer-logo-img">
+                    </div>
+                    <p>Enterprise technology consulting — AI, Cloud, and Digital Engineering solutions that transform organizations and deliver lasting outcomes.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>AI &amp; Intelligence</h4>
+                    <ul>
+                        <li><a href="services.html">Agentic AI Development</a></li>
+                        <li><a href="services.html">Generative AI Solutions</a></li>
+                        <li><a href="services.html">Data Platforms &amp; Analytics</a></li>
+                        <li><a href="services.html">AI / ML</a></li>
+                        <li><a href="services.html">Data Estate Modernization</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Cloud &amp; Engineering</h4>
+                    <ul>
+                        <li><a href="services.html">Cloud Migration</a></li>
+                        <li><a href="services.html">Cloud DevOps &amp; Automation</a></li>
+                        <li><a href="services.html">Application Modernization</a></li>
+                        <li><a href="services.html">Product Engineering</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +1 (224) 442-0650</li>
+                        <li><i class="fas fa-envelope"></i> info@yugamgroup.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Chicago, Illinois | São Paulo, Brazil | Chennai, India</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 YuGam Group. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Form submission handling
+        const contactForm = document.getElementById('contactForm');
+        const successMessage = document.getElementById('successMessage');
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                // Get form data
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData);
+
+                try {
+                    // You can replace this with your actual form submission endpoint
+                    // For now, we'll just show a success message
+                    console.log('Form data:', data);
+
+                    // Show success message
+                    contactForm.style.display = 'none';
+                    successMessage.style.display = 'block';
+
+                    // Optional: Reset form after 3 seconds and hide success message
+                    setTimeout(() => {
+                        contactForm.reset();
+                        contactForm.style.display = 'block';
+                        successMessage.style.display = 'none';
+                    }, 5000);
+                } catch (error) {
+                    console.error('Error submitting form:', error);
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
