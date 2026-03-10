@@ -1,0 +1,29 @@
+{
+  "name": "yugamgroup",
+  "version": "1.0.0",
+  "description": "A modern, premium website for YuGam Group, a leading enterprise cloud security consulting firm. This website showcases comprehensive security services, real-time monitoring capabilities, and expert solutions for cloud infrastructure protection.",
+  "main": "cursor-trail.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darunbeece/yugamgroup.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/darunbeece/yugamgroup/issues"
+  },
+  "homepage": "https://github.com/darunbeece/yugamgroup#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "nodemailer": "^8.0.2"
+  }
+}

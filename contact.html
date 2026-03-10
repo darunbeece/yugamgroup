@@ -524,23 +524,48 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData);
 
+                // Disable submit button and show loading state
+                const submitBtn = contactForm.querySelector('.form-button');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Sending...</span>';
+
                 try {
-                    // You can replace this with your actual form submission endpoint
-                    // For now, we'll just show a success message
-                    console.log('Form data:', data);
+                    // Send form data to backend API
+                    const response = await fetch('/api/contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
 
-                    // Show success message
-                    contactForm.style.display = 'none';
-                    successMessage.style.display = 'block';
+                    const result = await response.json();
 
-                    // Optional: Reset form after 3 seconds and hide success message
-                    setTimeout(() => {
-                        contactForm.reset();
-                        contactForm.style.display = 'block';
-                        successMessage.style.display = 'none';
-                    }, 5000);
+                    if (response.ok && result.success) {
+                        // Show success message
+                        contactForm.style.display = 'none';
+                        successMessage.style.display = 'block';
+
+                        // Reset form and hide success message after 5 seconds
+                        setTimeout(() => {
+                            contactForm.reset();
+                            contactForm.style.display = 'block';
+                            successMessage.style.display = 'none';
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = originalText;
+                        }, 5000);
+                    } else {
+                        // Show error message
+                        alert('Error: ' + (result.message || 'Failed to send message'));
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                    }
                 } catch (error) {
                     console.error('Error submitting form:', error);
+                    alert('Network error: Could not send your message. Please try again.');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
                 }
             });
         }
