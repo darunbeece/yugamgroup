@@ -11,13 +11,15 @@ const PORT = process.env.PORT || 3000;
 // Initialize Nodemailer transporter for Gmail SMTP
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
+    port: 465,
+    secure: true,  // Use SSL/TLS encryption
     auth: {
         user: process.env.GMAIL_USER,
         pass: process.env.GMAIL_APP_PASSWORD
     },
-    family: 4  // Force IPv4 instead of IPv6
+    family: 4,  // Force IPv4 instead of IPv6
+    connectionTimeout: 10000,
+    socketTimeout: 10000
 });
 
 // Verify Gmail SMTP connection on startup
