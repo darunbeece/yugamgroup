@@ -1,5 +1,5 @@
 const express = require('express');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
@@ -7,6 +7,20 @@ require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Initialize Resend email client (HTTP-based, works on all cloud platforms)
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+// Verify Resend API key on startup
+(async () => {
+    try {
+        // Test API key by listing domains
+        await resend.domains.list();
+        console.log('✅ Resend email API is ready to send emails');
+    } catch (error) {
+        console.log('❌ Resend API error:', error.message);
+    }
+})();
 
 // Analytics storage
 const analyticsDir = path.join(__dirname, '.analytics');
@@ -28,34 +42,6 @@ app.use(express.json());
 app.use(express.static('.'));
 app.use(cors());
 
-// Create Nodemailer transporter for Gmail SMTP
-// Using explicit host/port with IPv4 to avoid Render IPv6 connectivity issues
-const dns = require('dns');
-dns.setDefaultResultOrder('ipv4first');
-
-const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
-    family: 4,
-    auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASSWORD
-    },
-    tls: {
-        rejectUnauthorized: false
-    }
-});
-
-// Verify transporter connection
-transporter.verify((error, success) => {
-    if (error) {
-        console.log('❌ Gmail connection error:', error);
-    } else {
-        console.log('✅ Gmail SMTP server is ready to send emails');
-    }
-});
-
 // Contact form submission endpoint
 app.post('/api/contact', async (req, res) => {
     try {
@@ -69,12 +55,12 @@ app.post('/api/contact', async (req, res) => {
             });
         }
 
-        // Email template
-        const mailOptions = {
-            from: process.env.GMAIL_USER,
-            to: process.env.SALES_EMAIL,
+        // Send notification email to sales team
+        await resend.emails.send({
+            from: 'YuGam Group <onboarding@resend.dev>',
+            to: [process.env.SALES_EMAIL],
             replyTo: email,
-            subject: `New Enquiry from ${name} - ${subject || 'General Inquiry'}`,
+            subject: `New Enquiry from ${escapeHtml(name)} - ${escapeHtml(subject || 'General Inquiry')}`,
             html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
                     <h2 style="color: #1e40af;">New Contact Form Submission</h2>
@@ -97,15 +83,12 @@ app.post('/api/contact', async (req, res) => {
                     </div>
                 </div>
             `
-        };
-
-        // Send email
-        await transporter.sendMail(mailOptions);
+        });
 
         // Send confirmation to user
-        const userMailOptions = {
-            from: process.env.GMAIL_USER,
-            to: email,
+        await resend.emails.send({
+            from: 'YuGam Group <onboarding@resend.dev>',
+            to: [email],
             subject: 'We Received Your Inquiry - YuGam Group',
             html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -129,15 +112,13 @@ app.post('/api/contact', async (req, res) => {
 
                     <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0; font-size: 12px; color: #475569;">
                         <p><strong>YuGam Group</strong></p>
-                        <p>📞 +1 (224) 442-0650<br>
-                        📧 info@yugamgroup.com<br>
-                        📍 Chicago, Illinois | São Paulo, Brazil | Chennai, India</p>
+                        <p>+1 (224) 442-0650<br>
+                        info@yugamgroup.com<br>
+                        Chicago, Illinois | Sao Paulo, Brazil | Chennai, India</p>
                     </div>
                 </div>
             `
-        };
-
-        await transporter.sendMail(userMailOptions);
+        });
 
         return res.status(200).json({
             success: true,
@@ -206,21 +187,20 @@ app.get('/api/analytics/summary', (req, res) => {
 async function sendDailyAnalyticsEmail() {
     try {
         if (analyticsData.pageviews.length === 0) {
-            console.log('📊 No analytics data to send today');
+            console.log('No analytics data to send today');
             return;
         }
 
         const summary = generateAnalyticsSummary();
         const emailHtml = generateAnalyticsEmailHtml(summary);
 
-        const mailOptions = {
-            from: process.env.GMAIL_USER,
-            to: process.env.SALES_EMAIL,
-            subject: `📊 YugamGroup Daily Analytics Report - ${new Date().toLocaleDateString()}`,
+        await resend.emails.send({
+            from: 'YuGam Group Analytics <onboarding@resend.dev>',
+            to: [process.env.SALES_EMAIL],
+            subject: `YugamGroup Daily Analytics Report - ${new Date().toLocaleDateString()}`,
             html: emailHtml
-        };
+        });
 
-        await transporter.sendMail(mailOptions);
         console.log('✅ Daily analytics email sent to', process.env.SALES_EMAIL);
 
         // Clear analytics data after sending
@@ -300,7 +280,7 @@ function generateAnalyticsEmailHtml(summary) {
 
     return `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f8fafc; padding: 20px; border-radius: 8px;">
-            <h2 style="color: #1e40af; margin-top: 0;">📊 Daily Analytics Report</h2>
+            <h2 style="color: #1e40af; margin-top: 0;">Daily Analytics Report</h2>
             <p style="color: #475569;">Report Date: <strong>${summary.date}</strong></p>
 
             <div style="background: white; padding: 20px; border-radius: 6px; margin: 20px 0;">
@@ -326,7 +306,7 @@ function generateAnalyticsEmailHtml(summary) {
             </div>
 
             <div style="background: white; padding: 20px; border-radius: 6px; margin: 20px 0;">
-                <h3 style="color: #1e40af; margin-top: 0;">📄 Top Pages</h3>
+                <h3 style="color: #1e40af; margin-top: 0;">Top Pages</h3>
                 <table style="width: 100%; border-collapse: collapse;">
                     <thead>
                         <tr style="background: #f0f4f8;">
@@ -341,7 +321,7 @@ function generateAnalyticsEmailHtml(summary) {
             </div>
 
             <div style="background: white; padding: 20px; border-radius: 6px; margin: 20px 0;">
-                <h3 style="color: #1e40af; margin-top: 0;">🌐 Traffic Sources</h3>
+                <h3 style="color: #1e40af; margin-top: 0;">Traffic Sources</h3>
                 <table style="width: 100%; border-collapse: collapse;">
                     <thead>
                         <tr style="background: #f0f4f8;">
@@ -356,7 +336,7 @@ function generateAnalyticsEmailHtml(summary) {
             </div>
 
             <div style="background: white; padding: 20px; border-radius: 6px; margin: 20px 0;">
-                <h3 style="color: #1e40af; margin-top: 0;">📱 Device Breakdown</h3>
+                <h3 style="color: #1e40af; margin-top: 0;">Device Breakdown</h3>
                 <ul style="margin: 0; padding: 0 0 0 20px; color: #475569;">
                     ${deviceBreakdown || '<li>No data</li>'}
                 </ul>
@@ -364,7 +344,7 @@ function generateAnalyticsEmailHtml(summary) {
 
             <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0; font-size: 12px; color: #475569; text-align: center;">
                 <p style="margin: 0;">This is an automated daily analytics report from YugamGroup website.</p>
-                <p style="margin: 5px 0 0 0;">📊 Powered by GDPR-Compliant Analytics</p>
+                <p style="margin: 5px 0 0 0;">Powered by GDPR-Compliant Analytics</p>
             </div>
         </div>
     `;
@@ -388,7 +368,7 @@ function scheduleDailyEmail() {
         setInterval(sendDailyAnalyticsEmail, 24 * 60 * 60 * 1000);
     }, timeUntilTarget);
 
-    console.log(`⏰ Daily analytics email scheduled for ${target.toLocaleString()}`);
+    console.log(`Daily analytics email scheduled for ${target.toLocaleString()}`);
 }
 
 // Health check endpoint
@@ -398,9 +378,9 @@ app.get('/health', (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-    console.log(`\n🚀 YuGam Group server running on http://localhost:${PORT}`);
-    console.log(`📧 Contact form API available at POST http://localhost:${PORT}/api/contact`);
-    console.log(`📊 Analytics API available at POST http://localhost:${PORT}/api/analytics\n`);
+    console.log(`\nYuGam Group server running on http://localhost:${PORT}`);
+    console.log(`Contact form API available at POST http://localhost:${PORT}/api/contact`);
+    console.log(`Analytics API available at POST http://localhost:${PORT}/api/analytics\n`);
 
     // Schedule daily analytics email
     scheduleDailyEmail();
