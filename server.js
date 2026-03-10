@@ -29,11 +29,20 @@ app.use(express.static('.'));
 app.use(cors());
 
 // Create Nodemailer transporter for Gmail SMTP
+// Using explicit host/port with IPv4 to avoid Render IPv6 connectivity issues
+const dns = require('dns');
+dns.setDefaultResultOrder('ipv4first');
+
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
     auth: {
         user: process.env.GMAIL_USER,
         pass: process.env.GMAIL_PASSWORD
+    },
+    tls: {
+        rejectUnauthorized: false
     }
 });
 
