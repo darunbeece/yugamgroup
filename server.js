@@ -57,7 +57,7 @@ app.post('/api/contact', async (req, res) => {
 
         // Send notification email to sales team
         await resend.emails.send({
-            from: 'YuGam Group <onboarding@resend.dev>',
+            from: 'YuGam Group <yugamsales@gmail.com>',
             to: [process.env.SALES_EMAIL],
             replyTo: email,
             subject: `New Enquiry from ${escapeHtml(name)} - ${escapeHtml(subject || 'General Inquiry')}`,
@@ -87,7 +87,7 @@ app.post('/api/contact', async (req, res) => {
 
         // Send confirmation to user
         await resend.emails.send({
-            from: 'YuGam Group <onboarding@resend.dev>',
+            from: 'YuGam Group <yugamsales@gmail.com>',
             to: [email],
             subject: 'We Received Your Inquiry - YuGam Group',
             html: `
