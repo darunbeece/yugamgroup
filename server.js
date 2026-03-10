@@ -1,10 +1,27 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
+const fs = require('fs');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Analytics storage
+const analyticsDir = path.join(__dirname, '.analytics');
+if (!fs.existsSync(analyticsDir)) {
+    fs.mkdirSync(analyticsDir, { recursive: true });
+}
+
+// In-memory analytics for current session
+let analyticsData = {
+    pageviews: [],
+    clicks: [],
+    formSubmissions: [],
+    timeOnPage: [],
+    scrollDepth: []
+};
 
 // Middleware
 app.use(express.json());
@@ -126,6 +143,244 @@ app.post('/api/contact', async (req, res) => {
     }
 });
 
+// Analytics collection endpoint
+app.post('/api/analytics', (req, res) => {
+    try {
+        const { eventType, ...eventData } = req.body;
+
+        // Store analytics based on event type
+        switch (eventType) {
+            case 'pageview':
+                analyticsData.pageviews.push(eventData);
+                break;
+            case 'element_click':
+                analyticsData.clicks.push(eventData);
+                break;
+            case 'form_submission':
+                analyticsData.formSubmissions.push(eventData);
+                break;
+            case 'time_on_page':
+                analyticsData.timeOnPage.push(eventData);
+                break;
+            case 'scroll_depth':
+                analyticsData.scrollDepth.push(eventData);
+                break;
+        }
+
+        // Keep only last 1000 events per type to prevent memory bloat
+        Object.keys(analyticsData).forEach(key => {
+            if (analyticsData[key].length > 1000) {
+                analyticsData[key] = analyticsData[key].slice(-1000);
+            }
+        });
+
+        res.json({ success: true });
+    } catch (error) {
+        console.error('Analytics error:', error);
+        res.status(500).json({ success: false });
+    }
+});
+
+// Analytics summary endpoint
+app.get('/api/analytics/summary', (req, res) => {
+    try {
+        const summary = generateAnalyticsSummary();
+        res.json(summary);
+    } catch (error) {
+        console.error('Analytics summary error:', error);
+        res.status(500).json({ success: false });
+    }
+});
+
+// Send daily analytics email
+async function sendDailyAnalyticsEmail() {
+    try {
+        if (analyticsData.pageviews.length === 0) {
+            console.log('📊 No analytics data to send today');
+            return;
+        }
+
+        const summary = generateAnalyticsSummary();
+        const emailHtml = generateAnalyticsEmailHtml(summary);
+
+        const mailOptions = {
+            from: process.env.GMAIL_USER,
+            to: process.env.SALES_EMAIL,
+            subject: `📊 YugamGroup Daily Analytics Report - ${new Date().toLocaleDateString()}`,
+            html: emailHtml
+        };
+
+        await transporter.sendMail(mailOptions);
+        console.log('✅ Daily analytics email sent to', process.env.SALES_EMAIL);
+
+        // Clear analytics data after sending
+        analyticsData = {
+            pageviews: [],
+            clicks: [],
+            formSubmissions: [],
+            timeOnPage: [],
+            scrollDepth: []
+        };
+    } catch (error) {
+        console.error('Error sending analytics email:', error);
+    }
+}
+
+// Generate analytics summary
+function generateAnalyticsSummary() {
+    const uniqueSessions = new Set(analyticsData.pageviews.map(p => p.sessionId)).size;
+    const pages = {};
+    const devices = {};
+    const referrers = {};
+
+    // Group pageviews by page
+    analyticsData.pageviews.forEach(pv => {
+        const page = pv.page || '/';
+        pages[page] = (pages[page] || 0) + 1;
+        devices[pv.deviceType || 'unknown'] = (devices[pv.deviceType] || 0) + 1;
+        referrers[pv.referrer || 'direct'] = (referrers[pv.referrer] || 0) + 1;
+    });
+
+    // Calculate average time on page
+    let totalTime = 0;
+    let pageCount = analyticsData.timeOnPage.length;
+    analyticsData.timeOnPage.forEach(t => {
+        totalTime += t.timeSeconds || 0;
+    });
+    const avgTimeOnPage = pageCount > 0 ? Math.round(totalTime / pageCount) : 0;
+
+    // Get top pages
+    const topPages = Object.entries(pages)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5)
+        .map(([page, count]) => ({ page, visits: count }));
+
+    // Get traffic sources
+    const trafficSources = Object.entries(referrers)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5)
+        .map(([source, count]) => ({ source, visits: count }));
+
+    return {
+        date: new Date().toLocaleDateString(),
+        totalVisitors: uniqueSessions,
+        totalPageviews: analyticsData.pageviews.length,
+        avgTimeOnPage,
+        topPages,
+        trafficSources,
+        devices,
+        formSubmissions: analyticsData.formSubmissions.length,
+        totalClicks: analyticsData.clicks.length
+    };
+}
+
+// Generate HTML email for analytics
+function generateAnalyticsEmailHtml(summary) {
+    const topPagesHtml = summary.topPages
+        .map(p => `<tr><td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">${escapeHtml(p.page)}</td><td style="padding: 10px; text-align: right;">${p.visits}</td></tr>`)
+        .join('');
+
+    const trafficSourcesHtml = summary.trafficSources
+        .map(s => `<tr><td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">${escapeHtml(s.source)}</td><td style="padding: 10px; text-align: right;">${s.visits}</td></tr>`)
+        .join('');
+
+    const deviceBreakdown = Object.entries(summary.devices)
+        .map(([device, count]) => `<li>${device}: ${count}</li>`)
+        .join('');
+
+    return `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f8fafc; padding: 20px; border-radius: 8px;">
+            <h2 style="color: #1e40af; margin-top: 0;">📊 Daily Analytics Report</h2>
+            <p style="color: #475569;">Report Date: <strong>${summary.date}</strong></p>
+
+            <div style="background: white; padding: 20px; border-radius: 6px; margin: 20px 0;">
+                <h3 style="color: #1e40af; margin-top: 0;">Key Metrics</h3>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr style="background: #f0f4f8;">
+                        <td style="padding: 12px; font-weight: 600;">Total Visitors</td>
+                        <td style="padding: 12px; text-align: right; font-size: 1.5em; color: #1e40af; font-weight: 600;">${summary.totalVisitors}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px;">Total Page Views</td>
+                        <td style="padding: 12px; text-align: right; font-weight: 500;">${summary.totalPageviews}</td>
+                    </tr>
+                    <tr style="background: #f0f4f8;">
+                        <td style="padding: 12px;">Avg. Time on Page</td>
+                        <td style="padding: 12px; text-align: right; font-weight: 500;">${summary.avgTimeOnPage}s</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px;">Form Submissions</td>
+                        <td style="padding: 12px; text-align: right; font-weight: 500; color: #10b981;">${summary.formSubmissions}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="background: white; padding: 20px; border-radius: 6px; margin: 20px 0;">
+                <h3 style="color: #1e40af; margin-top: 0;">📄 Top Pages</h3>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: #f0f4f8;">
+                            <th style="padding: 10px; text-align: left; font-weight: 600;">Page</th>
+                            <th style="padding: 10px; text-align: right; font-weight: 600;">Visits</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${topPagesHtml || '<tr><td colspan="2" style="padding: 10px;">No data</td></tr>'}
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="background: white; padding: 20px; border-radius: 6px; margin: 20px 0;">
+                <h3 style="color: #1e40af; margin-top: 0;">🌐 Traffic Sources</h3>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: #f0f4f8;">
+                            <th style="padding: 10px; text-align: left; font-weight: 600;">Source</th>
+                            <th style="padding: 10px; text-align: right; font-weight: 600;">Visits</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${trafficSourcesHtml || '<tr><td colspan="2" style="padding: 10px;">No data</td></tr>'}
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="background: white; padding: 20px; border-radius: 6px; margin: 20px 0;">
+                <h3 style="color: #1e40af; margin-top: 0;">📱 Device Breakdown</h3>
+                <ul style="margin: 0; padding: 0 0 0 20px; color: #475569;">
+                    ${deviceBreakdown || '<li>No data</li>'}
+                </ul>
+            </div>
+
+            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0; font-size: 12px; color: #475569; text-align: center;">
+                <p style="margin: 0;">This is an automated daily analytics report from YugamGroup website.</p>
+                <p style="margin: 5px 0 0 0;">📊 Powered by GDPR-Compliant Analytics</p>
+            </div>
+        </div>
+    `;
+}
+
+// Schedule daily email at 9 AM
+function scheduleDailyEmail() {
+    const now = new Date();
+    const target = new Date();
+    target.setHours(9, 0, 0, 0);
+
+    if (now > target) {
+        target.setDate(target.getDate() + 1);
+    }
+
+    const timeUntilTarget = target.getTime() - now.getTime();
+
+    setTimeout(() => {
+        sendDailyAnalyticsEmail();
+        // Schedule for every 24 hours after first run
+        setInterval(sendDailyAnalyticsEmail, 24 * 60 * 60 * 1000);
+    }, timeUntilTarget);
+
+    console.log(`⏰ Daily analytics email scheduled for ${target.toLocaleString()}`);
+}
+
 // Health check endpoint
 app.get('/health', (req, res) => {
     res.json({ status: 'Server is running' });
@@ -134,7 +389,11 @@ app.get('/health', (req, res) => {
 // Start server
 app.listen(PORT, () => {
     console.log(`\n🚀 YuGam Group server running on http://localhost:${PORT}`);
-    console.log(`📧 Contact form API available at POST http://localhost:${PORT}/api/contact\n`);
+    console.log(`📧 Contact form API available at POST http://localhost:${PORT}/api/contact`);
+    console.log(`📊 Analytics API available at POST http://localhost:${PORT}/api/analytics\n`);
+
+    // Schedule daily analytics email
+    scheduleDailyEmail();
 });
 
 // Utility function to escape HTML

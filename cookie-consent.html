@@ -1,0 +1,158 @@
+<!-- Cookie Consent Banner - Add this to the body of all HTML pages -->
+<div id="cookieConsentBanner" class="cookie-consent-banner">
+    <div class="cookie-consent-content">
+        <div class="cookie-icon">
+            <i class="fas fa-cookie"></i>
+        </div>
+        <div class="cookie-text">
+            <h3>Cookie & Analytics Consent</h3>
+            <p>We use analytics to understand how you use our website and improve your experience. We collect <strong>non-personal data only</strong> (pages visited, device type, visit duration). No names, emails, or personal information are collected without your explicit consent. <a href="privacy-policy.html" target="_blank">Learn more</a></p>
+        </div>
+        <div class="cookie-actions">
+            <button id="cookieDecline" class="cookie-btn cookie-btn-secondary">Decline</button>
+            <button id="cookieAccept" class="cookie-btn cookie-btn-primary">Accept</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .cookie-consent-banner {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(15, 23, 42, 0.95);
+        color: white;
+        padding: 20px;
+        z-index: 9999;
+        display: none;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+    }
+
+    .cookie-consent-banner.show {
+        display: flex;
+    }
+
+    .cookie-consent-content {
+        max-width: 1140px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+    }
+
+    .cookie-icon {
+        font-size: 2rem;
+        flex-shrink: 0;
+    }
+
+    .cookie-text {
+        flex: 1;
+    }
+
+    .cookie-text h3 {
+        margin: 0 0 8px 0;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    .cookie-text p {
+        margin: 0;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .cookie-text a {
+        color: #3b82f6;
+        text-decoration: none;
+    }
+
+    .cookie-text a:hover {
+        text-decoration: underline;
+    }
+
+    .cookie-actions {
+        display: flex;
+        gap: 12px;
+        flex-shrink: 0;
+    }
+
+    .cookie-btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .cookie-btn-primary {
+        background: #3b82f6;
+        color: white;
+    }
+
+    .cookie-btn-primary:hover {
+        background: #2563eb;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    }
+
+    .cookie-btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .cookie-btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    @media (max-width: 768px) {
+        .cookie-consent-content {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .cookie-actions {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .cookie-btn {
+            flex: 1;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const consentKey = 'yugam_analytics_consent';
+        const banner = document.getElementById('cookieConsentBanner');
+        const acceptBtn = document.getElementById('cookieAccept');
+        const declineBtn = document.getElementById('cookieDecline');
+
+        // Check if user has already made a choice
+        const hasConsent = localStorage.getItem(consentKey);
+        if (!hasConsent) {
+            banner.classList.add('show');
+        }
+
+        acceptBtn.addEventListener('click', function() {
+            localStorage.setItem(consentKey, 'true');
+            banner.classList.remove('show');
+            // Grant consent to analytics
+            if (window.YugamAnalytics) {
+                window.YugamAnalytics.grantConsent();
+            }
+        });
+
+        declineBtn.addEventListener('click', function() {
+            localStorage.setItem(consentKey, 'false');
+            banner.classList.remove('show');
+        });
+    });
+</script>
