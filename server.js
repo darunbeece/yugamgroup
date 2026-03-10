@@ -1,5 +1,5 @@
 const express = require('express');
-const { Resend } = require('resend');
+const nodemailer = require('nodemailer');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
@@ -8,17 +8,28 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Initialize Resend email client (HTTP-based, works on all cloud platforms)
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize Nodemailer transporter for Gmail SMTP
+const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASSWORD
+    },
+    family: 4,
+    connectionTimeout: 10000,
+    socketTimeout: 10000
+});
 
-// Verify Resend API key on startup
+// Verify Gmail SMTP connection on startup
 (async () => {
     try {
-        // Test API key by listing domains
-        await resend.domains.list();
-        console.log('✅ Resend email API is ready to send emails');
+        await transporter.verify();
+        console.log('✅ Gmail SMTP is ready to send emails');
     } catch (error) {
-        console.log('❌ Resend API error:', error.message);
+        console.log('❌ Gmail SMTP error:', error.message);
+        console.log('Please verify your GMAIL_USER and GMAIL_APP_PASSWORD in .env');
     }
 })();
 
@@ -56,9 +67,9 @@ app.post('/api/contact', async (req, res) => {
         }
 
         // Send notification email to sales team
-        await resend.emails.send({
-            from: 'YuGam Group <yugamsales@gmail.com>',
-            to: [process.env.SALES_EMAIL],
+        await transporter.sendMail({
+            from: process.env.GMAIL_USER,
+            to: process.env.SALES_EMAIL,
             replyTo: email,
             subject: `New Enquiry from ${escapeHtml(name)} - ${escapeHtml(subject || 'General Inquiry')}`,
             html: `
@@ -86,9 +97,9 @@ app.post('/api/contact', async (req, res) => {
         });
 
         // Send confirmation to user
-        await resend.emails.send({
-            from: 'YuGam Group <yugamsales@gmail.com>',
-            to: [email],
+        await transporter.sendMail({
+            from: process.env.GMAIL_USER,
+            to: email,
             subject: 'We Received Your Inquiry - YuGam Group',
             html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -194,9 +205,9 @@ async function sendDailyAnalyticsEmail() {
         const summary = generateAnalyticsSummary();
         const emailHtml = generateAnalyticsEmailHtml(summary);
 
-        await resend.emails.send({
-            from: 'YuGam Group Analytics <yugamsales@gmail.com>',
-            to: [process.env.SALES_EMAIL],
+        await transporter.sendMail({
+            from: process.env.GMAIL_USER,
+            to: process.env.SALES_EMAIL,
             subject: `YugamGroup Daily Analytics Report - ${new Date().toLocaleDateString()}`,
             html: emailHtml
         });
