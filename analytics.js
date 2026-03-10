@@ -141,7 +141,7 @@ class YugamAnalytics {
     sendAnalytics(eventType, data) {
         if (!this.hasConsent) return;
 
-        fetch('/api/analytics', {
+        fetch('https://yugamgroup-backend.onrender.com/api/analytics', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
