@@ -2,62 +2,51 @@ const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
+const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// SendPulse REST API email sender
-let sendpulseToken = null;
-let tokenExpiry = 0;
+// Gmail SMTP Configuration
+const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST || 'smtp.gmail.com',
+    port: process.env.SMTP_PORT || 465,
+    secure: true, // true for 465, false for other ports
+    auth: {
+        user: process.env.GMAIL_USER || 'yugamsale@gmail.com',
+        pass: process.env.GMAIL_APP_PASSWORD
+    },
+    family: 4 // Force IPv4
+});
 
-async function getSendPulseToken() {
-    if (sendpulseToken && Date.now() < tokenExpiry) return sendpulseToken;
-    const res = await fetch('https://api.sendpulse.com/oauth/access_token', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            grant_type: 'client_credentials',
-            client_id: process.env.SENDPULSE_CLIENT_ID,
-            client_secret: process.env.SENDPULSE_CLIENT_SECRET
-        })
-    });
-    const data = await res.json();
-    sendpulseToken = data.access_token;
-    tokenExpiry = Date.now() + (data.expires_in - 60) * 1000;
-    return sendpulseToken;
-}
+// Verify SMTP connection on startup
+transporter.verify((error, success) => {
+    if (error) {
+        console.log('❌ Gmail SMTP connection error:', error.message);
+    } else {
+        console.log('✅ Gmail SMTP is ready to send emails');
+    }
+});
 
 async function sendEmail({ from, fromName, to, replyTo, subject, html }) {
-    const token = await getSendPulseToken();
-    const body = {
-        email: {
-            subject,
-            html: Buffer.from(html).toString('base64'),
-            from: { name: fromName || 'YuGam Group', email: from },
-            to: Array.isArray(to) ? to.map(e => ({ email: e })) : [{ email: to }]
-        }
-    };
-    if (replyTo) body.email.reply_to = { email: replyTo };
-    const res = await fetch('https://api.sendpulse.com/smtp/emails', {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-    });
-    const result = await res.json();
-    if (!res.ok) throw new Error(result.message || 'SendPulse API error');
-    return result;
-}
-
-// Verify API credentials on startup
-(async () => {
     try {
-        await getSendPulseToken();
-        console.log('✅ SendPulse API is ready to send emails');
+        const mailOptions = {
+            from: `"${fromName || 'YuGam Group'}" <${from}>`,
+            to: Array.isArray(to) ? to.join(',') : to,
+            subject,
+            html,
+            replyTo
+        };
+
+        const info = await transporter.sendMail(mailOptions);
+        console.log(`✅ Email sent: ${info.messageId}`);
+        return info;
     } catch (error) {
-        console.log('❌ SendPulse API error:', error.message);
+        console.error('❌ Email sending error:', error);
+        throw error;
     }
-})();
+}
 
 // Analytics storage
 const analyticsDir = path.join(__dirname, '.analytics');

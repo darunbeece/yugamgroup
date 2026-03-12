@@ -1,150 +1,102 @@
-# YuGam Group - Email Configuration Guide
+# YuGam Group Email Setup - Gmail SMTP
 
-## Overview
-The contact form on your website now sends emails through Gmail's SMTP server. When a user submits the enquiry form, their message is sent to `sales@yugamgroup.com`, and they receive a confirmation email.
+This document describes the complete email configuration for YuGam Group, including local development and GitHub Actions automation.
 
-## Setup & Configuration
+## 🎯 Overview
 
-### Environment Variables
-Email credentials are stored in `.env` file (not committed to git for security):
+The email system uses **Gmail SMTP** via **Nodemailer** for sending transactional and automated emails:
+
+- **Contact Form Emails**: Sent when users submit the contact form
+- **Confirmation Emails**: Sent to users confirming receipt of their inquiry
+- **Daily Analytics**: Scheduled emails sent to sales team (9 AM UTC)
+
+## 📧 Email Configuration
+
+### SMTP Settings
 
 ```
+Host: smtp.gmail.com
+Port: 465
+Security: SSL/TLS
+User: yugamsale@gmail.com
+Password: [Gmail App Password - stored in .env or GitHub Secrets]
+Family: IPv4
+```
+
+### Sender Information
+
+- **From Email**: `yugamsale@gmail.com`
+- **From Name**: YuGam Group
+- **Reply-To**: User's email (for contact form submissions)
+- **To**: `sales@yugamgroup.com` (sales team)
+
+## 🚀 Quick Start
+
+### Step 1: Get Gmail App Password
+
+1. Visit: https://myaccount.google.com
+2. Go to **Security** → **App passwords**
+3. Select "Mail" and "Windows Computer"
+4. Copy the 16-character password
+
+### Step 2: Configure Local Environment
+
+```bash
+# Edit .env file with your credentials
 GMAIL_USER=yugamsale@gmail.com
-GMAIL_PASSWORD=BlueSt0ne0123!@#
+GMAIL_APP_PASSWORD=xxxx xxxx xxxx xxxx
 SALES_EMAIL=sales@yugamgroup.com
-PORT=3000
-NODE_ENV=development
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
 ```
 
-### Important Security Notes
-- ⚠️ **The `.env` file is in `.gitignore`** - it won't be committed to the repository
-- ✅ Sensitive credentials are kept out of version control
-- 🔒 Never share or hardcode credentials in code
-
-## Running the Server
-
-### Start the Email-Enabled Server
+### Step 3: Test Locally
 
 ```bash
-npm start
-# or
-npm run dev
+# Run the test script
+bash .github/scripts/test-local-email.sh
 ```
 
-The server will run on `http://localhost:3000`
+### Step 4: Set GitHub Secrets
 
-### Email Features
-1. **Contact Form Submission** → Sends to `sales@yugamgroup.com`
-2. **Auto Confirmation Email** → Sent to the user's email address
-3. **HTML Email Templates** → Professional email formatting
-4. **Error Handling** → Graceful error messages to users
+1. Go to Repository → **Settings** → **Secrets and variables** → **Actions**
+2. Add these secrets:
+   - `GMAIL_USER`: `yugamsale@gmail.com`
+   - `GMAIL_APP_PASSWORD`: `[your 16-char app password]`
+   - `SALES_EMAIL`: `sales@yugamgroup.com`
 
-## API Endpoint
+### Step 5: Test GitHub Actions
 
-### POST `/api/contact`
+1. Go to **Actions** tab → **Send Email via Gmail SMTP**
+2. Click **Run workflow** → Select email type: `test`
+3. Verify email is received
 
-**Request Body:**
-```json
-{
-  "name": "John Doe",
-  "email": "john@example.com",
-  "company": "Tech Corp",
-  "subject": "ai-services",
-  "message": "We are interested in your AI services...",
-  "consent": true
-}
-```
+## 📁 Files Created
 
-**Success Response (200):**
-```json
-{
-  "success": true,
-  "message": "Thank you! Your message has been sent successfully."
-}
-```
+- `.github/workflows/send-email.yml` - Main email workflow (daily + manual trigger)
+- `.github/workflows/test-email-config.yml` - Configuration testing workflow
+- `.github/scripts/send-email.js` - Email sending script
+- `.github/scripts/test-local-email.sh` - Local testing script
+- `GITHUB_SECRETS_SETUP.md` - Detailed setup guide
+- Updated `server.js` - Now uses Gmail SMTP via Nodemailer
 
-**Error Response (400/500):**
-```json
-{
-  "success": false,
-  "message": "Error description"
-}
-```
-
-## Gmail SMTP Configuration
-
-### App Passwords (If Using 2FA)
-If the Gmail account has 2-factor authentication enabled:
-1. Go to https://myaccount.google.com/security
-2. Enable "App passwords"
-3. Generate a 16-character app password
-4. Use that password instead of your Gmail password in `.env`
-
-### Without 2FA
-If 2FA is disabled, you may need to:
-1. Enable "Less secure apps" access (not recommended for production)
-2. Or use an App Password (recommended)
-
-## Testing
-
-To test the email functionality:
-
-1. Start the server: `npm start`
-2. Open `http://localhost:3000/contact.html`
-3. Fill out the form and submit
-4. Check your emails - you should receive:
-   - Confirmation email at your submitted email address
-   - Sales team notification at `sales@yugamgroup.com`
-
-## Deployed Environment
-
-When deploying to production, ensure:
-1. `.env` file is properly set up on the server
-2. Gmail credentials are secure
-3. Use environment variables from your hosting platform (not `.env` file)
-4. Consider using app-specific passwords for additional security
-
-## Troubleshooting
-
-### "Gmail connection error"
-- Check credentials in `.env`
-- Verify app-specific password if 2FA is enabled
-- Check that "Less secure apps" is enabled (if no 2FA)
-
-### "Email not received"
-- Check spam folder
-- Verify reply-to address is correct
-- Check server logs for errors
-
-### Server won't start
-```bash
-npm install  # Reinstall dependencies
-npm start    # Try again
-```
-
-## Security Best Practices
+## 🔒 Security
 
 ✅ **Do's:**
-- Use app-specific passwords
-- Keep `.env` file in `.gitignore`
-- Use environment variables in production
-- Validate and sanitize all form inputs
-- Use HTTPS in production
+- Use Gmail App Passwords (not main password)
+- Store credentials in GitHub Secrets
+- Keep `.env` in `.gitignore`
 
 ❌ **Don'ts:**
-- Don't commit `.env` to version control
-- Don't use plain passwords for Gmail accounts
-- Don't disable SSL/TLS in production
-- Don't expose credentials in logs
+- Commit `.env` to Git
+- Share GMAIL_APP_PASSWORD
+- Use main Gmail password
 
-## Next Steps
+## 🐛 Troubleshooting
 
-1. Test the contact form locally
-2. Configure proper email verification (SPF, DKIM, DMARC)
-3. Set up production environment with secure credential management
-4. Monitor email delivery and error logs
-5. Consider adding email rate limiting for security
+1. **Invalid credentials**: Verify app password is 16 characters from Google Account
+2. **Connection timeout**: Check firewall allows port 465 outbound
+3. **Email not received**: Check Gmail account limits and spam folder
+4. **GitHub Actions failing**: Verify all GitHub Secrets are set correctly
 
-## Support
-
-For issues or questions about email setup, check the server logs or contact your hosting provider's support team.
+See `GITHUB_SECRETS_SETUP.md` for detailed troubleshooting.

@@ -1,0 +1,58 @@
+name: Send Email via Gmail SMTP
+
+on:
+  # Run daily analytics email at 9 AM UTC
+  schedule:
+    - cron: '0 9 * * *'
+
+  # Allow manual trigger from Actions tab
+  workflow_dispatch:
+    inputs:
+      recipient:
+        description: 'Email recipient (leave empty for default SALES_EMAIL)'
+        required: false
+        default: ''
+      email_type:
+        description: 'Type of email to send'
+        required: false
+        type: choice
+        options:
+          - analytics
+          - test
+        default: 'test'
+
+jobs:
+  send-email:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Send Email
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          SALES_EMAIL: ${{ secrets.SALES_EMAIL }}
+          SMTP_HOST: smtp.gmail.com
+          SMTP_PORT: 465
+          EMAIL_TYPE: ${{ github.event.inputs.email_type || 'analytics' }}
+          RECIPIENT: ${{ github.event.inputs.recipient }}
+        run: |
+          node .github/scripts/send-email.js
+
+      - name: Email Status
+        if: success()
+        run: echo "✅ Email sent successfully!"
+
+      - name: Email Failed
+        if: failure()
+        run: echo "❌ Email sending failed - check GitHub Secrets configuration"

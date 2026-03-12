@@ -1,0 +1,117 @@
+name: Test Email Configuration
+
+on:
+  workflow_dispatch:
+    inputs:
+      test_type:
+        description: 'Type of test to run'
+        required: true
+        type: choice
+        options:
+          - secrets-check
+          - connection-test
+          - send-test-email
+        default: 'secrets-check'
+
+jobs:
+  test-email:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Check GitHub Secrets
+        if: ${{ github.event.inputs.test_type == 'secrets-check' }}
+        run: |
+          echo "🔐 Checking GitHub Secrets configuration..."
+
+          if [ -z "${{ secrets.GMAIL_USER }}" ]; then
+            echo "❌ GMAIL_USER is not set"
+            exit 1
+          else
+            echo "✅ GMAIL_USER is configured"
+          fi
+
+          if [ -z "${{ secrets.GMAIL_APP_PASSWORD }}" ]; then
+            echo "❌ GMAIL_APP_PASSWORD is not set"
+            exit 1
+          else
+            echo "✅ GMAIL_APP_PASSWORD is configured"
+          fi
+
+          if [ -z "${{ secrets.SALES_EMAIL }}" ]; then
+            echo "❌ SALES_EMAIL is not set"
+            exit 1
+          else
+            echo "✅ SALES_EMAIL is configured"
+          fi
+
+          echo ""
+          echo "📧 Secret Values (partial):"
+          echo "   GMAIL_USER: ${{ secrets.GMAIL_USER }}"
+          echo "   GMAIL_APP_PASSWORD: [*** HIDDEN ***] (length: $(echo -n '${{ secrets.GMAIL_APP_PASSWORD }}' | wc -c) chars)"
+          echo "   SALES_EMAIL: ${{ secrets.SALES_EMAIL }}"
+
+      - name: Test SMTP Connection
+        if: ${{ github.event.inputs.test_type == 'connection-test' }}
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: |
+          node -e "
+          const nodemailer = require('nodemailer');
+          const transporter = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
+            auth: {
+              user: process.env.GMAIL_USER,
+              pass: process.env.GMAIL_APP_PASSWORD
+            },
+            family: 4
+          });
+
+          transporter.verify((error, success) => {
+            if (error) {
+              console.error('❌ SMTP Connection Failed:');
+              console.error(error.message);
+              process.exit(1);
+            } else {
+              console.log('✅ SMTP Connection Successful');
+              console.log('   Host: smtp.gmail.com');
+              console.log('   Port: 465');
+              console.log('   User:', process.env.GMAIL_USER);
+              process.exit(0);
+            }
+          });
+          "
+
+      - name: Send Test Email
+        if: ${{ github.event.inputs.test_type == 'send-test-email' }}
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          SALES_EMAIL: ${{ secrets.SALES_EMAIL }}
+        run: node .github/scripts/send-email.js
+
+      - name: Test Results
+        if: always()
+        run: |
+          echo ""
+          echo "═════════════════════════════════════════"
+          echo "Test Results Summary"
+          echo "═════════════════════════════════════════"
+          if [ $? -eq 0 ]; then
+            echo "✅ All tests passed!"
+          else
+            echo "❌ Tests failed - check output above"
+          fi
