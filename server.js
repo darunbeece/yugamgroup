@@ -94,7 +94,7 @@ app.post('/api/contact', async (req, res) => {
 
         // Send notification email to sales team
         await sendEmail({
-            from: 'info@yugamgroup.com',
+            from: 'prasoona@yugamgroup.com',
             fromName: 'YuGam Group',
             to: process.env.SALES_EMAIL,
             replyTo: email,
@@ -125,7 +125,7 @@ app.post('/api/contact', async (req, res) => {
 
         // Send confirmation to user
         await sendEmail({
-            from: 'info@yugamgroup.com',
+            from: 'prasoona@yugamgroup.com',
             fromName: 'YuGam Group',
             to: email,
             subject: 'We Received Your Inquiry - YuGam Group',
@@ -152,7 +152,7 @@ app.post('/api/contact', async (req, res) => {
                     <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0; font-size: 12px; color: #475569;">
                         <p><strong>YuGam Group</strong></p>
                         <p>+1 (224) 442-0650<br>
-                        info@yugamgroup.com<br>
+                        prasoona@yugamgroup.com<br>
                         Chicago, Illinois | Sao Paulo, Brazil | Chennai, India</p>
                     </div>
                 </div>
@@ -234,7 +234,7 @@ async function sendDailyAnalyticsEmail() {
         const emailHtml = generateAnalyticsEmailHtml(summary);
 
         await sendEmail({
-            from: 'info@yugamgroup.com',
+            from: 'prasoona@yugamgroup.com',
             fromName: 'YuGam Group Analytics',
             to: process.env.SALES_EMAIL,
             subject: `YugamGroup Daily Analytics Report - ${new Date().toLocaleDateString()}`,
