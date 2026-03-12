@@ -1,5 +1,4 @@
 const express = require('express');
-const { Resend } = require('resend');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
@@ -8,16 +7,55 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Initialize Resend email client (HTTP-based, works on all cloud platforms)
-const resend = new Resend(process.env.RESEND_API_KEY);
+// SendPulse REST API email sender
+let sendpulseToken = null;
+let tokenExpiry = 0;
 
-// Verify Resend API key on startup
+async function getSendPulseToken() {
+    if (sendpulseToken && Date.now() < tokenExpiry) return sendpulseToken;
+    const res = await fetch('https://api.sendpulse.com/oauth/access_token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            grant_type: 'client_credentials',
+            client_id: process.env.SENDPULSE_CLIENT_ID,
+            client_secret: process.env.SENDPULSE_CLIENT_SECRET
+        })
+    });
+    const data = await res.json();
+    sendpulseToken = data.access_token;
+    tokenExpiry = Date.now() + (data.expires_in - 60) * 1000;
+    return sendpulseToken;
+}
+
+async function sendEmail({ from, fromName, to, replyTo, subject, html }) {
+    const token = await getSendPulseToken();
+    const body = {
+        email: {
+            subject,
+            html: Buffer.from(html).toString('base64'),
+            from: { name: fromName || 'YuGam Group', email: from },
+            to: Array.isArray(to) ? to.map(e => ({ email: e })) : [{ email: to }]
+        }
+    };
+    if (replyTo) body.email.reply_to = { email: replyTo };
+    const res = await fetch('https://api.sendpulse.com/smtp/emails', {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+    });
+    const result = await res.json();
+    if (!res.ok) throw new Error(result.message || 'SendPulse API error');
+    return result;
+}
+
+// Verify API credentials on startup
 (async () => {
     try {
-        await resend.domains.list();
-        console.log('✅ Resend email API is ready to send emails');
+        await getSendPulseToken();
+        console.log('✅ SendPulse API is ready to send emails');
     } catch (error) {
-        console.log('❌ Resend API error:', error.message);
+        console.log('❌ SendPulse API error:', error.message);
     }
 })();
 
@@ -55,9 +93,10 @@ app.post('/api/contact', async (req, res) => {
         }
 
         // Send notification email to sales team
-        await resend.emails.send({
-            from: 'YuGam Group <yugamsales@gmail.com>',
-            to: [process.env.SALES_EMAIL],
+        await sendEmail({
+            from: 'info@yugamgroup.com',
+            fromName: 'YuGam Group',
+            to: process.env.SALES_EMAIL,
             replyTo: email,
             subject: `New Enquiry from ${escapeHtml(name)} - ${escapeHtml(subject || 'General Inquiry')}`,
             html: `
@@ -85,9 +124,10 @@ app.post('/api/contact', async (req, res) => {
         });
 
         // Send confirmation to user
-        await resend.emails.send({
-            from: 'YuGam Group <yugamsales@gmail.com>',
-            to: [email],
+        await sendEmail({
+            from: 'info@yugamgroup.com',
+            fromName: 'YuGam Group',
+            to: email,
             subject: 'We Received Your Inquiry - YuGam Group',
             html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -193,9 +233,10 @@ async function sendDailyAnalyticsEmail() {
         const summary = generateAnalyticsSummary();
         const emailHtml = generateAnalyticsEmailHtml(summary);
 
-        await resend.emails.send({
-            from: 'YuGam Group Analytics <yugamsales@gmail.com>',
-            to: [process.env.SALES_EMAIL],
+        await sendEmail({
+            from: 'info@yugamgroup.com',
+            fromName: 'YuGam Group Analytics',
+            to: process.env.SALES_EMAIL,
             subject: `YugamGroup Daily Analytics Report - ${new Date().toLocaleDateString()}`,
             html: emailHtml
         });
