@@ -54,6 +54,25 @@ if (!fs.existsSync(analyticsDir)) {
     fs.mkdirSync(analyticsDir, { recursive: true });
 }
 
+// Visitor tracking storage
+const visitorsFile = path.join(analyticsDir, 'visitors.json');
+const loadVisitors = () => {
+    if (fs.existsSync(visitorsFile)) {
+        try {
+            return JSON.parse(fs.readFileSync(visitorsFile, 'utf8'));
+        } catch (error) {
+            return {};
+        }
+    }
+    return {};
+};
+
+const saveVisitors = (visitors) => {
+    fs.writeFileSync(visitorsFile, JSON.stringify(visitors, null, 2));
+};
+
+let visitors = loadVisitors();
+
 // In-memory analytics for current session
 let analyticsData = {
     pageviews: [],
@@ -67,6 +86,43 @@ let analyticsData = {
 app.use(express.json());
 app.use(express.static('.'));
 app.use(cors());
+
+// Get client IP address
+function getClientIp(req) {
+    const forwarded = req.headers['x-forwarded-for'];
+    if (forwarded) {
+        return forwarded.split(',')[0].trim();
+    }
+    return req.socket.remoteAddress || req.connection.remoteAddress || req.ip || 'Unknown';
+}
+
+// Visitor tracking middleware
+app.use((req, res, next) => {
+    // Only track page visits (HTML requests, not API calls or static assets)
+    if (req.path === '/' || req.path.endsWith('.html')) {
+        const ip = getClientIp(req);
+        const now = new Date().toISOString();
+
+        if (!visitors[ip]) {
+            visitors[ip] = {
+                ip: ip,
+                firstVisit: now,
+                lastVisit: now,
+                visitCount: 1,
+                pages: [req.path]
+            };
+        } else {
+            visitors[ip].lastVisit = now;
+            visitors[ip].visitCount += 1;
+            if (!visitors[ip].pages.includes(req.path)) {
+                visitors[ip].pages.push(req.path);
+            }
+        }
+
+        saveVisitors(visitors);
+    }
+    next();
+});
 
 // Contact form submission endpoint
 app.post('/api/contact', async (req, res) => {
@@ -214,11 +270,6 @@ app.get('/api/analytics/summary', (req, res) => {
 // Send daily analytics email
 async function sendDailyAnalyticsEmail() {
     try {
-        if (analyticsData.pageviews.length === 0) {
-            console.log('No analytics data to send today');
-            return;
-        }
-
         const summary = generateAnalyticsSummary();
         const emailHtml = generateAnalyticsEmailHtml(summary);
 
@@ -232,7 +283,7 @@ async function sendDailyAnalyticsEmail() {
 
         console.log('✅ Daily analytics email sent to', process.env.SALES_EMAIL);
 
-        // Clear analytics data after sending
+        // Note: We keep visitor data for future reports, but clear pageview metrics
         analyticsData = {
             pageviews: [],
             clicks: [],
@@ -280,16 +331,22 @@ function generateAnalyticsSummary() {
         .slice(0, 5)
         .map(([source, count]) => ({ source, visits: count }));
 
+    // Get visitor list sorted by visit count
+    const visitorList = Object.values(visitors)
+        .sort((a, b) => b.visitCount - a.visitCount)
+        .slice(0, 50); // Top 50 visitors
+
     return {
         date: new Date().toLocaleDateString(),
-        totalVisitors: uniqueSessions,
+        totalVisitors: Object.keys(visitors).length,
         totalPageviews: analyticsData.pageviews.length,
         avgTimeOnPage,
         topPages,
         trafficSources,
         devices,
         formSubmissions: analyticsData.formSubmissions.length,
-        totalClicks: analyticsData.clicks.length
+        totalClicks: analyticsData.clicks.length,
+        visitorList
     };
 }
 
@@ -307,8 +364,19 @@ function generateAnalyticsEmailHtml(summary) {
         .map(([device, count]) => `<li>${device}: ${count}</li>`)
         .join('');
 
+    const visitorsHtml = summary.visitorList
+        .map(v => `
+            <tr style="border-bottom: 1px solid #e2e8f0;">
+                <td style="padding: 10px; font-family: monospace; font-size: 0.9em;">${escapeHtml(v.ip)}</td>
+                <td style="padding: 10px; text-align: center;">${v.visitCount}</td>
+                <td style="padding: 10px; font-size: 0.9em;">${escapeHtml(v.pages.slice(0, 2).join(', '))}</td>
+                <td style="padding: 10px; font-size: 0.9em;">${new Date(v.lastVisit).toLocaleString()}</td>
+            </tr>
+        `)
+        .join('');
+
     return `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f8fafc; padding: 20px; border-radius: 8px;">
+        <div style="font-family: Arial, sans-serif; max-width: 900px; margin: 0 auto; background: #f8fafc; padding: 20px; border-radius: 8px;">
             <h2 style="color: #1e40af; margin-top: 0;">Daily Analytics Report</h2>
             <p style="color: #475569;">Report Date: <strong>${summary.date}</strong></p>
 
@@ -316,7 +384,7 @@ function generateAnalyticsEmailHtml(summary) {
                 <h3 style="color: #1e40af; margin-top: 0;">Key Metrics</h3>
                 <table style="width: 100%; border-collapse: collapse;">
                     <tr style="background: #f0f4f8;">
-                        <td style="padding: 12px; font-weight: 600;">Total Visitors</td>
+                        <td style="padding: 12px; font-weight: 600;">Total Unique Visitors</td>
                         <td style="padding: 12px; text-align: right; font-size: 1.5em; color: #1e40af; font-weight: 600;">${summary.totalVisitors}</td>
                     </tr>
                     <tr>
@@ -331,6 +399,23 @@ function generateAnalyticsEmailHtml(summary) {
                         <td style="padding: 12px;">Form Submissions</td>
                         <td style="padding: 12px; text-align: right; font-weight: 500; color: #10b981;">${summary.formSubmissions}</td>
                     </tr>
+                </table>
+            </div>
+
+            <div style="background: white; padding: 20px; border-radius: 6px; margin: 20px 0;">
+                <h3 style="color: #1e40af; margin-top: 0;">🌐 Visitor Details</h3>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+                    <thead>
+                        <tr style="background: #f0f4f8;">
+                            <th style="padding: 12px; text-align: left; font-weight: 600;">Public IP</th>
+                            <th style="padding: 12px; text-align: center; font-weight: 600;">Visits</th>
+                            <th style="padding: 12px; text-align: left; font-weight: 600;">Pages Visited</th>
+                            <th style="padding: 12px; text-align: left; font-weight: 600;">Last Visit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${visitorsHtml || '<tr><td colspan="4" style="padding: 10px;">No visitors yet</td></tr>'}
+                    </tbody>
                 </table>
             </div>
 
@@ -373,7 +458,7 @@ function generateAnalyticsEmailHtml(summary) {
 
             <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0; font-size: 12px; color: #475569; text-align: center;">
                 <p style="margin: 0;">This is an automated daily analytics report from YugamGroup website.</p>
-                <p style="margin: 5px 0 0 0;">Powered by GDPR-Compliant Analytics</p>
+                <p style="margin: 5px 0 0 0;">Powered by Privacy-Respecting Analytics</p>
             </div>
         </div>
     `;
@@ -400,6 +485,22 @@ function scheduleDailyEmail() {
     console.log(`Daily analytics email scheduled for ${target.toLocaleString()}`);
 }
 
+// API endpoint to get current visitors (for dashboard)
+app.get('/api/visitors', (req, res) => {
+    try {
+        const visitorList = Object.values(visitors)
+            .sort((a, b) => b.visitCount - a.visitCount);
+
+        res.json({
+            totalVisitors: visitorList.length,
+            visitors: visitorList
+        });
+    } catch (error) {
+        console.error('Visitors endpoint error:', error);
+        res.status(500).json({ success: false });
+    }
+});
+
 // Health check endpoint
 app.get('/health', (req, res) => {
     res.json({ status: 'Server is running' });
@@ -409,7 +510,9 @@ app.get('/health', (req, res) => {
 app.listen(PORT, () => {
     console.log(`\nYuGam Group server running on http://localhost:${PORT}`);
     console.log(`Contact form API available at POST http://localhost:${PORT}/api/contact`);
-    console.log(`Analytics API available at POST http://localhost:${PORT}/api/analytics\n`);
+    console.log(`Analytics API available at POST http://localhost:${PORT}/api/analytics`);
+    console.log(`Visitors API available at GET http://localhost:${PORT}/api/visitors`);
+    console.log(`Current visitors being tracked: ${Object.keys(visitors).length}\n`);
 
     // Schedule daily analytics email
     scheduleDailyEmail();
