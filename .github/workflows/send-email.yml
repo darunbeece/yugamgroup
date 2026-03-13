@@ -1,9 +1,9 @@
 name: Send Email via Gmail SMTP
 
 on:
-  # Run daily analytics email at 9 AM UTC
+  # Run daily analytics email at 8 AM CST/CDT (1 PM UTC)
   schedule:
-    - cron: '0 9 * * *'
+    - cron: '0 13 * * *'
 
   # Allow manual trigger from Actions tab
   workflow_dispatch:
