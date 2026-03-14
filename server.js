@@ -3,6 +3,7 @@ const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 const nodemailer = require('nodemailer');
+const ExcelJS = require('exceljs');
 require('dotenv').config();
 
 const app = express();
@@ -29,14 +30,15 @@ transporter.verify((error, success) => {
     }
 });
 
-async function sendEmail({ from, fromName, to, replyTo, subject, html }) {
+async function sendEmail({ from, fromName, to, replyTo, subject, html, attachments }) {
     try {
         const mailOptions = {
             from: `"${fromName || 'YuGam Group'}" <${from}>`,
             to: Array.isArray(to) ? to.join(',') : to,
             subject,
             html,
-            replyTo
+            replyTo,
+            attachments: attachments || []
         };
 
         const info = await transporter.sendMail(mailOptions);
@@ -272,16 +274,26 @@ async function sendDailyAnalyticsEmail() {
     try {
         const summary = generateAnalyticsSummary();
         const emailHtml = generateAnalyticsEmailHtml(summary);
+        const excelBuffer = await generateAnalyticsExcelFile(summary);
+
+        const attachments = [
+            {
+                filename: `YugamGroup_Analytics_${new Date().toISOString().split('T')[0]}.xlsx`,
+                content: excelBuffer,
+                contentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            }
+        ];
 
         await sendEmail({
             from: 'prasoona@yugamgroup.com',
             fromName: 'YuGam Group Analytics',
             to: process.env.SALES_EMAIL,
             subject: `YugamGroup Daily Analytics Report - ${new Date().toLocaleDateString()}`,
-            html: emailHtml
+            html: emailHtml,
+            attachments: attachments
         });
 
-        console.log('✅ Daily analytics email sent to', process.env.SALES_EMAIL);
+        console.log('✅ Daily analytics email with Excel attachment sent to', process.env.SALES_EMAIL);
 
         // Note: We keep visitor data for future reports, but clear pageview metrics
         analyticsData = {
@@ -348,6 +360,136 @@ function generateAnalyticsSummary() {
         totalClicks: analyticsData.clicks.length,
         visitorList
     };
+}
+
+// Generate Excel file for analytics
+async function generateAnalyticsExcelFile(summary) {
+    const workbook = new ExcelJS.Workbook();
+    const sheet = workbook.addWorksheet('Daily Analytics');
+
+    // Title
+    sheet.mergeCells('A1:D1');
+    const titleCell = sheet.getCell('A1');
+    titleCell.value = `YugamGroup Daily Analytics Report - ${summary.date}`;
+    titleCell.font = { bold: true, size: 14, color: { argb: 'FF1e40af' } };
+    titleCell.alignment = { horizontal: 'center', vertical: 'center' };
+    sheet.getRow(1).height = 25;
+
+    // Key Metrics Section
+    sheet.mergeCells('A3:D3');
+    const metricsTitle = sheet.getCell('A3');
+    metricsTitle.value = 'Key Metrics';
+    metricsTitle.font = { bold: true, size: 12, color: { argb: 'FF1e40af' } };
+
+    // Metrics data
+    const metricsData = [
+        ['Total Unique Visitors', summary.totalVisitors],
+        ['Total Page Views', summary.totalPageviews],
+        ['Avg. Time on Page (seconds)', summary.avgTimeOnPage],
+        ['Form Submissions', summary.formSubmissions],
+        ['Total Clicks', summary.totalClicks]
+    ];
+
+    let row = 4;
+    metricsData.forEach(([label, value]) => {
+        sheet.getCell(`A${row}`).value = label;
+        sheet.getCell(`B${row}`).value = value;
+        sheet.getCell(`A${row}`).font = { bold: true };
+        sheet.getCell(`B${row}`).font = { color: { argb: 'FF1e40af' } };
+        row++;
+    });
+
+    // Visitor Details Section
+    row += 2;
+    sheet.mergeCells(`A${row}:D${row}`);
+    const visitorTitle = sheet.getCell(`A${row}`);
+    visitorTitle.value = 'Visitor Details';
+    visitorTitle.font = { bold: true, size: 12, color: { argb: 'FF1e40af' } };
+    row++;
+
+    // Visitor headers
+    sheet.getCell(`A${row}`).value = 'Public IP';
+    sheet.getCell(`B${row}`).value = 'Visits';
+    sheet.getCell(`C${row}`).value = 'Pages Visited';
+    sheet.getCell(`D${row}`).value = 'Last Visit';
+
+    ['A', 'B', 'C', 'D'].forEach(col => {
+        sheet.getCell(`${col}${row}`).font = { bold: true, color: { argb: 'FFFFFFFF' } };
+        sheet.getCell(`${col}${row}`).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF1e40af' } };
+    });
+    row++;
+
+    // Visitor data
+    if (summary.visitorList && summary.visitorList.length > 0) {
+        summary.visitorList.forEach(visitor => {
+            sheet.getCell(`A${row}`).value = visitor.ip;
+            sheet.getCell(`B${row}`).value = visitor.visitCount;
+            sheet.getCell(`C${row}`).value = visitor.pages.slice(0, 3).join(', ');
+            sheet.getCell(`D${row}`).value = new Date(visitor.lastVisit).toLocaleString();
+            sheet.getCell(`A${row}`).font = { name: 'Courier New' };
+            row++;
+        });
+    }
+
+    // Top Pages Section
+    row += 2;
+    sheet.mergeCells(`A${row}:B${row}`);
+    const topPagesTitle = sheet.getCell(`A${row}`);
+    topPagesTitle.value = 'Top Pages';
+    topPagesTitle.font = { bold: true, size: 12, color: { argb: 'FF1e40af' } };
+    row++;
+
+    sheet.getCell(`A${row}`).value = 'Page';
+    sheet.getCell(`B${row}`).value = 'Visits';
+    sheet.getCell(`A${row}`).font = { bold: true, color: { argb: 'FFFFFFFF' } };
+    sheet.getCell(`B${row}`).font = { bold: true, color: { argb: 'FFFFFFFF' } };
+    sheet.getCell(`A${row}`).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF1e40af' } };
+    sheet.getCell(`B${row}`).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF1e40af' } };
+    row++;
+
+    if (summary.topPages && summary.topPages.length > 0) {
+        summary.topPages.forEach(page => {
+            sheet.getCell(`A${row}`).value = page.page;
+            sheet.getCell(`B${row}`).value = page.visits;
+            row++;
+        });
+    }
+
+    // Traffic Sources Section
+    row += 2;
+    sheet.mergeCells(`A${row}:B${row}`);
+    const trafficTitle = sheet.getCell(`A${row}`);
+    trafficTitle.value = 'Traffic Sources';
+    trafficTitle.font = { bold: true, size: 12, color: { argb: 'FF1e40af' } };
+    row++;
+
+    sheet.getCell(`A${row}`).value = 'Source';
+    sheet.getCell(`B${row}`).value = 'Visits';
+    sheet.getCell(`A${row}`).font = { bold: true, color: { argb: 'FFFFFFFF' } };
+    sheet.getCell(`B${row}`).font = { bold: true, color: { argb: 'FFFFFFFF' } };
+    sheet.getCell(`A${row}`).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF1e40af' } };
+    sheet.getCell(`B${row}`).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF1e40af' } };
+    row++;
+
+    if (summary.trafficSources && summary.trafficSources.length > 0) {
+        summary.trafficSources.forEach(source => {
+            sheet.getCell(`A${row}`).value = source.source;
+            sheet.getCell(`B${row}`).value = source.visits;
+            row++;
+        });
+    }
+
+    // Column widths
+    sheet.columns = [
+        { width: 20 },
+        { width: 15 },
+        { width: 30 },
+        { width: 25 }
+    ];
+
+    // Generate buffer
+    const buffer = await workbook.xlsx.writeBuffer();
+    return buffer;
 }
 
 // Generate HTML email for analytics
