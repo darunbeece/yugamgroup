@@ -84,11 +84,6 @@ let analyticsData = {
     scrollDepth: []
 };
 
-// Middleware
-app.use(express.json());
-app.use(express.static('.'));
-app.use(cors());
-
 // Get client IP address
 function getClientIp(req) {
     const forwarded = req.headers['x-forwarded-for'];
@@ -98,7 +93,11 @@ function getClientIp(req) {
     return req.socket.remoteAddress || req.connection.remoteAddress || req.ip || 'Unknown';
 }
 
-// Visitor tracking middleware
+// Middleware
+app.use(express.json());
+app.use(cors());
+
+// Visitor tracking middleware (BEFORE static files)
 app.use((req, res, next) => {
     // Only track page visits (HTML requests, not API calls or static assets)
     if (req.path === '/' || req.path.endsWith('.html')) {
@@ -125,6 +124,8 @@ app.use((req, res, next) => {
     }
     next();
 });
+
+app.use(express.static('.'));
 
 // Contact form submission endpoint
 app.post('/api/contact', async (req, res) => {
