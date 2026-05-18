@@ -1,18 +1,37 @@
-# Use nginx alpine for a lightweight web server
-FROM nginx:alpine
+# Multi-stage build: Build stage
+FROM node:18-alpine AS builder
 
-# Copy website files to nginx html directory
-COPY index.html /usr/share/nginx/html/
-COPY services.html /usr/share/nginx/html/
-COPY about.html /usr/share/nginx/html/
-COPY styles.css /usr/share/nginx/html/
-COPY script.js /usr/share/nginx/html/
+WORKDIR /app
 
-# Copy custom nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copy package files
+COPY package*.json ./
 
-# Expose port 80
-EXPOSE 80
+# Install dependencies
+RUN npm install
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Runtime stage
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Copy dependencies from builder
+COPY --from=builder /app/node_modules ./node_modules
+
+# Copy package files
+COPY package*.json ./
+
+# Copy all application files
+COPY *.html ./
+COPY *.js ./
+COPY *.css ./
+COPY *.json ./
+COPY *.md ./
+
+# Expose port 3000 (Node.js Express server)
+EXPOSE 3000
+
+# Set environment to production
+ENV NODE_ENV=production
+
+# Start the Node.js Express server
+CMD ["node", "server.js"]
