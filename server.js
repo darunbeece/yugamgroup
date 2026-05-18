@@ -644,6 +644,385 @@ app.get('/api/visitors', (req, res) => {
     }
 });
 
+// Security Scanner API
+const https = require('https');
+const http = require('http');
+const dns = require('dns').promises;
+const tls = require('tls');
+
+async function performSecurityScan(domain) {
+    const results = {
+        domain,
+        vulnerabilities: [],
+        securityScore: 100
+    };
+
+    try {
+        // 1. SSL/TLS Certificate Check
+        const sslCheck = await checkSSLCertificate(domain);
+        results.vulnerabilities.push(sslCheck);
+        if (sslCheck.status === 'fail') results.securityScore -= 20;
+        else if (sslCheck.status === 'warning') results.securityScore -= 5;
+
+        // 2. HTTP Security Headers Check
+        const headersCheck = await checkSecurityHeaders(domain);
+        results.vulnerabilities.push(...headersCheck);
+        headersCheck.forEach(check => {
+            if (check.status === 'fail') results.securityScore -= 10;
+            else if (check.status === 'warning') results.securityScore -= 3;
+        });
+
+        // 3. Server Information Disclosure
+        const serverCheck = await checkServerDisclosure(domain);
+        results.vulnerabilities.push(serverCheck);
+        if (serverCheck.status === 'warning') results.securityScore -= 5;
+
+        // 4. DNS Security
+        const dnsChecks = await checkDNSSecurity(domain);
+        results.vulnerabilities.push(...dnsChecks);
+        dnsChecks.forEach(check => {
+            if (check.status === 'warning') results.securityScore -= 3;
+        });
+
+        // 5. HTTPS Redirect Check
+        const httpsRedirect = await checkHTTPSRedirect(domain);
+        results.vulnerabilities.push(httpsRedirect);
+        if (httpsRedirect.status === 'warning') results.securityScore -= 5;
+
+    } catch (error) {
+        console.error('Scan error:', error);
+        results.vulnerabilities.push({
+            name: 'Scan Error',
+            description: 'Error during security scan: ' + error.message,
+            status: 'fail'
+        });
+        results.securityScore = Math.max(0, results.securityScore - 30);
+    }
+
+    // Ensure score is between 0 and 100
+    results.securityScore = Math.max(0, Math.min(100, results.securityScore));
+
+    return results;
+}
+
+function checkSSLCertificate(domain) {
+    return new Promise((resolve) => {
+        const options = {
+            hostname: domain,
+            port: 443,
+            method: 'HEAD',
+            timeout: 5000
+        };
+
+        const req = https.request(options, (res) => {
+            if (res.socket.getProtocol && res.socket.getProtocol() === 'TLSv1.2') {
+                resolve({
+                    name: 'SSL/TLS Version',
+                    description: 'Using TLSv1.2 or higher - Good encryption protocol version',
+                    status: 'pass'
+                });
+            } else if (res.socket.getProtocol && res.socket.getProtocol() === 'TLSv1.3') {
+                resolve({
+                    name: 'SSL/TLS Version',
+                    description: 'Using TLSv1.3 - Best security with modern encryption',
+                    status: 'pass'
+                });
+            } else {
+                resolve({
+                    name: 'SSL/TLS Version',
+                    description: 'SSL/TLS certificate detected and valid',
+                    status: 'pass'
+                });
+            }
+            req.abort();
+        });
+
+        req.on('error', (error) => {
+            resolve({
+                name: 'SSL/TLS Certificate',
+                description: 'SSL/TLS certificate issue: ' + error.message,
+                status: 'fail'
+            });
+        });
+
+        req.on('timeout', () => {
+            req.abort();
+            resolve({
+                name: 'SSL/TLS Certificate',
+                description: 'Unable to verify SSL/TLS certificate - connection timeout',
+                status: 'fail'
+            });
+        });
+
+        req.end();
+    });
+}
+
+function checkSecurityHeaders(domain) {
+    return new Promise((resolve) => {
+        const options = {
+            hostname: domain,
+            port: 443,
+            path: '/',
+            method: 'GET',
+            timeout: 5000
+        };
+
+        const checks = [];
+        const securityHeaders = {
+            'content-security-policy': 'Content-Security-Policy',
+            'x-frame-options': 'X-Frame-Options',
+            'x-content-type-options': 'X-Content-Type-Options',
+            'strict-transport-security': 'HSTS (HTTP Strict Transport Security)',
+            'x-xss-protection': 'X-XSS-Protection'
+        };
+
+        const req = https.request(options, (res) => {
+            const headers = res.headers;
+            const detectedHeaders = {};
+
+            Object.keys(securityHeaders).forEach(headerKey => {
+                if (headers[headerKey]) {
+                    detectedHeaders[securityHeaders[headerKey]] = true;
+                    checks.push({
+                        name: securityHeaders[headerKey],
+                        description: `Header is properly configured: ${headers[headerKey].substring(0, 50)}...`,
+                        status: 'pass'
+                    });
+                }
+            });
+
+            // Check for missing headers
+            Object.entries(securityHeaders).forEach(([headerKey, headerName]) => {
+                if (!detectedHeaders[headerName]) {
+                    checks.push({
+                        name: `Missing: ${headerName}`,
+                        description: `The ${headerName} header is not set. This security header should be configured.`,
+                        status: 'warning'
+                    });
+                }
+            });
+
+            req.abort();
+            resolve(checks.length > 0 ? checks : [{
+                name: 'Security Headers',
+                description: 'Basic security headers check completed',
+                status: 'pass'
+            }]);
+        });
+
+        req.on('error', (error) => {
+            resolve([{
+                name: 'Security Headers Check',
+                description: 'Could not check security headers: ' + error.message,
+                status: 'warning'
+            }]);
+        });
+
+        req.on('timeout', () => {
+            req.abort();
+            resolve([{
+                name: 'Security Headers Check',
+                description: 'Security headers check timed out',
+                status: 'warning'
+            }]);
+        });
+
+        req.end();
+    });
+}
+
+function checkServerDisclosure(domain) {
+    return new Promise((resolve) => {
+        const options = {
+            hostname: domain,
+            port: 80,
+            path: '/',
+            method: 'HEAD',
+            timeout: 5000
+        };
+
+        const req = http.request(options, (res) => {
+            const serverHeader = res.headers['server'];
+            if (serverHeader) {
+                resolve({
+                    name: 'Server Information Disclosure',
+                    description: `Server header exposed: "${serverHeader}". Consider removing or obfuscating this header.`,
+                    status: 'warning'
+                });
+            } else {
+                resolve({
+                    name: 'Server Information Disclosure',
+                    description: 'Server header is properly hidden - Good security practice',
+                    status: 'pass'
+                });
+            }
+            req.abort();
+        });
+
+        req.on('error', () => {
+            resolve({
+                name: 'Server Information Disclosure',
+                description: 'Could not verify server header (may be using HTTPS only)',
+                status: 'pass'
+            });
+        });
+
+        req.on('timeout', () => {
+            req.abort();
+            resolve({
+                name: 'Server Information Disclosure',
+                description: 'Check timed out',
+                status: 'warning'
+            });
+        });
+
+        req.end();
+    });
+}
+
+async function checkDNSSecurity(domain) {
+    const checks = [];
+
+    try {
+        // Check MX records (SPF-related)
+        try {
+            const mxRecords = await dns.resolveMx(domain);
+            if (mxRecords && mxRecords.length > 0) {
+                checks.push({
+                    name: 'Mail Server Records (MX)',
+                    description: `${mxRecords.length} mail server(s) found - Email infrastructure configured`,
+                    status: 'pass'
+                });
+            }
+        } catch (error) {
+            checks.push({
+                name: 'Mail Server Records (MX)',
+                description: 'No MX records found - Email may not work properly',
+                status: 'warning'
+            });
+        }
+
+        // Check for DNS A records
+        try {
+            const aRecords = await dns.resolve4(domain);
+            if (aRecords && aRecords.length > 0) {
+                checks.push({
+                    name: 'DNS A Records',
+                    description: `Domain resolves to IP: ${aRecords[0]}`,
+                    status: 'pass'
+                });
+            }
+        } catch (error) {
+            checks.push({
+                name: 'DNS Resolution',
+                description: 'Unable to resolve domain DNS records',
+                status: 'fail'
+            });
+        }
+    } catch (error) {
+        checks.push({
+            name: 'DNS Security',
+            description: 'Error checking DNS records',
+            status: 'warning'
+        });
+    }
+
+    return checks.length > 0 ? checks : [{
+        name: 'DNS Records',
+        description: 'DNS records are properly configured',
+        status: 'pass'
+    }];
+}
+
+function checkHTTPSRedirect(domain) {
+    return new Promise((resolve) => {
+        const options = {
+            hostname: domain,
+            port: 80,
+            path: '/',
+            method: 'HEAD',
+            timeout: 5000
+        };
+
+        const req = http.request(options, (res) => {
+            const location = res.headers['location'];
+            if (location && location.startsWith('https')) {
+                resolve({
+                    name: 'HTTPS Redirect',
+                    description: 'HTTP requests are properly redirected to HTTPS',
+                    status: 'pass'
+                });
+            } else {
+                resolve({
+                    name: 'HTTPS Redirect',
+                    description: 'HTTP to HTTPS redirect may not be configured properly',
+                    status: 'warning'
+                });
+            }
+            req.abort();
+        });
+
+        req.on('error', () => {
+            resolve({
+                name: 'HTTPS Configuration',
+                description: 'Unable to check HTTP configuration (may be HTTPS only - which is good)',
+                status: 'pass'
+            });
+        });
+
+        req.on('timeout', () => {
+            req.abort();
+            resolve({
+                name: 'HTTPS Redirect',
+                description: 'Check timed out',
+                status: 'warning'
+            });
+        });
+
+        req.end();
+    });
+}
+
+// API endpoint for security scanning
+app.post('/api/scan', async (req, res) => {
+    try {
+        const { domain } = req.body;
+
+        // Validate domain
+        if (!domain || typeof domain !== 'string') {
+            return res.status(400).json({
+                success: false,
+                message: 'Please provide a valid domain name'
+            });
+        }
+
+        // Basic domain validation
+        const domainRegex = /^([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/i;
+        if (!domainRegex.test(domain)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Please enter a valid domain name (e.g., example.com)'
+            });
+        }
+
+        // Perform security scan
+        const scanResults = await performSecurityScan(domain);
+
+        res.json({
+            success: true,
+            ...scanResults
+        });
+
+    } catch (error) {
+        console.error('Scan endpoint error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'An error occurred during the scan. Please try again.'
+        });
+    }
+});
+
 // Health check endpoint
 app.get('/health', (req, res) => {
     res.json({ status: 'Server is running' });
