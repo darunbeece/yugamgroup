@@ -159,21 +159,6 @@ class TiltEffect {
     }
 }
 
-// Initialize 3D tilt on desktop
-if (window.innerWidth > 768) {
-    document.addEventListener('DOMContentLoaded', () => {
-        const tiltElements = document.querySelectorAll('.service-card, .dashboard-widget, .dashboard-card');
-        if (tiltElements.length > 0) {
-            new TiltEffect(tiltElements, {
-                maxTilt: 10,
-                perspective: 1000,
-                scale: 1.03,
-                speed: 400
-            });
-        }
-    });
-}
-
 // ===== Animated Counter =====
 class AnimatedCounter {
     constructor(element, options = {}) {
@@ -465,20 +450,6 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe cards and sections for fade-in animation
-document.addEventListener('DOMContentLoaded', () => {
-    const animateElements = document.querySelectorAll(
-        '.service-card, .dashboard-widget, .question-card, .assessment-results'
-    );
-
-    animateElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
-});
-
 // ===== Simple Chart Animation for Dashboard =====
 const chartCanvas = document.getElementById('threatsChart');
 if (chartCanvas) {
@@ -496,11 +467,11 @@ if (chartCanvas) {
 
         // Draw gradient
         const gradient = ctx.createLinearGradient(0, 0, 0, height);
-        gradient.addColorStop(0, 'rgba(99, 102, 241, 0.4)');
-        gradient.addColorStop(1, 'rgba(99, 102, 241, 0.05)');
+        gradient.addColorStop(0, 'rgba(32, 68, 109, 0.22)');
+        gradient.addColorStop(1, 'rgba(32, 68, 109, 0)');
 
         ctx.fillStyle = gradient;
-        ctx.strokeStyle = '#6366f1';
+        ctx.strokeStyle = '#20446d';
         ctx.lineWidth = 2;
 
         ctx.beginPath();
@@ -537,132 +508,16 @@ if (chartCanvas) {
     }, 2000);
 }
 
-// ===== Spider Web Cursor Effect =====
-class SpiderWebCursor {
-    constructor() {
-        this.points = [];
-        this.maxPoints = 20;
-        this.mouseX = 0;
-        this.mouseY = 0;
-        this.lastX = 0;
-        this.lastY = 0;
-        this.webContainer = null;
-        this.init();
-    }
-
-    init() {
-        // Create web container
-        this.webContainer = document.createElement('div');
-        this.webContainer.className = 'spider-web-cursor';
-        document.body.appendChild(this.webContainer);
-
-        // Track mouse movement
-        document.addEventListener('mousemove', (e) => this.handleMouseMove(e));
-        document.addEventListener('touchmove', (e) => this.handleTouchMove(e));
-
-        // Animate web
-        this.animate();
-    }
-
-    handleMouseMove(e) {
-        this.mouseX = e.clientX;
-        this.mouseY = e.clientY;
-        this.addPoint(this.mouseX, this.mouseY);
-    }
-
-    handleTouchMove(e) {
-        const touch = e.touches[0];
-        this.mouseX = touch.clientX;
-        this.mouseY = touch.clientY;
-        this.addPoint(this.mouseX, this.mouseY);
-    }
-
-    addPoint(x, y) {
-        this.points.push({ x, y, age: 0 });
-        if (this.points.length > this.maxPoints) {
-            this.points.shift();
-        }
-    }
-
-    animate() {
-        // Update point ages
-        this.points.forEach(point => point.age++);
-
-        // Remove old points
-        this.points = this.points.filter(point => point.age < 50);
-
-        // Render web
-        this.renderWeb();
-
-        requestAnimationFrame(() => this.animate());
-    }
-
-    renderWeb() {
-        const theme = document.documentElement.getAttribute('data-theme') || 'light';
-        const webColor = theme === 'dark' ? 'rgba(0, 212, 255,' : 'rgba(43, 88, 118,';
-
-        let html = '';
-
-        // Draw lines between nearby points
-        for (let i = 0; i < this.points.length; i++) {
-            for (let j = i + 1; j < this.points.length; j++) {
-                const p1 = this.points[i];
-                const p2 = this.points[j];
-                const distance = Math.sqrt(
-                    Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2)
-                );
-
-                if (distance < 100) {
-                    const opacity = (1 - distance / 100) * 0.3 * (1 - p1.age / 50);
-                    html += `<svg style="position:fixed;pointer-events:none;z-index:9999;">
-                        <line x1="${p1.x}" y1="${p1.y}" x2="${p2.x}" y2="${p2.y}"
-                            stroke="${webColor}${opacity})"
-                            stroke-width="0.5"/>
-                    </svg>`;
-                }
-            }
-
-            // Draw point
-            const opacity = (1 - this.points[i].age / 50) * 0.5;
-            html += `<div style="
-                position:fixed;
-                left:${this.points[i].x - 2}px;
-                top:${this.points[i].y - 2}px;
-                width:4px;
-                height:4px;
-                background:${webColor}${opacity})};
-                border-radius:50%;
-                pointer-events:none;
-                z-index:9999;
-            "></div>`;
-        }
-
-        this.webContainer.innerHTML = html;
-    }
-}
-
-// Initialize spider web cursor effect on pages with hero section
-document.addEventListener('DOMContentLoaded', () => {
-    const heroSection = document.querySelector('.hero');
-    if (heroSection) {
-        new SpiderWebCursor();
-    }
-});
-
 // ===== Console Easter Egg =====
 console.log(
     '%c🔒 YuGam Group - Enterprise Security',
-    'font-size: 20px; font-weight: bold; color: #6366f1;'
+    'font-size: 20px; font-weight: bold; color: #20446d;'
 );
 console.log(
     '%cSecure your cloud infrastructure with expert solutions.',
     'font-size: 14px; color: #94a3b8;'
 );
 console.log(
-    '%c🕷️ Protected by Spider Web Security',
-    'font-size: 12px; color: #10b981;'
-);
-console.log(
-    '%cInterested in joining our team? Email: careers@yugamgroup.com',
+        '%cInterested in joining our team? Email: careers@yugamgroup.com',
     'font-size: 12px; color: #10b981;'
 );
