@@ -143,6 +143,97 @@
         </div>
     </section>
 
+    <!-- Use Cases in Today's Market -->
+    <section class="case-studies-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Use Cases in Today's Market</h2>
+                <p class="section-subtitle">Two problems our clients are facing right now, and how we approach them.</p>
+            </div>
+            <div class="jobs-grid">
+                <!-- Use Case: Dark Factory -->
+                <div class="job-card case-study-card">
+                    <div class="case-study-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="job-header">
+                        <h3>Securing the Dark Factory</h3>
+                    </div>
+                    <div class="job-meta">
+                        <span><i class="fas fa-industry"></i> Discrete Manufacturing</span>
+                        <span><i class="fas fa-bolt"></i> 2026 Use Case</span>
+                    </div>
+                    <p class="job-description">
+                        <strong>The market:</strong> Lights-out plants, where robots and machines run with little or no
+                        staff on the floor, are already in operation at automation leaders like FANUC, Tesla and Philips.
+                        At the same time, manufacturing was again the most targeted industry for ransomware in Q2 2026,
+                        a position it has held for several years.
+                    </p>
+                    <p class="job-description">
+                        <strong>The challenge:</strong> A manufacturer moving to unattended shifts connects PLCs, robots,
+                        vision systems and MES to cloud analytics. With nobody on site overnight, a compromised controller
+                        or ransomware on the plant network can stop production for hours before anyone notices.
+                    </p>
+                    <p class="job-description">
+                        <strong>Our approach:</strong> We separate OT from IT using ISA/IEC 62443 zones and conduits, run
+                        edge workloads on Kubernetes with Azure IoT Operations or AWS IoT, and replace standing vendor
+                        VPNs with zero trust remote access. OT-aware anomaly detection feeds a 24/7 SOC with automated
+                        safe-stop playbooks, and PLC configs and golden images are backed up immutably.
+                    </p>
+                    <div class="case-study-results">
+                        <h4>What We Deliver:</h4>
+                        <ul>
+                            <li>Unattended shifts with automated threat detection and response</li>
+                            <li>Vendor and remote access with no always-on VPN tunnels</li>
+                            <li>A tested recovery plan with a defined recovery time for every line</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Use Case: DevSecOps for the EU CRA -->
+                <div class="job-card case-study-card">
+                    <div class="case-study-icon">
+                        <i class="fas fa-shield-halved"></i>
+                    </div>
+                    <div class="job-header">
+                        <h3>DevSecOps for the EU Cyber Resilience Act</h3>
+                    </div>
+                    <div class="job-meta">
+                        <span><i class="fas fa-industry"></i> SaaS &amp; Connected Products</span>
+                        <span><i class="fas fa-bolt"></i> 2026 Use Case</span>
+                    </div>
+                    <p class="job-description">
+                        <strong>The market:</strong> Since September 11, 2026, makers of software and connected products
+                        sold in the EU must report actively exploited vulnerabilities, with an early warning within 24
+                        hours and details within 72. Machine-readable SBOMs become mandatory in December 2027.
+                    </p>
+                    <p class="job-description">
+                        <strong>The challenge:</strong> A software vendor ships weekly, pulls in hundreds of open source
+                        packages, and now writes a growing share of code with AI assistants. When a new zero-day lands,
+                        nobody can say within 24 hours which releases and customers are affected.
+                    </p>
+                    <p class="job-description">
+                        <strong>Our approach:</strong> We generate a CycloneDX or SPDX SBOM on every build, sign artifacts
+                        and record provenance with Sigstore and SLSA, and enforce policy-as-code gates in GitHub Actions or
+                        Azure DevOps. SAST, secret, dependency and container scanning cover AI-generated code too, and an
+                        incident runbook maps each step to the 24-hour, 72-hour and 14-day reporting clock.
+                    </p>
+                    <div class="case-study-results">
+                        <h4>What We Deliver:</h4>
+                        <ul>
+                            <li>"Are we affected?" answered in minutes, not days</li>
+                            <li>Only signed, verified images reach production clusters</li>
+                            <li>Release evidence ready for auditors and enterprise customers</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <p class="section-subtitle" style="font-size: 0.85rem; margin-top: 24px; max-width: none;">
+                Sources: ZeroFox Q2 2026 Ransomware Wrap-Up; EU Cyber Resilience Act, Regulation (EU) 2024/2847.
+            </p>
+        </div>
+    </section>
+
     <!-- CTA Section -->
     <section class="cta-section">
         <div class="container">
