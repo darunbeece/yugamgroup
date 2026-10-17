@@ -198,6 +198,43 @@ b += '<path d="M238 190C330 190 444 192 444 222"/><path d="M436 213L444 223L452 
 b += label(444, 66, "Your team") + label(150, 340, "Yugam specialists")
 art["staff-augmentation"] = plate("A senior Yugam specialist joins an open seat on the client team", b)
 
+# 9. PQC inventory: systems scanned into a cryptographic bill of materials
+b = ""
+systems = [(96, "Apps"), (168, "APIs"), (240, "PKI"), (312, "HSMs")]
+for y, t in systems:
+    b += f'<path d="M150 {y}L232 204"/>'
+for y, t in systems:
+    b += box(58, y - 22, 92, 44) + label(104, y + 5, t, color=INK, weight=600)
+b += f'<circle cx="262" cy="204" r="30" fill="{WHITE}"/><circle cx="257" cy="199" r="11"/><path d="M265 207L276 218" stroke-width="3"/>'
+b += '<path d="M292 204H352"/><path d="M344 196L352 204L344 212"/>'
+b += box(364, 72, 232, 266, WHITE) + box(364, 72, 232, 36, FOG2)
+rows = [("RSA-2048", True), ("ECDSA P-256", True), ("AES-256", False), ("ECDH P-384", True), ("SHA-384", False)]
+for i, (alg, vuln) in enumerate(rows):
+    y = 136 + i * 42
+    b += f'<circle cx="388" cy="{y-5}" r="7" fill="{BRASS if vuln else LAKE}" stroke="none"/>'
+    b += label(404, y, alg, anchor="start", color=INK, size=14, weight=600)
+    b += label(582, y, "Replace" if vuln else "Keep", anchor="end", color=BRASS if vuln else SLATE, size=13, weight=600)
+    if i < 4:
+        b += f'<path d="M376 {y+16}H584" stroke="{FOG2}" stroke-width="1"/>'
+b += label(480, 95, "Cryptographic inventory", color=INK, size=14, weight=600) + label(104, 360, "Your systems")
+art["pqc-inventory"] = plate("Systems are scanned into a cryptographic inventory that flags quantum-vulnerable algorithms", b)
+
+# 10. PQC remediation: classical to hybrid to quantum-safe, against the deadlines
+b = ""
+stages = [(120, "Today", "RSA / ECC", WHITE), (320, "Hybrid", "ECC + ML-KEM", FOG2), (520, "Quantum-safe", "ML-KEM / ML-DSA", BRASS)]
+b += '<path d="M178 150H262M378 150H462"/><path d="M254 142L262 150L254 158M454 142L462 150L454 158"/>'
+for x, t, sub, fill in stages:
+    b += f'<circle cx="{x}" cy="150" r="56" fill="{fill}"/>'
+    sc = WHITE if fill == BRASS else INK
+    b += f'<path d="M{x-14} {x and 146}V136a14 14 0 0 1 28 0V146" stroke="{sc}" stroke-width="3"/>'.replace(f'{x and 146}', '146')
+    b += f'<rect x="{x-20}" y="146" width="40" height="30" fill="{fill if fill != BRASS else BRASS}" stroke="{sc}" stroke-width="3"/>'
+    b += f'<circle cx="{x}" cy="160" r="4" fill="{sc}" stroke="none"/>'
+    b += label(x, 236, t, color=INK, size=15, weight=700) + label(x, 258, sub, size=13)
+b += '<path d="M80 320H560"/>'
+for x, yr, note in ((120, "2026", "Inventory now"), (340, "2030", "RSA-2048, P-256 deprecated"), (530, "2035", "Disallowed")):
+    b += f'<path d="M{x} 312V328"/>' + label(x, 302, yr, color=INK, size=14, weight=700) + label(x, 350, note, size=12)
+art["pqc-remediation"] = plate("Cryptography moves from classical to hybrid to quantum-safe ahead of the 2030 and 2035 NIST deadlines", b)
+
 for name, svg in art.items():
     with open(os.path.join(OUT, name + ".svg"), "w") as f:
         f.write(svg)

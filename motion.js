@@ -19,7 +19,7 @@
         '.value-card', '.benefit-card', '.benefit-item', '.process-step',
         '.stats-banner-item', '.stat-card-large', '.contact-item',
         '.framework-item', '.coverage-item', '.team-member', '.platform-badge',
-        '.footer-col'
+        '.footer-col', '.deadline-list li'
     ];
 
     // Single blocks that rise in on their own

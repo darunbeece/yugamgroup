@@ -2026,3 +2026,139 @@ ul {
         grid-column: 2;
     }
 }
+
+/* ===== Photo hero (homepage) ===== */
+.hero-photo {
+    position: relative;
+    color: var(--white);
+    background-color: var(--ink-deep);
+    background-image:
+        linear-gradient(100deg, rgba(13, 27, 43, 0.94) 0%, rgba(13, 27, 43, 0.82) 45%, rgba(13, 27, 43, 0.55) 100%),
+        url("images/photos/chicago-skyline-1800.jpg");
+    background-size: cover;
+    background-position: center 40%;
+    border-bottom: 0;
+}
+
+@media (max-width: 900px) {
+    .hero-photo {
+        background-image:
+            linear-gradient(180deg, rgba(13, 27, 43, 0.9) 0%, rgba(13, 27, 43, 0.86) 100%),
+            url("images/photos/chicago-skyline-1000.jpg");
+    }
+}
+
+.hero-photo .hero-title {
+    color: var(--white);
+}
+
+.hero-photo .hero-subtitle {
+    color: var(--fog);
+    max-width: 46ch;
+}
+
+.hero-photo .btn-secondary {
+    color: var(--white);
+    border-color: rgba(255, 255, 255, 0.7);
+}
+
+.hero-photo .btn-secondary:hover {
+    background: var(--white);
+    color: var(--ink);
+}
+
+.hero-photo .hero-visual {
+    background: rgba(13, 27, 43, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    padding: var(--s-6);
+}
+
+.hero-photo .path-title,
+.hero-photo .path-step p {
+    color: var(--fog-strong);
+}
+
+.hero-photo .path-step h3 {
+    color: var(--white);
+}
+
+/* ===== PQC deadlines band ===== */
+.pqc-deadlines {
+    padding: var(--s-9) 0;
+    color: var(--white);
+    background-color: var(--ink-deep);
+    background-image:
+        linear-gradient(rgba(13, 27, 43, 0.9), rgba(13, 27, 43, 0.9)),
+        url("images/photos/server-cabling-1800.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+@media (max-width: 900px) {
+    .pqc-deadlines {
+        background-image:
+            linear-gradient(rgba(13, 27, 43, 0.9), rgba(13, 27, 43, 0.9)),
+            url("images/photos/server-cabling-900.jpg");
+    }
+}
+
+.pqc-deadlines .section-header {
+    border-bottom-color: rgba(255, 255, 255, 0.85);
+}
+
+.pqc-deadlines .section-header.motion-rule::after {
+    border-bottom-color: rgba(255, 255, 255, 0.85);
+}
+
+.pqc-deadlines .section-title {
+    color: var(--white);
+}
+
+.pqc-deadlines .section-subtitle {
+    color: var(--fog-strong);
+}
+
+.deadline-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--s-6);
+}
+
+.deadline-list li {
+    border-top: 2px solid var(--brass);
+    padding-top: var(--s-4);
+}
+
+.deadline-date {
+    display: block;
+    font-size: var(--fs-xl);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    margin-bottom: var(--s-3);
+}
+
+.deadline-list p {
+    color: var(--fog-strong);
+    font-size: var(--fs-sm);
+    line-height: 1.55;
+}
+
+@media (max-width: 1100px) {
+    .deadline-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .deadline-list {
+        grid-template-columns: 1fr;
+        gap: var(--s-5);
+    }
+}
+
+/* Keep anchored sections clear of the sticky navbar */
+.service-detail[id] {
+    scroll-margin-top: 96px;
+}
