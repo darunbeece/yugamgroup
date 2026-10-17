@@ -1979,3 +1979,50 @@ ul {
     z-index: 2000;
     pointer-events: none;
 }
+
+/* ===== Service illustrations ===== */
+.service-art {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-bottom: var(--s-5);
+    border: 1px solid var(--fog-strong);
+}
+
+.service-detail-art {
+    margin: 0;
+}
+
+.service-detail-art img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--fog-strong);
+}
+
+@media (min-width: 960px) {
+    .service-detail.has-art {
+        max-width: none;
+        grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+        align-items: start;
+    }
+    .service-detail.has-art .service-detail-art {
+        grid-column: 2;
+        grid-row: 1;
+        position: sticky;
+        top: 104px;
+    }
+    .service-detail.has-art .service-detail-content {
+        grid-column: 1;
+        grid-row: 1;
+    }
+    .service-detail.has-art.reverse {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    }
+    .service-detail.has-art.reverse .service-detail-art {
+        grid-column: 1;
+    }
+    .service-detail.has-art.reverse .service-detail-content {
+        grid-column: 2;
+    }
+}
