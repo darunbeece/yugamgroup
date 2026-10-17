@@ -1936,3 +1936,46 @@ ul {
         margin-bottom: 0;
     }
 }
+
+/* ===== Motion layer (motion.js) ===== */
+@media (prefers-reduced-motion: no-preference) {
+    /* Hide intro content for the instant before motion.js animates it in */
+    html.motion-pending .hero-text > *,
+    html.motion-pending .hero-visual,
+    html.motion-pending .page-header .container > * {
+        opacity: 0;
+    }
+
+    /* Section rule draws in from the left instead of appearing at once */
+    .section-header.motion-rule {
+        position: relative;
+        border-bottom-color: transparent;
+    }
+    .section-header.motion-rule::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -2px;
+        border-bottom: var(--rule-strong);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
+    }
+    .section-header.motion-rule.is-drawn::after {
+        transform: scaleX(1);
+    }
+}
+
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--brass);
+    transform: scaleX(0);
+    transform-origin: left;
+    z-index: 2000;
+    pointer-events: none;
+}
