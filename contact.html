@@ -135,6 +135,8 @@
                             <label class="form-label">Subject <span class="required">*</span></label>
                             <select class="form-select" name="subject" required>
                                 <option value="">Select a subject</option>
+                                <option value="pqc-assessment">PQC Readiness Assessment</option>
+                                <option value="pqc-remediation">PQC Remediation &amp; Migration</option>
                                 <option value="ai-services">AI & Intelligence Services</option>
                                 <option value="cloud-services">Cloud & Infrastructure</option>
                                 <option value="cloud-security">Cloud Security - Consultation</option>
@@ -253,6 +255,15 @@
         const contactForm = document.getElementById('contactForm');
         const successMessage = document.getElementById('successMessage');
 
+        // Preselect the subject when linked with ?subject=pqc-assessment etc.
+        if (contactForm) {
+            const wanted = new URLSearchParams(window.location.search).get('subject');
+            const select = contactForm.querySelector('select[name="subject"]');
+            if (wanted && select && select.querySelector('option[value="' + CSS.escape(wanted) + '"]')) {
+                select.value = wanted;
+            }
+        }
+
         if (contactForm) {
             contactForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
@@ -272,6 +283,9 @@
                     if (data._honey) return;
 
                     // Deliver the enquiry by email through FormSubmit (hosted, no backend needed)
+                    const subjectSelect = contactForm.querySelector('select[name="subject"]');
+                    const subjectLabel = subjectSelect.options[subjectSelect.selectedIndex].text;
+
                     const response = await fetch('https://formsubmit.co/ajax/prasoonaarun@gmail.com', {
                         method: 'POST',
                         headers: {
@@ -282,10 +296,10 @@
                             name: data.name,
                             email: data.email,
                             company: data.company || '-',
-                            subject: data.subject,
+                            subject: subjectLabel,
                             message: data.message,
                             consent: data.consent ? 'Yes' : 'No',
-                            _subject: 'New YugamGroup enquiry: ' + data.subject + ' from ' + data.name,
+                            _subject: 'New YugamGroup enquiry: ' + subjectLabel + ' from ' + data.name,
                             _replyto: data.email,
                             _template: 'table'
                         })
