@@ -702,3 +702,5 @@ section:not(.hero):not(.page-header):not(.practice) { position: relative; }
 .why-choose + .office-strip,
 .application-process-section + .office-strip,
 .case-studies-section + .case-studies-section { padding-top: 0; }
+.form-error { margin-top: 16px; padding: 14px 18px; background: #f7e3e1; color: #6d1a14; font-weight: 500; }
+.form-error a { color: inherit; }
