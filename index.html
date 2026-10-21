@@ -5,455 +5,293 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Post-quantum cryptography (PQC) consulting and remediation for regulated enterprises. Chicago-based YugamGroup helps banks, healthcare, manufacturers and federal contractors across the US inventory cryptography and migrate to NIST ML-KEM and ML-DSA.">
+        content="YugamGroup is a Chicago-based post-quantum cryptography consultancy. We help regulated enterprises across the US inventory quantum-vulnerable cryptography and migrate to NIST's ML-KEM and ML-DSA standards, alongside cloud, zero trust and agentic AI security.">
     <title>Post-Quantum Cryptography Consulting &amp; Remediation | YugamGroup Chicago</title>
-    <link rel="stylesheet" href="styles.css?v=202610162154">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>document.documentElement.classList.add('motion-pending');setTimeout(function(){document.documentElement.classList.remove('motion-pending')},2500);</script>
+    <script>document.documentElement.classList.add('js');</script>
+    <link rel="preconnect" href="https://api.fontshare.com">
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2N37B1BJ4F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-2N37B1BJ4F');
+    </script>
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="container nav-container">
-            <div class="logo">
-                <img src="logo-yugam.svg" alt="YUGAM GROUP" class="site-logo">
-            </div>
-            <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="index.html" class="nav-link active">Home</a></li>
-                <li><a href="services.html" class="nav-link">Services</a></li>
-                <li><a href="case-studies.html" class="nav-link">Case Studies</a></li>
-                <li><a href="about.html" class="nav-link">About</a></li>
-                <li><a href="careers.html" class="nav-link">Careers</a></li>
-                <li><a href="contact.html" class="btn btn-primary">Book a consultation</a></li>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+        <a class="brand" href="index.html" aria-label="YugamGroup, home">
+            <svg viewBox="0 0 698.96 190.31" aria-hidden="true"><use href="logo-mono.svg#logo"></use></svg>
+        </a>
+        <nav class="site-nav" aria-label="Main">
+            <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-list">Menu</button>
+            <ul id="nav-list">
+                <li><a href="services.html">Services</a></li>
+                <li><a href="case-studies.html">Case studies</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="careers.html">Careers</a></li>
             </ul>
-        </div>
-    </nav>
+            <a class="btn" href="contact.html">Book a consultation</a>
+        </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero hero-photo">
-        <div class="container hero-content">
-            <div class="hero-text">
-                <h1 class="hero-title">Quantum-safe cryptography for regulated enterprises</h1>
-                <p class="hero-subtitle">
-                    YugamGroup is a Chicago-based team that helps banks, healthcare providers, manufacturers and federal contractors across the US find their quantum-vulnerable cryptography and replace it with NIST's post-quantum standards, alongside the cloud and AI programs already underway.
-                </p>
-                <div class="hero-cta">
-                    <a href="contact.html?subject=pqc-assessment" class="btn btn-primary btn-large">Book a PQC readiness assessment</a>
-                    <a href="services.html" class="btn btn-secondary btn-large">See PQC services</a>
+    <main id="main">
+        <!-- Hero: the word crosses from one field to the other -->
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-top" data-chapter></div>
+            <div class="hero-low" data-chapter></div>
+            <h1 class="hero-title" id="hero-title" aria-label="Quantum-safe.">
+                <span class="ink-top" aria-hidden="true"><span class="line">Quantum-</span><span class="line">safe.</span></span>
+                <span class="ink-low" aria-hidden="true"><span class="line">Quantum-</span><span class="line">safe.</span></span>
+            </h1>
+            <div class="hero-sub">
+                <p>Post-quantum cryptography for regulated enterprises. We find what quantum computers will break and move it to NIST’s new standards. Chicago-based, serving the US.</p>
+                <div class="hero-actions">
+                    <a class="btn" href="contact.html?subject=pqc-assessment">Book a PQC readiness assessment</a>
+                    <a class="text-link" href="services.html#pqc">See PQC services</a>
                 </div>
             </div>
-            <aside class="hero-visual" aria-labelledby="pathTitle">
-                <p class="path-title" id="pathTitle">How a PQC engagement runs</p>
-                <ol class="path">
-                    <li class="path-step">
-                        <h3>Discover</h3>
-                        <p>Scan code, certificates, PKI, HSMs and vendors to build a cryptographic inventory you can keep current.</p>
-                    </li>
-                    <li class="path-step">
-                        <h3>Prioritize</h3>
-                        <p>Rank systems by how long their data must stay secret, so harvest-now, decrypt-later risk gets fixed first.</p>
-                    </li>
-                    <li class="path-step">
-                        <h3>Remediate</h3>
-                        <p>Move to hybrid and then ML-KEM and ML-DSA in TLS, PKI and applications, in planned waves with rollback.</p>
-                    </li>
-                    <li class="path-step">
-                        <h3>Prove</h3>
-                        <p>Build crypto-agility into pipelines and hand regulators and auditors evidence they can follow.</p>
-                    </li>
-                </ol>
-            </aside>
-        </div>
-    </section>
+        </section>
 
-    <!-- PQC deadlines -->
-    <section class="pqc-deadlines">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">The quantum deadlines are already set</h2>
-                <p class="section-subtitle">Attackers can record encrypted traffic today and decrypt it once quantum computers arrive. That is why regulators have put dates on the move away from RSA and ECC.</p>
+        <!-- Harvest now, decrypt later: the live thing -->
+        <section class="section field-navy harvest" aria-labelledby="harvest-title">
+            <div class="grid wrap">
+                <div class="harvest-copy">
+                    <h2 class="h-section" id="harvest-title" data-reveal>Harvest now, decrypt later</h2>
+                    <p class="statement" data-reveal>Attackers can record encrypted traffic today and decrypt it once quantum computers arrive.</p>
+                    <p data-reveal>We work with banks, healthcare providers, manufacturers and federal contractors across the US, alongside the cloud and AI programs already underway.</p>
+                </div>
+                <form class="exposure" data-reveal aria-labelledby="exposure-title" onsubmit="return false">
+                    <h3 id="exposure-title">Check your exposure</h3>
+                    <div class="exposure-field">
+                        <label for="shelf">How long must your data stay secret?</label>
+                        <output for="shelf" data-out="shelf">10 years</output>
+                        <input id="shelf" type="range" min="1" max="30" value="10">
+                    </div>
+                    <div class="exposure-field">
+                        <label for="migrate">How long will your migration take?</label>
+                        <output for="migrate" data-out="migrate">4 years</output>
+                        <input id="migrate" type="range" min="1" max="10" value="4">
+                    </div>
+                    <p class="exposure-result" data-exposure aria-live="polite">Data encrypted with RSA this year and kept secret for ten years outlives 2030, when NIST’s draft plan deprecates RSA-2048, and 2035, when it disallows it.</p>
+                    <a class="btn" href="contact.html?subject=pqc-assessment">Get a readiness assessment</a>
+                </form>
             </div>
-            <ol class="deadline-list">
-                <li>
-                    <span class="deadline-date">Aug 2024</span>
-                    <p>NIST publishes the first post-quantum standards: FIPS 203 (ML-KEM), FIPS 204 (ML-DSA) and FIPS 205 (SLH-DSA).</p>
-                </li>
-                <li>
-                    <span class="deadline-date">Jan 2026</span>
-                    <p>The G7 Cyber Expert Group sets out a PQC roadmap for financial services, with critical systems migrated by 2030 to 2032.</p>
-                </li>
-                <li>
-                    <span class="deadline-date">Jun 2026</span>
-                    <p>Executive Order 14412 requires federal agencies to plan PQC migration and directs rules for federal contractors.</p>
-                </li>
-                <li>
-                    <span class="deadline-date">2030</span>
-                    <p>Federal high-value systems must use PQC for key establishment. NIST's draft plan deprecates RSA-2048 and P-256.</p>
-                </li>
-                <li>
-                    <span class="deadline-date">2035</span>
-                    <p>NIST's draft plan disallows quantum-vulnerable public-key algorithms in conforming systems.</p>
-                </li>
+        </section>
+
+        <!-- The deadlines, set as display rows -->
+        <section class="deadlines field-paper" aria-labelledby="deadlines-title">
+            <div class="grid wrap deadlines-head">
+                <div>
+                    <h2 class="h-section" id="deadlines-title" data-reveal>The deadlines are set</h2>
+                    <p data-reveal>Regulators have put dates on the move away from RSA and ECC. Most programs take years, so the work starts well before the first date.</p>
+                </div>
+                <figure class="deadlines-film" data-reveal>
+                    <video autoplay muted loop playsinline preload="metadata" poster="assets/earth-night-poster.jpg"
+                        aria-label="The Earth turning at night, city lights visible across the Americas">
+                        <source src="assets/earth-night.webm" type="video/webm">
+                    </video>
+                </figure>
+            </div>
+            <ol class="dates">
+                <li data-reveal><span class="date">Aug 2024</span><p>NIST publishes the first post-quantum standards: FIPS 203 (ML-KEM), FIPS 204 (ML-DSA) and FIPS 205 (SLH-DSA).</p></li>
+                <li data-reveal><span class="date">Jan 2026</span><p>The G7 Cyber Expert Group sets out a PQC roadmap for financial services, with critical systems migrated by 2030 to 2032.</p></li>
+                <li data-reveal><span class="date">Jun 2026</span><p>Executive Order 14412 requires federal agencies to plan PQC migration and directs rules for federal contractors.</p></li>
+                <li data-reveal><span class="date">2030</span><p>Federal high-value systems must use PQC for key establishment. NIST’s draft plan deprecates RSA-2048 and P-256.</p></li>
+                <li data-reveal><span class="date">2035</span><p>NIST’s draft plan disallows quantum-vulnerable public-key algorithms in conforming systems.</p></li>
             </ol>
-        </div>
-    </section>
+        </section>
 
-    <!-- Service Domains Section -->
-    <section class="service-domains">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">What we do</h2>
-                <p class="section-subtitle">Post-quantum security is where we lead. Cloud, zero trust and agentic AI work is where most of the cryptography lives, so we deliver all three as one team.</p>
+        <!-- Two giant words compared -->
+        <section class="section field-blue swap" aria-labelledby="swap-title">
+            <div class="grid wrap">
+                <h2 class="h-section swap-head" id="swap-title" data-reveal>From inventory to quantum-safe</h2>
+                <p class="swap-text" data-reveal>Most teams don’t know where their RSA and ECC keys are. We find them, fix the ones that matter most first, and leave you able to swap algorithms again without rewriting systems.</p>
             </div>
-
-            <div class="domains-grid">
-                <!-- Post-Quantum Security -->
-                <div class="domain-card ai-card">
-                    <div class="domain-icon ai-gradient">
-                        <i class="fas fa-key"></i>
-                    </div>
-                    <h3>Post-Quantum Security</h3>
-                    <p>Readiness assessments, cryptographic inventory and end-to-end remediation to NIST's post-quantum standards for regulated enterprises across the US.</p>
-                    <div class="domain-services">
-                        <span class="service-tag">PQC Readiness Assessment</span>
-                        <span class="service-tag">Cryptographic Inventory &amp; CBOM</span>
-                        <span class="service-tag">ML-KEM &amp; ML-DSA Migration</span>
-                        <span class="service-tag">PKI &amp; Certificate Modernization</span>
-                        <span class="service-tag">HSM &amp; Key Management</span>
-                        <span class="service-tag">Crypto-Agility Engineering</span>
-                    </div>
+            <div class="specimens wrap">
+                <div class="specimen" data-reveal>
+                    <p class="specimen-word old">RSA</p>
+                    <p>Today’s public-key cryptography, with ECC: breakable by a large quantum computer.</p>
                 </div>
-
-                <!-- Cloud & Zero Trust -->
-                <div class="domain-card cloud-card">
-                    <div class="domain-icon cloud-gradient">
-                        <i class="fas fa-cloud"></i>
-                    </div>
-                    <h3>Cloud &amp; Zero Trust</h3>
-                    <p>Secure Azure and AWS landing zones, cloud migration and zero trust controls, built so quantum-safe cryptography can be switched on without a redesign.</p>
-                    <div class="domain-services">
-                        <span class="service-tag">Cloud Platform Migration</span>
-                        <span class="service-tag">Zero Trust Architecture</span>
-                        <span class="service-tag">Policy-as-Code Governance</span>
-                        <span class="service-tag">Kubernetes &amp; AKS / ARO</span>
-                        <span class="service-tag">Cloud Cost Optimization</span>
-                    </div>
-                </div>
-
-                <!-- Agentic AI & Engineering -->
-                <div class="domain-card eng-card">
-                    <div class="domain-icon eng-gradient">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <h3>Agentic AI &amp; Engineering</h3>
-                    <p>Governed agentic and generative AI, data platforms and application modernization, with the keys, secrets and service identities they depend on kept quantum-ready.</p>
-                    <div class="domain-services">
-                        <span class="service-tag">Agentic AI Governance</span>
-                        <span class="service-tag">Generative AI &amp; Analytics</span>
-                        <span class="service-tag">Data Estate Modernization</span>
-                        <span class="service-tag">Application Modernization</span>
-                        <span class="service-tag">DevSecOps</span>
-                    </div>
+                <div class="specimen" data-reveal>
+                    <p class="specimen-word">ML-KEM</p>
+                    <p>FIPS 203, NIST’s standard for quantum-safe key establishment, with ML-DSA for signatures.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Services Section -->
-    <section class="services-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">From inventory to quantum-safe</h2>
-                <p class="section-subtitle">Most teams don't know where their RSA and ECC keys are. We find them, fix the ones that matter most first, and leave you able to swap algorithms again without rewriting systems.</p>
+        <!-- How an engagement runs -->
+        <section class="section field-paper2 steps" aria-labelledby="steps-title">
+            <div class="wrap">
+                <h2 class="h-section" id="steps-title" data-reveal>How a PQC engagement runs</h2>
+                <ol class="step-list">
+                    <li data-reveal><h3>Discover</h3><p>Scan code, certificates, PKI, HSMs and vendors to build a cryptographic inventory you can keep current.</p></li>
+                    <li data-reveal><h3>Prioritize</h3><p>Rank systems by how long their data must stay secret, so harvest-now, decrypt-later risk gets fixed first.</p></li>
+                    <li data-reveal><h3>Remediate</h3><p>Move to hybrid and then ML-KEM and ML-DSA in TLS, PKI and applications, in planned waves with rollback.</p></li>
+                    <li data-reveal><h3>Prove</h3><p>Build crypto-agility into pipelines and hand regulators and auditors evidence they can follow.</p></li>
+                </ol>
             </div>
+        </section>
 
-            <div class="services-grid">
-                <div class="service-card">
-                    <img class="service-art" src="images/services/pqc-inventory.svg" alt="Diagram: systems are scanned into a cryptographic inventory that flags quantum-vulnerable algorithms" width="640" height="400" loading="lazy">
-                    <h3>PQC Readiness &amp; Cryptographic Inventory</h3>
-                    <p>We map every place your organization uses public-key cryptography, across code, certificates, protocols, HSMs and third parties, and turn it into a prioritized migration roadmap.</p>
-                    <a href="services.html#pqc" class="service-link">Learn more</a>
-                </div>
-
-                <div class="service-card">
-                    <img class="service-art" src="images/services/pqc-remediation.svg" alt="Diagram: cryptography moves from classical to hybrid to quantum-safe ahead of the 2030 and 2035 deadlines" width="640" height="400" loading="lazy">
-                    <h3>PQC Remediation &amp; Crypto-Agility</h3>
-                    <p>Our engineers move TLS, PKI, signing and applications to hybrid and then ML-KEM and ML-DSA, test for performance and interoperability, and roll out in waves.</p>
-                    <a href="services.html#pqc" class="service-link">Learn more</a>
-                </div>
-
-                <div class="service-card">
-                    <img class="service-art" src="images/services/cloud-zero-trust.svg" alt="Diagram: hub and spoke network where every connection is verified" width="640" height="400" loading="lazy">
-                    <h3>Cloud, Zero Trust &amp; Agentic AI</h3>
-                    <p>Secure cloud migration, zero trust controls and governed agentic AI on Azure and AWS, designed so cryptography can change without rebuilding the platform.</p>
-                    <a href="services.html" class="service-link">Learn more</a>
-                </div>
+        <!-- Three practices on colour fields -->
+        <section class="practice field-navy" aria-labelledby="p-pqc">
+            <div class="practice-copy">
+                <p data-reveal>Readiness assessments, cryptographic inventory and end-to-end remediation to NIST’s post-quantum standards. This is where we lead.</p>
+                <ul>
+                    <li data-reveal>PQC readiness assessment</li>
+                    <li data-reveal>Cryptographic inventory and CBOM</li>
+                    <li data-reveal>ML-KEM and ML-DSA migration</li>
+                    <li data-reveal>PKI and certificate modernization</li>
+                    <li data-reveal>HSM and key management</li>
+                    <li data-reveal>Crypto-agility engineering</li>
+                </ul>
+                <a class="text-link" href="services.html#pqc" data-reveal>Post-quantum services</a>
             </div>
-        </div>
-    </section>
+            <h2 id="p-pqc" data-reveal>Post-quantum security.</h2>
+        </section>
 
-    <!-- Who we are -->
-    <section class="stats-banner">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Chicago-based, senior-led</h2>
-                <p class="section-subtitle">YugamGroup is a young firm headquartered in Chicago. Our consultants have spent years running cloud, security and cryptography programs inside large regulated enterprises, and the people who scope your work are the people who deliver it.</p>
+        <section class="practice mirror field-paper" aria-labelledby="p-cloud">
+            <div class="practice-copy">
+                <p data-reveal>Secure Azure and AWS landing zones, cloud migration and zero trust controls, built so quantum-safe cryptography can be switched on without a redesign.</p>
+                <ul>
+                    <li data-reveal>Cloud platform migration</li>
+                    <li data-reveal>Zero trust architecture</li>
+                    <li data-reveal>Policy-as-code governance</li>
+                    <li data-reveal>Kubernetes and AKS / ARO</li>
+                    <li data-reveal>Cloud cost optimization</li>
+                </ul>
+                <a class="text-link" href="services.html" data-reveal>Cloud services</a>
             </div>
-            <div class="stats-banner-grid">
-                <div class="stats-banner-item">
-                    <span class="stats-banner-value">15+ years</span>
-                    <span class="stats-banner-label">Hands-on enterprise cloud and security experience</span>
-                </div>
-                <div class="stats-banner-item">
-                    <span class="stats-banner-value">Senior-led</span>
-                    <span class="stats-banner-label">Experienced practitioners on every engagement, no handoff to juniors</span>
-                </div>
-                <div class="stats-banner-item">
-                    <span class="stats-banner-value">Regulated</span>
-                    <span class="stats-banner-label">Financial services, healthcare and manufacturing background</span>
-                </div>
-                <div class="stats-banner-item">
-                    <span class="stats-banner-value">3 locations</span>
-                    <span class="stats-banner-label">Headquartered in Chicago, with teams in São Paulo and Chennai, serving clients across the US</span>
-                </div>
+            <h2 id="p-cloud" data-reveal>Cloud and zero trust.</h2>
+        </section>
+
+        <section class="practice field-steel" aria-labelledby="p-ai">
+            <div class="practice-copy">
+                <p data-reveal>Governed agentic and generative AI, data platforms and application modernization, with the keys, secrets and service identities they depend on kept quantum-ready.</p>
+                <ul>
+                    <li data-reveal>Agentic AI governance</li>
+                    <li data-reveal>Generative AI and analytics</li>
+                    <li data-reveal>Data estate modernization</li>
+                    <li data-reveal>Application modernization</li>
+                    <li data-reveal>DevSecOps</li>
+                </ul>
+                <a class="text-link" href="services.html" data-reveal>AI and engineering services</a>
             </div>
-        </div>
-    </section>
+            <h2 id="p-ai" data-reveal>Agentic AI, governed.</h2>
+        </section>
 
-    <!-- Security Assessment Section -->
-    <section class="assessment-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Free Security Risk Assessment</h2>
-                <p class="section-subtitle">
-                    Discover your organization's security posture with our comprehensive 2-minute assessment.
-                    Get personalized recommendations from our experts.
-                </p>
+        <figure class="band">
+            <img src="images/photos/server-cabling-1800.jpg" width="1800" height="1010" loading="lazy"
+                alt="Blue network cables running into a server switch">
+            <figcaption>Network cabling in a server rack. Most of a company’s cryptography lives in places like this, out of sight.</figcaption>
+        </figure>
+
+        <!-- Chicago-based, senior-led: address in display rows -->
+        <section class="offices field-paper" aria-labelledby="offices-title">
+            <div class="grid wrap offices-head">
+                <div class="offices-intro">
+                    <h2 class="h-section" id="offices-title" data-reveal>Chicago-based, senior-led</h2>
+                    <p data-reveal>We are a young firm headquartered in Chicago. Our consultants have spent years running cloud, security and cryptography programs inside large regulated enterprises, and the people who scope your work are the people who deliver it. Meet us in person in Chicago or remotely anywhere in the US.</p>
+                </div>
+                <dl class="facts">
+                    <div data-reveal><dt>15+ years</dt><dd>Hands-on enterprise cloud and security experience</dd></div>
+                    <div data-reveal><dt>Senior-led</dt><dd>Experienced practitioners on every engagement, no handoff to juniors</dd></div>
+                    <div data-reveal><dt>Regulated</dt><dd>Financial services, healthcare and manufacturing background</dd></div>
+                    <div data-reveal><dt>3 locations</dt><dd>Chicago, with teams in São Paulo and Chennai</dd></div>
+                </dl>
             </div>
-
-            <div class="assessment-form">
-                <div class="question-card">
-                    <h3>What is your current cloud infrastructure setup?</h3>
-                    <div class="options-grid">
-                        <label class="option-card">
-                            <input type="radio" name="infrastructure" value="aws">
-                            <div class="option-content">
-                                <i class="fab fa-aws"></i>
-                                <span>AWS</span>
-                            </div>
-                        </label>
-                        <label class="option-card">
-                            <input type="radio" name="infrastructure" value="azure">
-                            <div class="option-content">
-                                <i class="fab fa-microsoft"></i>
-                                <span>Azure</span>
-                            </div>
-                        </label>
-                        <label class="option-card">
-                            <input type="radio" name="infrastructure" value="gcp">
-                            <div class="option-content">
-                                <i class="fab fa-google"></i>
-                                <span>Google Cloud</span>
-                            </div>
-                        </label>
-                        <label class="option-card">
-                            <input type="radio" name="infrastructure" value="multi">
-                            <div class="option-content">
-                                <i class="fas fa-cloud"></i>
-                                <span>Multi-Cloud</span>
-                            </div>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-card">
-                    <h3>How do you currently monitor security threats?</h3>
-                    <div class="options-grid">
-                        <label class="option-card">
-                            <input type="radio" name="monitoring" value="manual">
-                            <div class="option-content">
-                                <i class="fas fa-user"></i>
-                                <span>Manual Review</span>
-                            </div>
-                        </label>
-                        <label class="option-card">
-                            <input type="radio" name="monitoring" value="automated">
-                            <div class="option-content">
-                                <i class="fas fa-robot"></i>
-                                <span>Automated Tools</span>
-                            </div>
-                        </label>
-                        <label class="option-card">
-                            <input type="radio" name="monitoring" value="managed">
-                            <div class="option-content">
-                                <i class="fas fa-headset"></i>
-                                <span>Managed Service</span>
-                            </div>
-                        </label>
-                        <label class="option-card">
-                            <input type="radio" name="monitoring" value="none">
-                            <div class="option-content">
-                                <i class="fas fa-times"></i>
-                                <span>No Monitoring</span>
-                            </div>
-                        </label>
-                    </div>
-                </div>
-
-                <div style="text-align: center; margin-top: 32px;">
-                    <button class="btn btn-primary btn-large" id="assessmentBtn">
-                        <span>Get My Assessment</span>
-                        <i class="fas fa-chart-line"></i>
-                    </button>
-                </div>
+            <div class="rows">
+                <div data-reveal><span><small>Headquarters</small>Chicago, Illinois</span>
+                    <img src="images/photos/chicago-skyline-1000.jpg" width="1000" height="667" loading="lazy" alt="The Chicago skyline at night from above"></div>
+                <div data-reveal><span><small>Team</small>São Paulo, Brazil</span>
+                    <img src="assets/sao-paulo.jpg" width="1600" height="900" loading="lazy" alt="São Paulo's skyline at night reflected in the lake at Ibirapuera Park"></div>
+                <div data-reveal><span><small>Team</small>Chennai, India</span>
+                    <img src="assets/chennai.jpg" width="1920" height="1280" loading="lazy" alt="Chennai's skyline across a lake under a cloudy sky"></div>
+                <a href="tel:+12244420650" data-reveal><span><small>Call</small>+1 (224) 442-0650</span></a>
+                <a href="mailto:info@yugamgroup.com" data-reveal><span><small>Write</small>info@yugamgroup.com</span></a>
+                <a class="greet" href="contact.html?subject=pqc-assessment" data-reveal><span>Book an assessment</span>
+                    <span class="round" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></a>
             </div>
+        </section>
+    </main>
 
-            <div class="assessment-results" id="assessmentResults" style="display: none;">
-                <div class="results-card">
-                    <h3>Your Security Risk Assessment</h3>
-                    <div class="risk-score">
-                        <div class="score-circle">
-                            <span class="score-value" id="scoreValue">0</span>
-                            <span class="score-label">/ 100</span>
-                        </div>
-                        <p class="score-description" id="scoreDescription">Risk Level</p>
-                    </div>
-                    <div class="findings">
-                        <h4>Key Findings</h4>
-                        <ul id="findingsList"></ul>
-                    </div>
-                    <div class="recommendations">
-                        <h4>Recommendations</h4>
-                        <ul id="recommendationsList"></ul>
-                    </div>
-                </div>
+    <footer class="site-footer">
+        <div class="footer-cols">
+            <div>
+                <h2>Post-quantum security</h2>
+                <ul>
+                    <li><a href="services.html#pqc">PQC readiness assessment</a></li>
+                    <li><a href="services.html#pqc">Cryptographic inventory</a></li>
+                    <li><a href="services.html">PQC remediation</a></li>
+                    <li><a href="services.html">PKI modernization</a></li>
+                    <li><a href="services.html">Agentic AI governance</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Cloud and engineering</h2>
+                <ul>
+                    <li><a href="services.html">Cloud migration</a></li>
+                    <li><a href="services.html">Cloud DevOps and automation</a></li>
+                    <li><a href="services.html">Application modernization</a></li>
+                    <li><a href="services.html">Product engineering</a></li>
+                    <li><a href="scanner.html">Website security scanner</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Company</h2>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="case-studies.html">Case studies</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Contact</h2>
+                <ul>
+                    <li><a href="tel:+12244420650">+1 (224) 442-0650</a></li>
+                    <li><a href="mailto:info@yugamgroup.com">info@yugamgroup.com</a></li>
+                    <li>Chicago, Illinois</li>
+                    <li>São Paulo, Brazil</li>
+                    <li>Chennai, India</li>
+                    <li><a href="https://www.linkedin.com/company/yugamllc" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://x.com/Yugamllc" target="_blank" rel="noopener">X</a></li>
+                </ul>
             </div>
         </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <div class="cta-content">
-                <h2>Find out where your cryptography stands</h2>
-                <p>Book a PQC readiness assessment. Meet us in person in Chicago or remotely anywhere in the US.</p>
-                <a href="contact.html?subject=pqc-assessment" class="btn btn-large btn-primary">
-                    <i class="fas fa-envelope"></i>
-                    <span>Book a PQC readiness assessment</span>
-                </a>
-            </div>
+        <div class="footer-mark" aria-hidden="true">
+            <svg viewBox="0 0 698.96 190.31"><use href="logo-mono.svg#logo"></use></svg>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <div class="footer-logo">
-                        <img src="logo-yugam.svg" alt="YUGAM GROUP" class="site-logo footer-logo-img">
-                    </div>
-                    <p>Post-quantum cryptography, cloud and agentic AI consulting for regulated enterprises. Headquartered in Chicago, serving clients across the US.</p>
-                </div>
-
-                <div class="footer-col">
-                    <h4>Post-Quantum Security</h4>
-                    <ul>
-                        <li><a href="services.html#pqc">PQC Readiness Assessment</a></li>
-                        <li><a href="services.html#pqc">Cryptographic Inventory</a></li>
-                        <li><a href="services.html#pqc">PQC Remediation</a></li>
-                        <li><a href="services.html#pqc">PKI Modernization</a></li>
-                        <li><a href="services.html">Agentic AI Governance</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-col">
-                    <h4>Cloud &amp; Engineering</h4>
-                    <ul>
-                        <li><a href="services.html">Cloud Migration</a></li>
-                        <li><a href="services.html">Cloud DevOps &amp; Automation</a></li>
-                        <li><a href="services.html">Application Modernization</a></li>
-                        <li><a href="services.html">Product Engineering</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="careers.html">Careers</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-col">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><i class="fas fa-phone"></i> +1 (224) 442-0650</li>
-                        <li><i class="fas fa-envelope"></i> info@yugamgroup.com</li>
-                        <li><i class="fas fa-map-marker-alt"></i> Chicago, Illinois | São Paulo, Brazil | Chennai, India
-                        </li>
-                    </ul>
-                </div>
+        <div>
+            <div class="footer-legal">
+                <p>Post-quantum cryptography, cloud and agentic AI consulting for regulated enterprises. &copy; 2026 YuGam Group.</p>
+                <p><a href="#">Privacy policy</a> &nbsp; <a href="#">Terms of service</a></p>
             </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2025 YuGam Group. All rights reserved.</p>
-                <div class="footer-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                </div>
-            </div>
+            <p class="credits">Pictures and footage: Chicago skyline by Venti Views and network cabling by Taylor Vick, <a href="https://unsplash.com/license">Unsplash License</a>; <a href="https://commons.wikimedia.org/wiki/File:(2006)_Sao_Paulo_Skyline_(9557402041).jpg">São Paulo skyline</a> by Diego Torres Silvestre, <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a>; <a href="https://commons.wikimedia.org/wiki/File:Chennai_01.jpg">Chennai 01</a> by Ganesh Mohan T, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>; <a href="https://commons.wikimedia.org/wiki/File:BalticServers_data_center.jpg">BalticServers data center</a> by BalticServers.com, <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a>; <a href="https://commons.wikimedia.org/wiki/File:Fujikura_optic_fiber_at_Science_Museum.jpg">Fujikura optic fiber at Science Museum</a> by Syced, CC0; <a href="https://commons.wikimedia.org/wiki/File:Two_women_operating_ENIAC_(full_resolution).jpg">Two women operating ENIAC</a>, U.S. Army photo, public domain; <a href="https://commons.wikimedia.org/wiki/File:Animation_of_Rotating_Earth_at_Night.webm">Rotating Earth at Night</a> by NASA, public domain. Wikimedia Commons files via Wikimedia Commons.</p>
         </div>
     </footer>
 
     <!-- Cookie Consent Banner -->
-    <div id="cookieConsentBanner" class="cookie-consent-banner">
+    <div id="cookieConsentBanner" class="cookie-consent-banner" role="region" aria-label="Analytics consent">
         <div class="cookie-consent-content">
-            <div class="cookie-icon">
-                <i class="fas fa-cookie"></i>
-            </div>
             <div class="cookie-text">
-                <h3>Analytics Consent</h3>
-                <p>We use analytics to understand how you use our website and improve your experience. We collect <strong>non-personal data only</strong> (pages visited, device type, visit duration). <a href="#" style="color: #3b82f6; text-decoration: none;">Learn more</a></p>
+                <h3>Analytics consent</h3>
+                <p>We use analytics to understand how the site is used. We collect <strong>non-personal data only</strong>: pages visited, device type and visit duration.</p>
             </div>
             <div class="cookie-actions">
-                <button id="cookieDecline" class="cookie-btn cookie-btn-secondary">Decline</button>
-                <button id="cookieAccept" class="cookie-btn cookie-btn-primary">Accept</button>
+                <button id="cookieDecline" class="cookie-btn cookie-btn-secondary" type="button">Decline</button>
+                <button id="cookieAccept" class="cookie-btn cookie-btn-primary" type="button">Accept</button>
             </div>
         </div>
     </div>
 
     <script src="analytics.js"></script>
-    <script src="script.js?v=202610162154"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="motion.js?v=202610162154"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const consentKey = 'yugam_analytics_consent';
-            const banner = document.getElementById('cookieConsentBanner');
-            const acceptBtn = document.getElementById('cookieAccept');
-            const declineBtn = document.getElementById('cookieDecline');
-            const hasConsent = localStorage.getItem(consentKey);
-            if (!hasConsent) {
-                banner.classList.add('show');
-            }
-            acceptBtn.addEventListener('click', function() {
-                localStorage.setItem(consentKey, 'true');
-                banner.classList.remove('show');
-                if (window.YugamAnalytics) {
-                    window.YugamAnalytics.grantConsent();
-                }
-            });
-            declineBtn.addEventListener('click', function() {
-                localStorage.setItem(consentKey, 'false');
-                banner.classList.remove('show');
-            });
-        });
-    </script>
+    <script src="site.js"></script>
 </body>
 
 </html>

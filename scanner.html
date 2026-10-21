@@ -698,6 +698,13 @@
             div.textContent = text;
             return div.innerHTML;
         }
+
+        // A domain handed over from the home page form (?domain=...) starts the scan straight away
+        const handedDomain = new URLSearchParams(window.location.search).get('domain');
+        if (handedDomain) {
+            document.getElementById('domainInput').value = handedDomain;
+            startScan();
+        }
     </script>
 </body>
 </html>
