@@ -159,6 +159,7 @@
             try { localStorage.setItem(consentKey, value); } catch (e) { /* storage blocked */ }
             banner.classList.remove('show');
             if (value === 'true' && window.YugamAnalytics) window.YugamAnalytics.grantConsent();
+            if (typeof window.gtag === 'function') window.gtag('consent', 'update', { analytics_storage: value === 'true' ? 'granted' : 'denied' });
         };
         document.getElementById('cookieAccept')?.addEventListener('click', () => decide('true'));
         document.getElementById('cookieDecline')?.addEventListener('click', () => decide('false'));
