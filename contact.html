@@ -113,7 +113,9 @@
                 <div class="form-section">
                     <h2 class="form-title">Send Us a Message</h2>
 
-                    <form id="contactForm">
+                    <form id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="_honey">
+                        <!-- Netlify Forms needs the form name in the submission -->
+                        <input type="hidden" name="form-name" value="contact">
                         <!-- Spam trap, hidden from people -->
                         <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true">
                         <!-- Name and Email Row -->
@@ -324,18 +326,56 @@
                     }
                 }
 
-                // Deliver the enquiry by email through FormSubmit (hosted, no backend needed)
-                const sent = await post('https://formsubmit.co/ajax/prasoonaarun@gmail.com', {
-                    name: data.name,
-                    email: data.email,
-                    company: data.company || '-',
-                    subject: subjectLabel,
-                    message: data.message,
-                    consent: data.consent ? 'Yes' : 'No',
-                    _subject: 'New YugamGroup enquiry: ' + subjectLabel + ' from ' + data.name,
-                    _replyto: data.email,
-                    _template: 'table'
-                }, 45000);
+                // 1) Netlify Forms: works on the Netlify-hosted site and every deploy preview,
+                //    and emails the enquiry once a form notification is set in Netlify.
+                async function postNetlify(ms) {
+                    const controller = new AbortController();
+                    const timer = setTimeout(() => controller.abort(), ms);
+                    try {
+                        const body = new URLSearchParams({
+                            'form-name': 'contact',
+                            name: data.name,
+                            email: data.email,
+                            company: data.company || '-',
+                            subject: subjectLabel,
+                            message: data.message,
+                            consent: data.consent ? 'Yes' : 'No'
+                        });
+                        const response = await fetch('/', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                            body: body.toString(),
+                            signal: controller.signal
+                        });
+                        if (!response.ok) {
+                            // e.g. 404 when form detection is off, 405 on hosts without Netlify Forms
+                            console.warn('Netlify Forms not available here:', response.status);
+                            return false;
+                        }
+                        return true;
+                    } catch (error) {
+                        console.warn('Netlify Forms delivery failed', error);
+                        return false;
+                    } finally {
+                        clearTimeout(timer);
+                    }
+                }
+
+                // 2) FormSubmit fallback, for copies of the site not hosted on Netlify (e.g. GitHub Pages)
+                let sent = await postNetlify(15000);
+                if (!sent) {
+                    sent = await post('https://formsubmit.co/ajax/prasoonaarun@gmail.com', {
+                        name: data.name,
+                        email: data.email,
+                        company: data.company || '-',
+                        subject: subjectLabel,
+                        message: data.message,
+                        consent: data.consent ? 'Yes' : 'No',
+                        _subject: 'New YugamGroup enquiry: ' + subjectLabel + ' from ' + data.name,
+                        _replyto: data.email,
+                        _template: 'table'
+                    }, 45000);
+                }
 
                 if (sent) {
                     contactForm.style.display = 'none';
