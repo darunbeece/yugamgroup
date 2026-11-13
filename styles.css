@@ -704,3 +704,12 @@ section:not(.hero):not(.page-header):not(.practice) { position: relative; }
 .case-studies-section + .case-studies-section { padding-top: 0; }
 .form-error { margin-top: 16px; padding: 14px 18px; background: #f7e3e1; color: #6d1a14; font-weight: 500; }
 .form-error a { color: inherit; }
+
+/* Privacy policy */
+.legal-content { max-width: 72ch; }
+.legal-content .lead { margin-bottom: 48px; }
+.legal-content h2 { font-size: var(--step-lead); line-height: 1.2; margin: 48px 0 16px; }
+.legal-content p, .legal-content li { line-height: 1.6; }
+.legal-content p + p { margin-top: 16px; }
+.legal-content ul { margin: 16px 0; padding-left: 1.25em; list-style: disc; }
+.legal-content a { text-decoration: underline; }
