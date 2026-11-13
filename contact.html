@@ -362,6 +362,11 @@
                 }
 
                 // 2) FormSubmit fallback, for copies of the site not hosted on Netlify (e.g. GitHub Pages)
+                // FormSubmit often takes 30-60 seconds to answer, so tell the visitor it's still working
+                const slowNote = setTimeout(() => {
+                    submitBtn.innerHTML = '<span>Still sending… this can take up to a minute</span>';
+                }, 8000);
+
                 let sent = await postNetlify(15000);
                 if (!sent) {
                     sent = await post('https://formsubmit.co/ajax/prasoonaarun@gmail.com', {
@@ -374,8 +379,10 @@
                         _subject: 'New YugamGroup enquiry: ' + subjectLabel + ' from ' + data.name,
                         _replyto: data.email,
                         _template: 'table'
-                    }, 45000);
+                    }, 120000);
                 }
+
+                clearTimeout(slowNote);
 
                 if (sent) {
                     contactForm.style.display = 'none';
