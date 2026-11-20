@@ -713,3 +713,6 @@ section:not(.hero):not(.page-header):not(.practice) { position: relative; }
 .legal-content p + p { margin-top: 16px; }
 .legal-content ul { margin: 16px 0; padding-left: 1.25em; list-style: disc; }
 .legal-content a { text-decoration: underline; }
+.legal-content ol { margin: 16px 0; padding-left: 1.5em; list-style: decimal; }
+.legal-content li + li { margin-top: 8px; }
+.guide-content h2 a { text-decoration: none; }

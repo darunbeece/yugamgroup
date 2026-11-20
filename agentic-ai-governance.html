@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Agentic AI governance for regulated enterprises: the risks of autonomous AI agents, a practical governance framework, identity and key controls, and alignment with NIST AI RMF and ISO 42001.">
+    <title>Agentic AI Governance Framework | YugamGroup</title>
+    <link rel="canonical" href="https://yugamgroup.com/agentic-ai-governance.html">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Agentic AI Governance Framework | YugamGroup">
+    <meta property="og:description" content="Agentic AI governance for regulated enterprises: the risks of autonomous AI agents, a practical governance framework, identity and key controls, and alignment with NIST AI RMF and ISO 42001.">
+    <meta property="og:url" content="https://yugamgroup.com/agentic-ai-governance.html">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Agentic AI governance", "description": "Agentic AI governance for regulated enterprises: the risks of autonomous AI agents, a practical governance framework, identity and key controls, and alignment with NIST AI RMF and ISO 42001.", "datePublished": "2026-11-20", "dateModified": "2026-11-20", "mainEntityOfPage": "https://yugamgroup.com/agentic-ai-governance.html", "author": {"@type": "Organization", "name": "YugamGroup", "url": "https://yugamgroup.com/"}, "publisher": {"@type": "Organization", "name": "YugamGroup", "url": "https://yugamgroup.com/", "logo": {"@type": "ImageObject", "url": "https://yugamgroup.com/logo.png"}}}</script>
+    <script>document.documentElement.classList.add('js');</script>
+    <link rel="preconnect" href="https://api.fontshare.com">
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2N37B1BJ4F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        var gaConsent = 'denied';
+        try { if (localStorage.getItem('yugam_analytics_consent') === 'true') gaConsent = 'granted'; } catch (e) {}
+        gtag('consent', 'default', { analytics_storage: gaConsent, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+        gtag('js', new Date());
+        gtag('config', 'G-2N37B1BJ4F');
+    </script>
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+        <a class="brand" href="/" aria-label="YugamGroup, home">
+            <svg viewBox="0 0 698.96 190.31" aria-hidden="true"><use href="logo-mono.svg#logo"></use></svg>
+        </a>
+        <nav class="site-nav" aria-label="Main">
+            <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-list">Menu</button>
+            <ul id="nav-list">
+                <li><a href="services.html">Services</a></li>
+                <li><a href="case-studies.html">Case studies</a></li>
+                <li><a href="insights.html">Insights</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="careers.html">Careers</a></li>
+            </ul>
+            <a class="btn" href="contact.html">Book a consultation</a>
+        </nav>
+    </header>
+
+    <main id="main">
+
+    <section class="page-header field-navy">
+        <div class="container">
+            <h1 class="page-title">Agentic AI governance</h1>
+            <p class="page-subtitle">How to let AI agents act on your systems while keeping control, accountability and security.</p>
+        </div>
+    </section>
+
+    <section class="section legal-section">
+        <div class="container legal-content guide-content">
+
+            <p class="lead">Agentic AI governance is the set of policies, controls and oversight that decide what autonomous AI agents may do, with which data and tools, and how their actions are monitored and audited. As agents move from answering questions to taking actions, governance becomes a security requirement, not just a policy document.</p>
+
+            <h2>Why agentic AI needs its own governance</h2>
+            <p>A chatbot produces text that a person reads. An AI agent plans and carries out tasks: it calls APIs, queries databases, writes code, sends messages and triggers workflows, often chaining many steps with little human involvement. That raises new risks:</p>
+            <ul>
+                <li><strong>Excessive permissions.</strong> Agents given broad credentials can do far more than their task requires.</li>
+                <li><strong>Prompt injection.</strong> Instructions hidden in emails, web pages or documents can redirect an agent to leak data or take harmful actions.</li>
+                <li><strong>Unclear accountability.</strong> When an agent acts, it must be clear on whose authority and who answers for the result.</li>
+                <li><strong>Data leakage.</strong> Agents can move sensitive data between systems and to external models in ways existing controls do not see.</li>
+                <li><strong>Compounding errors.</strong> A small mistake early in a multi-step task can lead to large real-world effects.</li>
+            </ul>
+
+            <h2>A practical agentic AI governance framework</h2>
+            <ol class="plain-steps">
+                <li><strong>Inventory agents.</strong> Record every agent, its owner, purpose, model, tools and the data it can reach.</li>
+                <li><strong>Give each agent its own identity.</strong> Use dedicated service identities with least-privilege, short-lived credentials, never shared human accounts. Store secrets and keys in a managed vault or <a href="hsm-key-management.html">HSM-backed key management</a>.</li>
+                <li><strong>Tier actions by risk.</strong> Allow low-risk actions automatically, require human approval for high-impact ones such as payments, deletions or external messages, and block the rest.</li>
+                <li><strong>Treat external content as untrusted.</strong> Filter and isolate content agents read, and limit what they can do after reading it, to reduce prompt-injection impact.</li>
+                <li><strong>Log and monitor everything.</strong> Keep tamper-evident records of prompts, tool calls and outcomes, and feed them into security monitoring.</li>
+                <li><strong>Test and review.</strong> Red-team agents before release, evaluate them continuously, and review permissions on a schedule.</li>
+            </ol>
+
+            <h2>Standards and regulation</h2>
+            <p>Agentic AI governance programs usually build on the NIST AI Risk Management Framework (AI RMF) and its generative AI profile, ISO/IEC 42001 for AI management systems, and the OWASP guidance on large language model and agentic application risks. Organizations operating in Europe also need to account for the EU AI Act. Sector regulators in banking and healthcare increasingly expect the same model-risk and third-party controls they apply to other critical systems.</p>
+
+            <h2>Where AI governance meets post-quantum security</h2>
+            <p>Agents depend on keys, tokens and certificates to authenticate to every system they touch. Those credentials rely on the same RSA and elliptic-curve cryptography that <a href="post-quantum-cryptography.html">post-quantum cryptography</a> replaces. Building agent identity and secrets management on a crypto-agile foundation now avoids a second redesign later.</p>
+
+            <h2>Talk to a post-quantum cryptography consultant</h2>
+            <p>YugamGroup is a Chicago-based post-quantum cryptography consultancy serving regulated enterprises across the US. Alongside post-quantum security, we help enterprises put agentic AI governance in place so AI agents stay secure, auditable and compliant. <a href="contact.html#pqc-assessment">Book a PQC readiness assessment</a> or read more about our <a href="services.html">PQC and cloud security consulting services</a>.</p>
+
+            <h2>Related guides</h2>
+            <ul>
+                <li><a href="post-quantum-cryptography.html">What is post-quantum cryptography?</a></li>
+                <li><a href="nist-pqc-standards.html">NIST PQC standards: ML-KEM, ML-DSA and SLH-DSA</a></li>
+                <li><a href="harvest-now-decrypt-later.html">Harvest now, decrypt later</a></li>
+                <li><a href="crypto-agility.html">Crypto agility and cryptographic inventory</a></li>
+                <li><a href="hsm-key-management.html">HSM key management and Azure Key Vault HSM</a></li>
+            </ul>
+
+        </div>
+    </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-cols">
+            <div>
+                <h2>Post-quantum security</h2>
+                <ul>
+                    <li><a href="services.html#pqc">PQC readiness assessment</a></li>
+                    <li><a href="post-quantum-cryptography.html">Post-quantum cryptography</a></li>
+                    <li><a href="nist-pqc-standards.html">NIST PQC standards</a></li>
+                    <li><a href="harvest-now-decrypt-later.html">Harvest now, decrypt later</a></li>
+                    <li><a href="crypto-agility.html">Crypto agility</a></li>
+                    <li><a href="hsm-key-management.html">HSM key management</a></li>
+                    <li><a href="agentic-ai-governance.html">Agentic AI governance</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Cloud and engineering</h2>
+                <ul>
+                    <li><a href="services.html">Cloud migration</a></li>
+                    <li><a href="services.html">Cloud DevOps and automation</a></li>
+                    <li><a href="services.html">Application modernization</a></li>
+                    <li><a href="services.html">Product engineering</a></li>
+                    <li><a href="scanner.html">Website security scanner</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Company</h2>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="case-studies.html">Case studies</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Contact</h2>
+                <ul>
+                    <li><a href="tel:+12244420650">+1 (224) 442-0650</a></li>
+                    <li><a href="mailto:info@yugamgroup.com">info@yugamgroup.com</a></li>
+                    <li>Chicago, Illinois</li>
+                    <li>São Paulo, Brazil</li>
+                    <li>Chennai, India</li>
+                    <li><a href="https://www.linkedin.com/company/yugamllc" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://x.com/Yugamllc" target="_blank" rel="noopener">X</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-mark" aria-hidden="true">
+            <svg viewBox="0 0 698.96 190.31"><use href="logo-mono.svg#logo"></use></svg>
+        </div>
+        <div>
+            <div class="footer-legal">
+                <p>Post-quantum cryptography, cloud and agentic AI consulting for regulated enterprises. &copy; 2026 YugamGroup.</p>
+                <p><a href="privacy-policy.html">Privacy policy</a> &nbsp; <a href="#">Terms of service</a></p>
+            </div>
+            <p class="credits">Pictures and footage: Chicago skyline by Venti Views and network cabling by Taylor Vick, <a href="https://unsplash.com/license">Unsplash License</a>; <a href="https://commons.wikimedia.org/wiki/File:(2006)_Sao_Paulo_Skyline_(9557402041).jpg">São Paulo skyline</a> by Diego Torres Silvestre, <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a>; <a href="https://commons.wikimedia.org/wiki/File:Chennai_01.jpg">Chennai 01</a> by Ganesh Mohan T, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>; <a href="https://commons.wikimedia.org/wiki/File:BalticServers_data_center.jpg">BalticServers data center</a> by BalticServers.com, <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a>; <a href="https://commons.wikimedia.org/wiki/File:Fujikura_optic_fiber_at_Science_Museum.jpg">Fujikura optic fiber at Science Museum</a> by Syced, CC0; <a href="https://commons.wikimedia.org/wiki/File:Two_women_operating_ENIAC_(full_resolution).jpg">Two women operating ENIAC</a>, U.S. Army photo, public domain; <a href="https://commons.wikimedia.org/wiki/File:Animation_of_Rotating_Earth_at_Night.webm">Rotating Earth at Night</a> by NASA, public domain. Wikimedia Commons files via Wikimedia Commons.</p>
+        </div>
+    </footer>
+
+    <script src="site.js"></script>
+</body>
+
+</html>

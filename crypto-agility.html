@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="What crypto agility (cryptoagility) means, how to build a cryptographic inventory and CBOM, and how both make the move to post-quantum cryptography faster and safer.">
+    <title>Crypto Agility and Cryptographic Inventory | YugamGroup</title>
+    <link rel="canonical" href="https://yugamgroup.com/crypto-agility.html">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Crypto Agility and Cryptographic Inventory | YugamGroup">
+    <meta property="og:description" content="What crypto agility (cryptoagility) means, how to build a cryptographic inventory and CBOM, and how both make the move to post-quantum cryptography faster and safer.">
+    <meta property="og:url" content="https://yugamgroup.com/crypto-agility.html">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Crypto agility and cryptographic inventory", "description": "What crypto agility (cryptoagility) means, how to build a cryptographic inventory and CBOM, and how both make the move to post-quantum cryptography faster and safer.", "datePublished": "2026-11-20", "dateModified": "2026-11-20", "mainEntityOfPage": "https://yugamgroup.com/crypto-agility.html", "author": {"@type": "Organization", "name": "YugamGroup", "url": "https://yugamgroup.com/"}, "publisher": {"@type": "Organization", "name": "YugamGroup", "url": "https://yugamgroup.com/", "logo": {"@type": "ImageObject", "url": "https://yugamgroup.com/logo.png"}}}</script>
+    <script>document.documentElement.classList.add('js');</script>
+    <link rel="preconnect" href="https://api.fontshare.com">
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2N37B1BJ4F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        var gaConsent = 'denied';
+        try { if (localStorage.getItem('yugam_analytics_consent') === 'true') gaConsent = 'granted'; } catch (e) {}
+        gtag('consent', 'default', { analytics_storage: gaConsent, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+        gtag('js', new Date());
+        gtag('config', 'G-2N37B1BJ4F');
+    </script>
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+        <a class="brand" href="/" aria-label="YugamGroup, home">
+            <svg viewBox="0 0 698.96 190.31" aria-hidden="true"><use href="logo-mono.svg#logo"></use></svg>
+        </a>
+        <nav class="site-nav" aria-label="Main">
+            <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-list">Menu</button>
+            <ul id="nav-list">
+                <li><a href="services.html">Services</a></li>
+                <li><a href="case-studies.html">Case studies</a></li>
+                <li><a href="insights.html">Insights</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="careers.html">Careers</a></li>
+            </ul>
+            <a class="btn" href="contact.html">Book a consultation</a>
+        </nav>
+    </header>
+
+    <main id="main">
+
+    <section class="page-header field-navy">
+        <div class="container">
+            <h1 class="page-title">Crypto agility and cryptographic inventory</h1>
+            <p class="page-subtitle">Know where your cryptography lives, then make the next algorithm change a configuration change.</p>
+        </div>
+    </section>
+
+    <section class="section legal-section">
+        <div class="container legal-content guide-content">
+
+            <p class="lead">Crypto agility, sometimes written cryptoagility, is the ability to replace cryptographic algorithms, keys and libraries quickly and safely without redesigning the systems that use them. A cryptographic inventory is the map that makes it possible. Together they are the foundation of every post-quantum migration.</p>
+
+            <h2>Why crypto agility matters now</h2>
+            <p>Past algorithm changes, from DES to AES and from SHA-1 to SHA-2, took most organizations a decade or more, largely because cryptography was hard-coded deep inside applications and devices. The move to post-quantum cryptography is bigger: it touches key exchange, signatures, certificates and hardware all at once. New attacks on algorithms can also appear without warning, as several post-quantum candidates showed during the NIST process. An agile design lets you respond in weeks instead of years.</p>
+
+            <h2>What a cryptographic inventory covers</h2>
+            <p>A cryptographic inventory records where and how cryptography is used across your estate. A useful one includes:</p>
+            <ul>
+                <li>algorithms, key lengths and modes in use, such as RSA-2048, ECDSA P-256 or AES-GCM</li>
+                <li>certificates, their issuers, lifetimes and where they are deployed</li>
+                <li>protocols and configurations: TLS versions and cipher suites, SSH, IPsec and VPNs</li>
+                <li>cryptographic libraries and versions in source code and dependencies</li>
+                <li>keys held in HSMs, cloud KMS and secrets managers, and who owns them</li>
+                <li>cryptography inside vendor products, SaaS services and embedded devices</li>
+                <li>the data each system protects and how long it must stay confidential</li>
+            </ul>
+            <p>Many teams record this as a cryptographic bill of materials (CBOM), a machine-readable format supported by the CycloneDX standard, so it can be generated in pipelines and kept current rather than becoming a one-off spreadsheet.</p>
+
+            <h2>How to build a cryptographic inventory</h2>
+            <ol class="plain-steps">
+                <li><strong>Combine discovery methods.</strong> Network scanning finds TLS endpoints and certificates; source code and binary analysis finds libraries and hard-coded algorithms; HSM, KMS and certificate authority exports find keys.</li>
+                <li><strong>Ask vendors.</strong> Much enterprise cryptography sits inside third-party products. Ask suppliers which algorithms they use and when they will support ML-KEM and ML-DSA.</li>
+                <li><strong>Attach business context.</strong> Link each finding to an owner, a system and a data classification so you can prioritize.</li>
+                <li><strong>Automate it.</strong> Generate the inventory in CI/CD and from infrastructure as code so it stays accurate.</li>
+            </ol>
+
+            <h2>Engineering for crypto agility</h2>
+            <ul>
+                <li>Centralize cryptography behind shared libraries or services instead of calling algorithms directly in application code.</li>
+                <li>Make algorithms and parameters configuration, governed by policy-as-code, not constants.</li>
+                <li>Design protocols and data formats with algorithm identifiers and room for larger keys and signatures.</li>
+                <li>Keep certificate lifetimes short and issuance automated so new algorithms roll out with normal renewals.</li>
+                <li>Test new algorithms in staging continuously, with a clear rollback path.</li>
+            </ul>
+
+            <h2>Talk to a post-quantum cryptography consultant</h2>
+            <p>YugamGroup is a Chicago-based post-quantum cryptography consultancy serving regulated enterprises across the US. Our PQC readiness assessment delivers a cryptographic inventory and CBOM you can keep current, plus a crypto agility roadmap. <a href="contact.html#pqc-assessment">Book a PQC readiness assessment</a> or read more about our <a href="services.html">PQC and cloud security consulting services</a>.</p>
+
+            <h2>Related guides</h2>
+            <ul>
+                <li><a href="post-quantum-cryptography.html">What is post-quantum cryptography?</a></li>
+                <li><a href="nist-pqc-standards.html">NIST PQC standards: ML-KEM, ML-DSA and SLH-DSA</a></li>
+                <li><a href="harvest-now-decrypt-later.html">Harvest now, decrypt later</a></li>
+                <li><a href="hsm-key-management.html">HSM key management and Azure Key Vault HSM</a></li>
+                <li><a href="agentic-ai-governance.html">Agentic AI governance</a></li>
+            </ul>
+
+        </div>
+    </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-cols">
+            <div>
+                <h2>Post-quantum security</h2>
+                <ul>
+                    <li><a href="services.html#pqc">PQC readiness assessment</a></li>
+                    <li><a href="post-quantum-cryptography.html">Post-quantum cryptography</a></li>
+                    <li><a href="nist-pqc-standards.html">NIST PQC standards</a></li>
+                    <li><a href="harvest-now-decrypt-later.html">Harvest now, decrypt later</a></li>
+                    <li><a href="crypto-agility.html">Crypto agility</a></li>
+                    <li><a href="hsm-key-management.html">HSM key management</a></li>
+                    <li><a href="agentic-ai-governance.html">Agentic AI governance</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Cloud and engineering</h2>
+                <ul>
+                    <li><a href="services.html">Cloud migration</a></li>
+                    <li><a href="services.html">Cloud DevOps and automation</a></li>
+                    <li><a href="services.html">Application modernization</a></li>
+                    <li><a href="services.html">Product engineering</a></li>
+                    <li><a href="scanner.html">Website security scanner</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Company</h2>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="case-studies.html">Case studies</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Contact</h2>
+                <ul>
+                    <li><a href="tel:+12244420650">+1 (224) 442-0650</a></li>
+                    <li><a href="mailto:info@yugamgroup.com">info@yugamgroup.com</a></li>
+                    <li>Chicago, Illinois</li>
+                    <li>São Paulo, Brazil</li>
+                    <li>Chennai, India</li>
+                    <li><a href="https://www.linkedin.com/company/yugamllc" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://x.com/Yugamllc" target="_blank" rel="noopener">X</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-mark" aria-hidden="true">
+            <svg viewBox="0 0 698.96 190.31"><use href="logo-mono.svg#logo"></use></svg>
+        </div>
+        <div>
+            <div class="footer-legal">
+                <p>Post-quantum cryptography, cloud and agentic AI consulting for regulated enterprises. &copy; 2026 YugamGroup.</p>
+                <p><a href="privacy-policy.html">Privacy policy</a> &nbsp; <a href="#">Terms of service</a></p>
+            </div>
+            <p class="credits">Pictures and footage: Chicago skyline by Venti Views and network cabling by Taylor Vick, <a href="https://unsplash.com/license">Unsplash License</a>; <a href="https://commons.wikimedia.org/wiki/File:(2006)_Sao_Paulo_Skyline_(9557402041).jpg">São Paulo skyline</a> by Diego Torres Silvestre, <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a>; <a href="https://commons.wikimedia.org/wiki/File:Chennai_01.jpg">Chennai 01</a> by Ganesh Mohan T, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>; <a href="https://commons.wikimedia.org/wiki/File:BalticServers_data_center.jpg">BalticServers data center</a> by BalticServers.com, <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a>; <a href="https://commons.wikimedia.org/wiki/File:Fujikura_optic_fiber_at_Science_Museum.jpg">Fujikura optic fiber at Science Museum</a> by Syced, CC0; <a href="https://commons.wikimedia.org/wiki/File:Two_women_operating_ENIAC_(full_resolution).jpg">Two women operating ENIAC</a>, U.S. Army photo, public domain; <a href="https://commons.wikimedia.org/wiki/File:Animation_of_Rotating_Earth_at_Night.webm">Rotating Earth at Night</a> by NASA, public domain. Wikimedia Commons files via Wikimedia Commons.</p>
+        </div>
+    </footer>
+
+    <script src="site.js"></script>
+</body>
+
+</html>
