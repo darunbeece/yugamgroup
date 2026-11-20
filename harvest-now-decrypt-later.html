@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Harvest now, decrypt later explained: how attackers store encrypted data today to break it with quantum computers, which data is at risk, and how post-quantum encryption stops it.">
+    <title>Harvest Now, Decrypt Later: The Quantum Risk | YugamGroup</title>
+    <link rel="canonical" href="https://yugamgroup.com/harvest-now-decrypt-later.html">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Harvest Now, Decrypt Later: The Quantum Risk | YugamGroup">
+    <meta property="og:description" content="Harvest now, decrypt later explained: how attackers store encrypted data today to break it with quantum computers, which data is at risk, and how post-quantum encryption stops it.">
+    <meta property="og:url" content="https://yugamgroup.com/harvest-now-decrypt-later.html">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Harvest now, decrypt later", "description": "Harvest now, decrypt later explained: how attackers store encrypted data today to break it with quantum computers, which data is at risk, and how post-quantum encryption stops it.", "datePublished": "2026-11-20", "dateModified": "2026-11-20", "mainEntityOfPage": "https://yugamgroup.com/harvest-now-decrypt-later.html", "author": {"@type": "Organization", "name": "YugamGroup", "url": "https://yugamgroup.com/"}, "publisher": {"@type": "Organization", "name": "YugamGroup", "url": "https://yugamgroup.com/", "logo": {"@type": "ImageObject", "url": "https://yugamgroup.com/logo.png"}}}</script>
+    <script>document.documentElement.classList.add('js');</script>
+    <link rel="preconnect" href="https://api.fontshare.com">
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2N37B1BJ4F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        var gaConsent = 'denied';
+        try { if (localStorage.getItem('yugam_analytics_consent') === 'true') gaConsent = 'granted'; } catch (e) {}
+        gtag('consent', 'default', { analytics_storage: gaConsent, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+        gtag('js', new Date());
+        gtag('config', 'G-2N37B1BJ4F');
+    </script>
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+        <a class="brand" href="/" aria-label="YugamGroup, home">
+            <svg viewBox="0 0 698.96 190.31" aria-hidden="true"><use href="logo-mono.svg#logo"></use></svg>
+        </a>
+        <nav class="site-nav" aria-label="Main">
+            <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-list">Menu</button>
+            <ul id="nav-list">
+                <li><a href="services.html">Services</a></li>
+                <li><a href="case-studies.html">Case studies</a></li>
+                <li><a href="insights.html">Insights</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="careers.html">Careers</a></li>
+            </ul>
+            <a class="btn" href="contact.html">Book a consultation</a>
+        </nav>
+    </header>
+
+    <main id="main">
+
+    <section class="page-header field-navy">
+        <div class="container">
+            <h1 class="page-title">Harvest now, decrypt later</h1>
+            <p class="page-subtitle">Why data encrypted today is already exposed to tomorrow&rsquo;s quantum computers, and what to do about it.</p>
+        </div>
+    </section>
+
+    <section class="section legal-section">
+        <div class="container legal-content guide-content">
+
+            <p class="lead">Harvest now, decrypt later (HNDL), also called store now, decrypt later, is an attack in which an adversary copies encrypted data today and keeps it until a quantum computer can break the encryption. It turns a future capability into a present-day risk.</p>
+
+            <h2>How a harvest now, decrypt later attack works</h2>
+            <p>An attacker does not need to break anything today. They only need to capture traffic or steal encrypted files: by tapping network links, compromising a cloud storage bucket, or exfiltrating backups. Most internet traffic uses RSA or elliptic-curve key exchange to agree the symmetric keys that protect a session. If that key exchange is recorded, a future quantum computer running Shor&rsquo;s algorithm can recover the session key and read everything that followed.</p>
+            <p>Well-resourced nation-state groups are widely assumed to be collecting data this way already. National cyber agencies, including CISA, the NSA and the UK NCSC, cite harvest now, decrypt later as a main reason to start post-quantum migration before quantum computers exist.</p>
+
+            <h2>Which data is at risk?</h2>
+            <p>The question to ask is how long your data must stay confidential. If it only matters for a few days, the risk is low. If it must stay secret for ten years or more, it is exposed today. High-risk examples include:</p>
+            <ul>
+                <li>health records, genetic data and insurance files</li>
+                <li>banking, trading and payment data, and customer identity information</li>
+                <li>intellectual property, product designs and source code</li>
+                <li>legal, merger and board communications</li>
+                <li>government, defence and critical infrastructure data</li>
+            </ul>
+
+            <h2>Mosca&rsquo;s theorem: are you already late?</h2>
+            <p>Researcher Michele Mosca put the risk into a simple inequality. Let <em>x</em> be how long your data must stay secret, <em>y</em> how long your migration to post-quantum encryption will take, and <em>z</em> how long until a cryptographically relevant quantum computer exists. If <em>x + y &gt; z</em>, data you protect today will be exposed. With migrations that take years and data that lives for a decade, many organizations are already inside that window. You can try it with the exposure check on our <a href="/">home page</a>.</p>
+
+            <h2>How to defend against harvest now, decrypt later</h2>
+            <ol class="plain-steps">
+                <li><strong>Switch key exchange first.</strong> Hybrid key exchange that combines X25519 with ML-KEM protects recorded TLS and VPN traffic even if one algorithm fails. This is the single most effective step.</li>
+                <li><strong>Find long-lived data.</strong> Use a <a href="crypto-agility.html">cryptographic inventory</a> to see which systems carry data with a long confidentiality life.</li>
+                <li><strong>Reduce what can be harvested.</strong> Limit data retention, segment networks and tighten access to backups and archives.</li>
+                <li><strong>Use strong symmetric encryption at rest.</strong> AES-256 remains quantum-resistant; make sure the keys that wrap it are protected by sound <a href="hsm-key-management.html">HSM key management</a>.</li>
+                <li><strong>Plan signatures next.</strong> Signatures cannot be harvested in the same way, but certificates and firmware signing need long lead times, so schedule the move to ML-DSA early.</li>
+            </ol>
+
+            <h2>Talk to a post-quantum cryptography consultant</h2>
+            <p>YugamGroup is a Chicago-based post-quantum cryptography consultancy serving regulated enterprises across the US. We rank your systems by harvest now, decrypt later risk so the most exposed data is protected first. <a href="contact.html#pqc-assessment">Book a PQC readiness assessment</a> or read more about our <a href="services.html">PQC and cloud security consulting services</a>.</p>
+
+            <h2>Related guides</h2>
+            <ul>
+                <li><a href="post-quantum-cryptography.html">What is post-quantum cryptography?</a></li>
+                <li><a href="nist-pqc-standards.html">NIST PQC standards: ML-KEM, ML-DSA and SLH-DSA</a></li>
+                <li><a href="crypto-agility.html">Crypto agility and cryptographic inventory</a></li>
+                <li><a href="hsm-key-management.html">HSM key management and Azure Key Vault HSM</a></li>
+                <li><a href="agentic-ai-governance.html">Agentic AI governance</a></li>
+            </ul>
+
+        </div>
+    </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-cols">
+            <div>
+                <h2>Post-quantum security</h2>
+                <ul>
+                    <li><a href="services.html#pqc">PQC readiness assessment</a></li>
+                    <li><a href="post-quantum-cryptography.html">Post-quantum cryptography</a></li>
+                    <li><a href="nist-pqc-standards.html">NIST PQC standards</a></li>
+                    <li><a href="harvest-now-decrypt-later.html">Harvest now, decrypt later</a></li>
+                    <li><a href="crypto-agility.html">Crypto agility</a></li>
+                    <li><a href="hsm-key-management.html">HSM key management</a></li>
+                    <li><a href="agentic-ai-governance.html">Agentic AI governance</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Cloud and engineering</h2>
+                <ul>
+                    <li><a href="services.html">Cloud migration</a></li>
+                    <li><a href="services.html">Cloud DevOps and automation</a></li>
+                    <li><a href="services.html">Application modernization</a></li>
+                    <li><a href="services.html">Product engineering</a></li>
+                    <li><a href="scanner.html">Website security scanner</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Company</h2>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="case-studies.html">Case studies</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Contact</h2>
+                <ul>
+                    <li><a href="tel:+12244420650">+1 (224) 442-0650</a></li>
+                    <li><a href="mailto:info@yugamgroup.com">info@yugamgroup.com</a></li>
+                    <li>Chicago, Illinois</li>
+                    <li>São Paulo, Brazil</li>
+                    <li>Chennai, India</li>
+                    <li><a href="https://www.linkedin.com/company/yugamllc" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://x.com/Yugamllc" target="_blank" rel="noopener">X</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-mark" aria-hidden="true">
+            <svg viewBox="0 0 698.96 190.31"><use href="logo-mono.svg#logo"></use></svg>
+        </div>
+        <div>
+            <div class="footer-legal">
+                <p>Post-quantum cryptography, cloud and agentic AI consulting for regulated enterprises. &copy; 2026 YugamGroup.</p>
+                <p><a href="privacy-policy.html">Privacy policy</a> &nbsp; <a href="#">Terms of service</a></p>
+            </div>
+            <p class="credits">Pictures and footage: Chicago skyline by Venti Views and network cabling by Taylor Vick, <a href="https://unsplash.com/license">Unsplash License</a>; <a href="https://commons.wikimedia.org/wiki/File:(2006)_Sao_Paulo_Skyline_(9557402041).jpg">São Paulo skyline</a> by Diego Torres Silvestre, <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a>; <a href="https://commons.wikimedia.org/wiki/File:Chennai_01.jpg">Chennai 01</a> by Ganesh Mohan T, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>; <a href="https://commons.wikimedia.org/wiki/File:BalticServers_data_center.jpg">BalticServers data center</a> by BalticServers.com, <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a>; <a href="https://commons.wikimedia.org/wiki/File:Fujikura_optic_fiber_at_Science_Museum.jpg">Fujikura optic fiber at Science Museum</a> by Syced, CC0; <a href="https://commons.wikimedia.org/wiki/File:Two_women_operating_ENIAC_(full_resolution).jpg">Two women operating ENIAC</a>, U.S. Army photo, public domain; <a href="https://commons.wikimedia.org/wiki/File:Animation_of_Rotating_Earth_at_Night.webm">Rotating Earth at Night</a> by NASA, public domain. Wikimedia Commons files via Wikimedia Commons.</p>
+        </div>
+    </footer>
+
+    <script src="site.js"></script>
+</body>
+
+</html>
