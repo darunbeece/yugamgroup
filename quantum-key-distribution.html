@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Quantum key distribution vs post-quantum cryptography: how QKD and quantum random number generators work, their limits, and which quantum-safe encryption approach suits enterprises.">
+    <title>Quantum Key Distribution (QKD) vs PQC | YugamGroup</title>
+    <link rel="canonical" href="https://yugamgroup.com/quantum-key-distribution.html">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Quantum Key Distribution (QKD) vs PQC | YugamGroup">
+    <meta property="og:description" content="Quantum key distribution vs post-quantum cryptography: how QKD and quantum random number generators work, their limits, and which quantum-safe encryption approach suits enterprises.">
+    <meta property="og:url" content="https://yugamgroup.com/quantum-key-distribution.html">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Quantum key distribution vs PQC", "description": "Quantum key distribution vs post-quantum cryptography: how QKD and quantum random number generators work, their limits, and which quantum-safe encryption approach suits enterprises.", "datePublished": "2026-11-20", "dateModified": "2026-11-20", "mainEntityOfPage": "https://yugamgroup.com/quantum-key-distribution.html", "author": {"@type": "Organization", "name": "YugamGroup", "url": "https://yugamgroup.com/"}, "publisher": {"@type": "Organization", "name": "YugamGroup", "url": "https://yugamgroup.com/", "logo": {"@type": "ImageObject", "url": "https://yugamgroup.com/logo.png"}}}</script>
+    <script>document.documentElement.classList.add('js');</script>
+    <link rel="preconnect" href="https://api.fontshare.com">
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2N37B1BJ4F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        var gaConsent = 'denied';
+        try { if (localStorage.getItem('yugam_analytics_consent') === 'true') gaConsent = 'granted'; } catch (e) {}
+        gtag('consent', 'default', { analytics_storage: gaConsent, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+        gtag('js', new Date());
+        gtag('config', 'G-2N37B1BJ4F');
+    </script>
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+        <a class="brand" href="/" aria-label="YugamGroup, home">
+            <svg viewBox="0 0 698.96 190.31" aria-hidden="true"><use href="logo-mono.svg#logo"></use></svg>
+        </a>
+        <nav class="site-nav" aria-label="Main">
+            <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-list">Menu</button>
+            <ul id="nav-list">
+                <li><a href="services.html">Services</a></li>
+                <li><a href="case-studies.html">Case studies</a></li>
+                <li><a href="insights.html">Insights</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="careers.html">Careers</a></li>
+            </ul>
+            <a class="btn" href="contact.html">Book a consultation</a>
+        </nav>
+    </header>
+
+    <main id="main">
+
+    <section class="page-header field-navy">
+        <div class="container">
+            <h1 class="page-title">Quantum key distribution vs PQC</h1>
+            <p class="page-subtitle">Two very different routes to quantum-safe encryption, and how to choose between them.</p>
+        </div>
+    </section>
+
+    <section class="section legal-section">
+        <div class="container legal-content guide-content">
+
+            <p class="lead">Quantum key distribution (QKD) and post-quantum cryptography (PQC) both aim to keep data safe from quantum computers, but they work in completely different ways. QKD uses quantum physics and special hardware; PQC uses new mathematics in ordinary software. Understanding the difference is the first step in any quantum cyber security strategy.</p>
+
+            <h2>How quantum key distribution works</h2>
+            <p>QKD sends encryption keys encoded in the quantum states of individual photons over fiber or free-space links. The laws of quantum mechanics mean that anyone who measures those photons disturbs them, so the two parties can detect eavesdropping. Once a key is shared, it is used with conventional symmetric encryption such as AES. BB84, published in 1984, is the best-known QKD protocol.</p>
+
+            <h2>Limits of QKD</h2>
+            <ul>
+                <li><strong>Special hardware and links.</strong> QKD needs dedicated optical equipment and, typically, dedicated fiber. It cannot run over the ordinary internet.</li>
+                <li><strong>Distance.</strong> Photon loss limits direct links to roughly a few hundred kilometers, so longer networks rely on trusted relay nodes, each of which becomes a target.</li>
+                <li><strong>No authentication on its own.</strong> QKD still needs a way to authenticate the two ends, which usually means classical or post-quantum signatures.</li>
+                <li><strong>Implementation risk.</strong> Real devices have been attacked through side channels that the theory does not cover.</li>
+            </ul>
+            <p>For these reasons the NSA does not recommend QKD for national security systems, and the UK NCSC and several European agencies advise organizations to prioritize post-quantum cryptography.</p>
+
+            <h2>Why most enterprises choose post-quantum cryptography</h2>
+            <p><a href="post-quantum-cryptography.html">Post-quantum cryptography</a> runs on existing computers, networks, browsers and cloud services. It protects key exchange and digital signatures, scales to millions of connections, and is standardized by NIST. It can be rolled out as software and firmware updates rather than new infrastructure. That makes PQC the practical choice for quantum-safe encryption across an enterprise, with QKD reserved for specialized, high-value point-to-point links.</p>
+
+            <h2>Quantum random number generators</h2>
+            <p>A quantum random number generator (QRNG) uses quantum effects to produce unpredictable random numbers, which are the raw material for strong keys. QRNGs can strengthen key generation, but they do not protect against quantum attacks on RSA or ECC by themselves. Validated random number generators inside HSMs and operating systems already meet the requirements for most organizations.</p>
+
+            <h2>QKD vs PQC at a glance</h2>
+            <ul>
+                <li><strong>Basis:</strong> QKD uses physics; PQC uses mathematics.</li>
+                <li><strong>Infrastructure:</strong> QKD needs dedicated hardware and links; PQC runs on existing systems.</li>
+                <li><strong>Scope:</strong> QKD only distributes keys; PQC covers key exchange and signatures.</li>
+                <li><strong>Standards:</strong> PQC has NIST FIPS 203, 204 and 205; QKD standards are still maturing.</li>
+                <li><strong>Best fit:</strong> PQC for enterprise-wide migration; QKD for niche, short-range, high-security links.</li>
+            </ul>
+
+            <h2>Talk to a post-quantum cryptography consultant</h2>
+            <p>YugamGroup is a Chicago-based post-quantum cryptography consultancy serving regulated enterprises across the US. We give vendor-neutral advice on quantum-safe encryption and help you choose and deploy the right approach. <a href="contact.html#pqc-assessment">Book a PQC readiness assessment</a> or read more about our <a href="services.html">PQC and cloud security consulting services</a>.</p>
+
+            <h2>Related guides</h2>
+            <ul>
+                <li><a href="post-quantum-cryptography.html">What is post-quantum cryptography?</a></li>
+                <li><a href="nist-pqc-standards.html">NIST PQC standards: ML-KEM, ML-DSA and SLH-DSA</a></li>
+                <li><a href="harvest-now-decrypt-later.html">Harvest now, decrypt later</a></li>
+                <li><a href="crypto-agility.html">Crypto agility and cryptographic inventory</a></li>
+                <li><a href="hsm-key-management.html">HSM key management and Azure Key Vault HSM</a></li>
+                <li><a href="agentic-ai-governance.html">Agentic AI governance</a></li>
+                <li><a href="pqc-migration-guide.html">PQC migration guide</a></li>
+                <li><a href="q-day.html">What is Q-Day?</a></li>
+                <li><a href="post-quantum-pki.html">Post-quantum PKI and quantum-safe certificates</a></li>
+                <li><a href="cnsa-2-0.html">CNSA 2.0 requirements and timeline</a></li>
+                <li><a href="pqc-glossary.html">Post-quantum cryptography glossary</a></li>
+            </ul>
+
+        </div>
+    </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-cols">
+            <div>
+                <h2>Post-quantum security</h2>
+                <ul>
+                    <li><a href="services.html#pqc">PQC readiness assessment</a></li>
+                    <li><a href="post-quantum-cryptography.html">Post-quantum cryptography</a></li>
+                    <li><a href="nist-pqc-standards.html">NIST PQC standards</a></li>
+                    <li><a href="harvest-now-decrypt-later.html">Harvest now, decrypt later</a></li>
+                    <li><a href="crypto-agility.html">Crypto agility</a></li>
+                    <li><a href="hsm-key-management.html">HSM key management</a></li>
+                    <li><a href="agentic-ai-governance.html">Agentic AI governance</a></li>
+                    <li><a href="insights.html">All PQC guides</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Cloud and engineering</h2>
+                <ul>
+                    <li><a href="services.html">Cloud migration</a></li>
+                    <li><a href="services.html">Cloud DevOps and automation</a></li>
+                    <li><a href="services.html">Application modernization</a></li>
+                    <li><a href="services.html">Product engineering</a></li>
+                    <li><a href="scanner.html">Website security scanner</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Company</h2>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="case-studies.html">Case studies</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Contact</h2>
+                <ul>
+                    <li><a href="tel:+12244420650">+1 (224) 442-0650</a></li>
+                    <li><a href="mailto:info@yugamgroup.com">info@yugamgroup.com</a></li>
+                    <li>Chicago, Illinois</li>
+                    <li>São Paulo, Brazil</li>
+                    <li>Chennai, India</li>
+                    <li><a href="https://www.linkedin.com/company/yugamllc" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://x.com/Yugamllc" target="_blank" rel="noopener">X</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-mark" aria-hidden="true">
+            <svg viewBox="0 0 698.96 190.31"><use href="logo-mono.svg#logo"></use></svg>
+        </div>
+        <div>
+            <div class="footer-legal">
+                <p>Post-quantum cryptography, cloud and agentic AI consulting for regulated enterprises. &copy; 2026 YugamGroup.</p>
+                <p><a href="privacy-policy.html">Privacy policy</a> &nbsp; <a href="#">Terms of service</a></p>
+            </div>
+            <p class="credits">Pictures and footage: Chicago skyline by Venti Views and network cabling by Taylor Vick, <a href="https://unsplash.com/license">Unsplash License</a>; <a href="https://commons.wikimedia.org/wiki/File:(2006)_Sao_Paulo_Skyline_(9557402041).jpg">São Paulo skyline</a> by Diego Torres Silvestre, <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a>; <a href="https://commons.wikimedia.org/wiki/File:Chennai_01.jpg">Chennai 01</a> by Ganesh Mohan T, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>; <a href="https://commons.wikimedia.org/wiki/File:BalticServers_data_center.jpg">BalticServers data center</a> by BalticServers.com, <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a>; <a href="https://commons.wikimedia.org/wiki/File:Fujikura_optic_fiber_at_Science_Museum.jpg">Fujikura optic fiber at Science Museum</a> by Syced, CC0; <a href="https://commons.wikimedia.org/wiki/File:Two_women_operating_ENIAC_(full_resolution).jpg">Two women operating ENIAC</a>, U.S. Army photo, public domain; <a href="https://commons.wikimedia.org/wiki/File:Animation_of_Rotating_Earth_at_Night.webm">Rotating Earth at Night</a> by NASA, public domain. Wikimedia Commons files via Wikimedia Commons.</p>
+        </div>
+    </footer>
+
+    <script src="site.js"></script>
+</body>
+
+</html>

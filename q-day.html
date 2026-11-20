@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Q-Day is the day a quantum computer can break RSA and ECC encryption. Learn what a CRQC is, current estimates of when Q-Day could arrive, and how to prepare your organization.">
+    <title>What Is Q-Day? The Quantum Threat Timeline | YugamGroup</title>
+    <link rel="canonical" href="https://yugamgroup.com/q-day.html">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="What Is Q-Day? The Quantum Threat Timeline | YugamGroup">
+    <meta property="og:description" content="Q-Day is the day a quantum computer can break RSA and ECC encryption. Learn what a CRQC is, current estimates of when Q-Day could arrive, and how to prepare your organization.">
+    <meta property="og:url" content="https://yugamgroup.com/q-day.html">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "What is Q-Day?", "description": "Q-Day is the day a quantum computer can break RSA and ECC encryption. Learn what a CRQC is, current estimates of when Q-Day could arrive, and how to prepare your organization.", "datePublished": "2026-11-20", "dateModified": "2026-11-20", "mainEntityOfPage": "https://yugamgroup.com/q-day.html", "author": {"@type": "Organization", "name": "YugamGroup", "url": "https://yugamgroup.com/"}, "publisher": {"@type": "Organization", "name": "YugamGroup", "url": "https://yugamgroup.com/", "logo": {"@type": "ImageObject", "url": "https://yugamgroup.com/logo.png"}}}</script>
+    <script>document.documentElement.classList.add('js');</script>
+    <link rel="preconnect" href="https://api.fontshare.com">
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2N37B1BJ4F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        var gaConsent = 'denied';
+        try { if (localStorage.getItem('yugam_analytics_consent') === 'true') gaConsent = 'granted'; } catch (e) {}
+        gtag('consent', 'default', { analytics_storage: gaConsent, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+        gtag('js', new Date());
+        gtag('config', 'G-2N37B1BJ4F');
+    </script>
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+        <a class="brand" href="/" aria-label="YugamGroup, home">
+            <svg viewBox="0 0 698.96 190.31" aria-hidden="true"><use href="logo-mono.svg#logo"></use></svg>
+        </a>
+        <nav class="site-nav" aria-label="Main">
+            <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-list">Menu</button>
+            <ul id="nav-list">
+                <li><a href="services.html">Services</a></li>
+                <li><a href="case-studies.html">Case studies</a></li>
+                <li><a href="insights.html">Insights</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="careers.html">Careers</a></li>
+            </ul>
+            <a class="btn" href="contact.html">Book a consultation</a>
+        </nav>
+    </header>
+
+    <main id="main">
+
+    <section class="page-header field-navy">
+        <div class="container">
+            <h1 class="page-title">What is Q-Day?</h1>
+            <p class="page-subtitle">The day quantum computers break today&rsquo;s public-key encryption, and why organizations are preparing before it arrives.</p>
+        </div>
+    </section>
+
+    <section class="section legal-section">
+        <div class="container legal-content guide-content">
+
+            <p class="lead">Q-Day is the term for the moment a quantum computer becomes powerful enough to break the public-key cryptography that protects most digital systems today, including RSA and elliptic-curve cryptography. Security professionals call such a machine a cryptographically relevant quantum computer (CRQC).</p>
+
+            <h2>What happens on Q-Day?</h2>
+            <p>A CRQC running Shor&rsquo;s algorithm could derive private keys from public keys. That would let an attacker decrypt recorded TLS and VPN sessions, forge digital signatures, impersonate websites with fake certificates, sign malicious software updates and break into systems protected by public-key authentication. Symmetric encryption such as AES-256 would remain secure, but the keys that protect it are usually exchanged with public-key cryptography, so the damage would spread.</p>
+            <p>Q-Day is unlikely to be announced. The first organization to build a CRQC, possibly a nation state, may have strong reasons to keep it secret. That is one reason security agencies urge organizations to migrate before there is public proof that a CRQC exists.</p>
+
+            <h2>When will Q-Day arrive?</h2>
+            <p>No one knows. Estimates have moved closer as research advances. Quantum hardware is improving in qubit counts and error rates, and algorithm research keeps lowering the resources needed: a 2025 estimate by Google researcher Craig Gidney suggested RSA-2048 could be broken by a machine with fewer than one million noisy qubits in under a week, around twenty times fewer qubits than his 2019 estimate. Surveys of quantum experts by the Global Risk Institute show a meaningful probability of a CRQC within the next ten to fifteen years.</p>
+            <p>For planning, the exact date matters less than the gap between it and how long your data must stay secret and your migration will take. Our <a href="harvest-now-decrypt-later.html">harvest now, decrypt later</a> guide explains how to calculate that.</p>
+
+            <h2>Q-Day vs Y2K</h2>
+            <p>Q-Day is often compared to Y2K: a technology problem that touches almost every system and must be fixed in advance. There are two big differences. Y2K had a fixed date, while Q-Day does not. And data stolen before Q-Day can still be exposed after it, so the harm can begin before the day itself.</p>
+
+            <h2>How to prepare for Q-Day</h2>
+            <ul>
+                <li>Build a <a href="crypto-agility.html">cryptographic inventory</a> so you know which systems depend on RSA and ECC.</li>
+                <li>Protect long-lived data first by enabling hybrid post-quantum key exchange.</li>
+                <li>Follow a structured <a href="pqc-migration-guide.html">PQC migration roadmap</a> aligned to the <a href="nist-pqc-standards.html">NIST PQC standards</a>.</li>
+                <li>Ask vendors for their quantum-safe roadmaps and add post-quantum requirements to contracts.</li>
+                <li>Brief your board: Q-Day is a business continuity and regulatory risk, not only a technical one.</li>
+            </ul>
+
+            <h2>Talk to a post-quantum cryptography consultant</h2>
+            <p>YugamGroup is a Chicago-based post-quantum cryptography consultancy serving regulated enterprises across the US. We help organizations measure their Q-Day exposure and build a quantum-resilient security program. <a href="contact.html#pqc-assessment">Book a PQC readiness assessment</a> or read more about our <a href="services.html">PQC and cloud security consulting services</a>.</p>
+
+            <h2>Related guides</h2>
+            <ul>
+                <li><a href="post-quantum-cryptography.html">What is post-quantum cryptography?</a></li>
+                <li><a href="nist-pqc-standards.html">NIST PQC standards: ML-KEM, ML-DSA and SLH-DSA</a></li>
+                <li><a href="harvest-now-decrypt-later.html">Harvest now, decrypt later</a></li>
+                <li><a href="crypto-agility.html">Crypto agility and cryptographic inventory</a></li>
+                <li><a href="hsm-key-management.html">HSM key management and Azure Key Vault HSM</a></li>
+                <li><a href="agentic-ai-governance.html">Agentic AI governance</a></li>
+                <li><a href="pqc-migration-guide.html">PQC migration guide</a></li>
+                <li><a href="post-quantum-pki.html">Post-quantum PKI and quantum-safe certificates</a></li>
+                <li><a href="cnsa-2-0.html">CNSA 2.0 requirements and timeline</a></li>
+                <li><a href="quantum-key-distribution.html">Quantum key distribution vs post-quantum cryptography</a></li>
+                <li><a href="pqc-glossary.html">Post-quantum cryptography glossary</a></li>
+            </ul>
+
+        </div>
+    </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-cols">
+            <div>
+                <h2>Post-quantum security</h2>
+                <ul>
+                    <li><a href="services.html#pqc">PQC readiness assessment</a></li>
+                    <li><a href="post-quantum-cryptography.html">Post-quantum cryptography</a></li>
+                    <li><a href="nist-pqc-standards.html">NIST PQC standards</a></li>
+                    <li><a href="harvest-now-decrypt-later.html">Harvest now, decrypt later</a></li>
+                    <li><a href="crypto-agility.html">Crypto agility</a></li>
+                    <li><a href="hsm-key-management.html">HSM key management</a></li>
+                    <li><a href="agentic-ai-governance.html">Agentic AI governance</a></li>
+                    <li><a href="insights.html">All PQC guides</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Cloud and engineering</h2>
+                <ul>
+                    <li><a href="services.html">Cloud migration</a></li>
+                    <li><a href="services.html">Cloud DevOps and automation</a></li>
+                    <li><a href="services.html">Application modernization</a></li>
+                    <li><a href="services.html">Product engineering</a></li>
+                    <li><a href="scanner.html">Website security scanner</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Company</h2>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="case-studies.html">Case studies</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Contact</h2>
+                <ul>
+                    <li><a href="tel:+12244420650">+1 (224) 442-0650</a></li>
+                    <li><a href="mailto:info@yugamgroup.com">info@yugamgroup.com</a></li>
+                    <li>Chicago, Illinois</li>
+                    <li>São Paulo, Brazil</li>
+                    <li>Chennai, India</li>
+                    <li><a href="https://www.linkedin.com/company/yugamllc" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://x.com/Yugamllc" target="_blank" rel="noopener">X</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-mark" aria-hidden="true">
+            <svg viewBox="0 0 698.96 190.31"><use href="logo-mono.svg#logo"></use></svg>
+        </div>
+        <div>
+            <div class="footer-legal">
+                <p>Post-quantum cryptography, cloud and agentic AI consulting for regulated enterprises. &copy; 2026 YugamGroup.</p>
+                <p><a href="privacy-policy.html">Privacy policy</a> &nbsp; <a href="#">Terms of service</a></p>
+            </div>
+            <p class="credits">Pictures and footage: Chicago skyline by Venti Views and network cabling by Taylor Vick, <a href="https://unsplash.com/license">Unsplash License</a>; <a href="https://commons.wikimedia.org/wiki/File:(2006)_Sao_Paulo_Skyline_(9557402041).jpg">São Paulo skyline</a> by Diego Torres Silvestre, <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a>; <a href="https://commons.wikimedia.org/wiki/File:Chennai_01.jpg">Chennai 01</a> by Ganesh Mohan T, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>; <a href="https://commons.wikimedia.org/wiki/File:BalticServers_data_center.jpg">BalticServers data center</a> by BalticServers.com, <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a>; <a href="https://commons.wikimedia.org/wiki/File:Fujikura_optic_fiber_at_Science_Museum.jpg">Fujikura optic fiber at Science Museum</a> by Syced, CC0; <a href="https://commons.wikimedia.org/wiki/File:Two_women_operating_ENIAC_(full_resolution).jpg">Two women operating ENIAC</a>, U.S. Army photo, public domain; <a href="https://commons.wikimedia.org/wiki/File:Animation_of_Rotating_Earth_at_Night.webm">Rotating Earth at Night</a> by NASA, public domain. Wikimedia Commons files via Wikimedia Commons.</p>
+        </div>
+    </footer>
+
+    <script src="site.js"></script>
+</body>
+
+</html>

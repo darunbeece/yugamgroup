@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A step-by-step PQC migration guide: how to plan a quantum-safe migration, build a roadmap, prioritize systems and move to ML-KEM and ML-DSA, with notes for banking, healthcare and government.">
+    <title>PQC Migration Guide: Quantum-Safe Roadmap | YugamGroup</title>
+    <link rel="canonical" href="https://yugamgroup.com/pqc-migration-guide.html">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="PQC Migration Guide: Quantum-Safe Roadmap | YugamGroup">
+    <meta property="og:description" content="A step-by-step PQC migration guide: how to plan a quantum-safe migration, build a roadmap, prioritize systems and move to ML-KEM and ML-DSA, with notes for banking, healthcare and government.">
+    <meta property="og:url" content="https://yugamgroup.com/pqc-migration-guide.html">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "PQC migration guide", "description": "A step-by-step PQC migration guide: how to plan a quantum-safe migration, build a roadmap, prioritize systems and move to ML-KEM and ML-DSA, with notes for banking, healthcare and government.", "datePublished": "2026-11-20", "dateModified": "2026-11-20", "mainEntityOfPage": "https://yugamgroup.com/pqc-migration-guide.html", "author": {"@type": "Organization", "name": "YugamGroup", "url": "https://yugamgroup.com/"}, "publisher": {"@type": "Organization", "name": "YugamGroup", "url": "https://yugamgroup.com/", "logo": {"@type": "ImageObject", "url": "https://yugamgroup.com/logo.png"}}}</script>
+    <script>document.documentElement.classList.add('js');</script>
+    <link rel="preconnect" href="https://api.fontshare.com">
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2N37B1BJ4F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        var gaConsent = 'denied';
+        try { if (localStorage.getItem('yugam_analytics_consent') === 'true') gaConsent = 'granted'; } catch (e) {}
+        gtag('consent', 'default', { analytics_storage: gaConsent, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+        gtag('js', new Date());
+        gtag('config', 'G-2N37B1BJ4F');
+    </script>
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+        <a class="brand" href="/" aria-label="YugamGroup, home">
+            <svg viewBox="0 0 698.96 190.31" aria-hidden="true"><use href="logo-mono.svg#logo"></use></svg>
+        </a>
+        <nav class="site-nav" aria-label="Main">
+            <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-list">Menu</button>
+            <ul id="nav-list">
+                <li><a href="services.html">Services</a></li>
+                <li><a href="case-studies.html">Case studies</a></li>
+                <li><a href="insights.html">Insights</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="careers.html">Careers</a></li>
+            </ul>
+            <a class="btn" href="contact.html">Book a consultation</a>
+        </nav>
+    </header>
+
+    <main id="main">
+
+    <section class="page-header field-navy">
+        <div class="container">
+            <h1 class="page-title">PQC migration guide</h1>
+            <p class="page-subtitle">How to plan and run a migration to post-quantum cryptography, from first inventory to quantum-safe production systems.</p>
+        </div>
+    </section>
+
+    <section class="section legal-section">
+        <div class="container legal-content guide-content">
+
+            <p class="lead">A post-quantum cryptography (PQC) migration replaces the RSA and elliptic-curve cryptography in your systems with quantum-resistant algorithms such as ML-KEM and ML-DSA. It is one of the largest security changes most enterprises will make, and it works best as a planned, multi-year program rather than a series of emergency fixes.</p>
+
+            <h2>Why start your quantum-safe migration now</h2>
+            <p>Three pressures make PQC migration a current priority. Data recorded today can be decrypted later through <a href="harvest-now-decrypt-later.html">harvest now, decrypt later</a> attacks. Governments have set dates: NIST plans to deprecate quantum-vulnerable algorithms after 2030 and disallow them after 2035, and <a href="cnsa-2-0.html">CNSA 2.0</a> sets earlier milestones for national security systems. And past cryptographic transitions took ten years or more. Starting late means migrating under deadline pressure, which is when outages and gaps happen.</p>
+
+            <h2>A five-phase PQC migration roadmap</h2>
+            <ol class="plain-steps">
+                <li><strong>Mobilize.</strong> Name an executive owner, form a working group across security, infrastructure, application and procurement teams, and set a budget for discovery.</li>
+                <li><strong>Discover.</strong> Build a <a href="crypto-agility.html">cryptographic inventory</a> covering code, certificates, protocols, HSMs, cloud key management and vendor products.</li>
+                <li><strong>Prioritize.</strong> Score each system by how long its data must stay secret, how exposed it is, how hard it is to change and which deadlines apply. This becomes the quantum-safe roadmap.</li>
+                <li><strong>Remediate in waves.</strong> Start with hybrid key exchange for external TLS and VPNs, then internal services, then <a href="post-quantum-pki.html">PKI and certificates</a>, code signing and stored data. Each wave has testing, a rollback plan and success measures.</li>
+                <li><strong>Sustain.</strong> Keep the inventory current, enforce approved algorithms with policy-as-code, and build crypto agility so the next change is faster.</li>
+            </ol>
+
+            <h2>Common PQC migration challenges</h2>
+            <ul>
+                <li><strong>Larger keys and signatures.</strong> ML-KEM and ML-DSA objects are several times larger than their classical equivalents, which can break packet sizes, certificate chains, databases and constrained devices.</li>
+                <li><strong>Vendor dependencies.</strong> Much of your cryptography lives inside products you do not control. Collect vendor PQC roadmaps early and make them part of procurement.</li>
+                <li><strong>Hardware lead times.</strong> HSMs, smart cards and network appliances may need firmware updates or replacement. See <a href="hsm-key-management.html">HSM key management</a>.</li>
+                <li><strong>Interoperability.</strong> Partners, customers and legacy systems will move at different speeds, so hybrid modes and careful negotiation matter.</li>
+                <li><strong>Performance.</strong> Most PQC algorithms are fast, but handshake sizes and signature verification at scale still need load testing.</li>
+            </ul>
+
+            <h2>PQC migration by industry</h2>
+            <p><strong>Banking and financial services.</strong> Payment networks, trading systems and customer data have long confidentiality lives and many counterparties. Financial regulators and industry bodies, including the G7 Cyber Expert Group and FS-ISAC, have published post-quantum guidance, and supervisors increasingly ask boards about quantum risk.</p>
+            <p><strong>Healthcare and life sciences.</strong> Medical records and genomic data must stay private for decades, which makes them prime targets for harvest now, decrypt later. Connected medical devices add long replacement cycles.</p>
+            <p><strong>Government and federal contractors.</strong> Federal agencies must inventory and migrate quantum-vulnerable systems, and contractors supplying national security systems must meet CNSA 2.0 milestones.</p>
+            <p><strong>Manufacturing and critical infrastructure.</strong> Operational technology and embedded devices stay in service for 15 years or more, so devices shipped today need firmware signing and update paths that can become quantum-safe.</p>
+
+            <h2>How long does a PQC migration take?</h2>
+            <p>For a large enterprise, discovery and planning typically take six to twelve months, and full remediation several years. Quick wins, such as enabling hybrid key exchange on public web services, can happen within months. The right pace depends on your data, your vendors and your regulators, which is what a readiness assessment establishes.</p>
+
+            <h2>Talk to a post-quantum cryptography consultant</h2>
+            <p>YugamGroup is a Chicago-based post-quantum cryptography consultancy serving regulated enterprises across the US. We run PQC migrations end to end for regulated enterprises, from readiness assessment to quantum-safe production. <a href="contact.html#pqc-assessment">Book a PQC readiness assessment</a> or read more about our <a href="services.html">PQC and cloud security consulting services</a>.</p>
+
+            <h2>Related guides</h2>
+            <ul>
+                <li><a href="post-quantum-cryptography.html">What is post-quantum cryptography?</a></li>
+                <li><a href="nist-pqc-standards.html">NIST PQC standards: ML-KEM, ML-DSA and SLH-DSA</a></li>
+                <li><a href="harvest-now-decrypt-later.html">Harvest now, decrypt later</a></li>
+                <li><a href="crypto-agility.html">Crypto agility and cryptographic inventory</a></li>
+                <li><a href="hsm-key-management.html">HSM key management and Azure Key Vault HSM</a></li>
+                <li><a href="agentic-ai-governance.html">Agentic AI governance</a></li>
+                <li><a href="q-day.html">What is Q-Day?</a></li>
+                <li><a href="post-quantum-pki.html">Post-quantum PKI and quantum-safe certificates</a></li>
+                <li><a href="cnsa-2-0.html">CNSA 2.0 requirements and timeline</a></li>
+                <li><a href="quantum-key-distribution.html">Quantum key distribution vs post-quantum cryptography</a></li>
+                <li><a href="pqc-glossary.html">Post-quantum cryptography glossary</a></li>
+            </ul>
+
+        </div>
+    </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-cols">
+            <div>
+                <h2>Post-quantum security</h2>
+                <ul>
+                    <li><a href="services.html#pqc">PQC readiness assessment</a></li>
+                    <li><a href="post-quantum-cryptography.html">Post-quantum cryptography</a></li>
+                    <li><a href="nist-pqc-standards.html">NIST PQC standards</a></li>
+                    <li><a href="harvest-now-decrypt-later.html">Harvest now, decrypt later</a></li>
+                    <li><a href="crypto-agility.html">Crypto agility</a></li>
+                    <li><a href="hsm-key-management.html">HSM key management</a></li>
+                    <li><a href="agentic-ai-governance.html">Agentic AI governance</a></li>
+                    <li><a href="insights.html">All PQC guides</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Cloud and engineering</h2>
+                <ul>
+                    <li><a href="services.html">Cloud migration</a></li>
+                    <li><a href="services.html">Cloud DevOps and automation</a></li>
+                    <li><a href="services.html">Application modernization</a></li>
+                    <li><a href="services.html">Product engineering</a></li>
+                    <li><a href="scanner.html">Website security scanner</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Company</h2>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="case-studies.html">Case studies</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Contact</h2>
+                <ul>
+                    <li><a href="tel:+12244420650">+1 (224) 442-0650</a></li>
+                    <li><a href="mailto:info@yugamgroup.com">info@yugamgroup.com</a></li>
+                    <li>Chicago, Illinois</li>
+                    <li>São Paulo, Brazil</li>
+                    <li>Chennai, India</li>
+                    <li><a href="https://www.linkedin.com/company/yugamllc" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://x.com/Yugamllc" target="_blank" rel="noopener">X</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-mark" aria-hidden="true">
+            <svg viewBox="0 0 698.96 190.31"><use href="logo-mono.svg#logo"></use></svg>
+        </div>
+        <div>
+            <div class="footer-legal">
+                <p>Post-quantum cryptography, cloud and agentic AI consulting for regulated enterprises. &copy; 2026 YugamGroup.</p>
+                <p><a href="privacy-policy.html">Privacy policy</a> &nbsp; <a href="#">Terms of service</a></p>
+            </div>
+            <p class="credits">Pictures and footage: Chicago skyline by Venti Views and network cabling by Taylor Vick, <a href="https://unsplash.com/license">Unsplash License</a>; <a href="https://commons.wikimedia.org/wiki/File:(2006)_Sao_Paulo_Skyline_(9557402041).jpg">São Paulo skyline</a> by Diego Torres Silvestre, <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a>; <a href="https://commons.wikimedia.org/wiki/File:Chennai_01.jpg">Chennai 01</a> by Ganesh Mohan T, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>; <a href="https://commons.wikimedia.org/wiki/File:BalticServers_data_center.jpg">BalticServers data center</a> by BalticServers.com, <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a>; <a href="https://commons.wikimedia.org/wiki/File:Fujikura_optic_fiber_at_Science_Museum.jpg">Fujikura optic fiber at Science Museum</a> by Syced, CC0; <a href="https://commons.wikimedia.org/wiki/File:Two_women_operating_ENIAC_(full_resolution).jpg">Two women operating ENIAC</a>, U.S. Army photo, public domain; <a href="https://commons.wikimedia.org/wiki/File:Animation_of_Rotating_Earth_at_Night.webm">Rotating Earth at Night</a> by NASA, public domain. Wikimedia Commons files via Wikimedia Commons.</p>
+        </div>
+    </footer>
+
+    <script src="site.js"></script>
+</body>
+
+</html>
