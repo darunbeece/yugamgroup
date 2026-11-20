@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Website Security Scanner - YuGam Group</title>
+    <meta name="description" content="Free external website security scanner from YugamGroup. Check SSL/TLS, HTTP security headers, DNS email records, exposed services and quantum-vulnerable cryptography.">
+    <title>Free Website Security Scanner | YugamGroup</title>
+    <link rel="canonical" href="https://yugamgroup.com/scanner.html">
     <style>
         * {
             margin: 0;
@@ -449,6 +451,34 @@
             margin-top: 30px;
         }
 
+        .about-scanner {
+            margin-top: 50px;
+            color: #cbd5e1;
+            line-height: 1.7;
+        }
+
+        .about-scanner h2 {
+            color: #ffffff;
+            font-size: 1.5rem;
+            margin: 35px 0 12px;
+        }
+
+        .about-scanner p {
+            margin-bottom: 14px;
+        }
+
+        .about-scanner ul {
+            margin: 0 0 14px 22px;
+        }
+
+        .about-scanner li {
+            margin-bottom: 8px;
+        }
+
+        .about-scanner a {
+            color: #c9a961;
+        }
+
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 1.8rem;
@@ -528,6 +558,25 @@
         <div id="resultsContainer" class="results-container">
             <!-- Results will be populated here -->
         </div>
+
+
+        <section class="about-scanner" aria-labelledby="about-scanner-title">
+            <h2 id="about-scanner-title">Why run an external security scan?</h2>
+            <p>Most breaches start with something an attacker can see from the outside: an expired or weak TLS certificate, a missing security header, a server banner that gives away an unpatched version, or an email domain without SPF, DKIM and DMARC protection. This free scanner looks at your website the same way an attacker would, from the public internet, and reports what it finds in plain language so your team can prioritise fixes.</p>
+            <p>The scan is passive and non-intrusive. It reads publicly available responses, certificates and DNS records. It does not attempt to log in, exploit vulnerabilities or change anything on the target site, so it is safe to run against production systems you are authorised to test.</p>
+
+            <h2>How to read your results</h2>
+            <ul>
+                <li><strong>Security score</strong> gives a quick overall picture. Treat anything below 70 as a sign that basic hardening is missing.</li>
+                <li><strong>Failed checks</strong> are issues worth fixing soon, such as missing HSTS, a permissive Content-Security-Policy or an invalid certificate chain.</li>
+                <li><strong>Warnings</strong> are configuration choices that raise risk, for example server version disclosure or older TLS protocol support.</li>
+                <li><strong>Passed checks</strong> confirm controls that are already in place and should be kept under change control.</li>
+            </ul>
+
+            <h2>Preparing for post-quantum cryptography</h2>
+            <p>Today&rsquo;s TLS key exchange and certificate signatures rely on RSA and elliptic-curve algorithms that a large quantum computer could break. Data captured now can be decrypted later, which is why regulators and NIST are pushing organisations to adopt the new ML-KEM and ML-DSA standards. Knowing which protocols and cipher suites your public endpoints use is the first step in a cryptographic inventory.</p>
+            <p>YugamGroup helps regulated enterprises across the US build that inventory, rank quantum-vulnerable systems by risk and plan a staged migration. If your scan raises questions, <a href="contact.html#pqc-assessment">book a PQC readiness assessment</a>, explore our <a href="services.html">security services</a>, or return to the <a href="/">YugamGroup home page</a>.</p>
+        </section>
 
         <div class="footer-text">
             <p>Your scan data is processed securely and not stored. This tool is provided for authorized security testing only.</p>

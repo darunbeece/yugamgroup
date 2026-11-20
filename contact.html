@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Contact YugamGroup for agentic AI governance, cloud data estate modernization, and zero trust governance solutions. Get in touch with our enterprise AI transformation experts.">
-    <title>Contact YugamGroup — AI &amp; Cloud Transformation Consultation</title>
+        content="Contact YugamGroup in Chicago to book a post-quantum cryptography readiness assessment, plan an ML-KEM and ML-DSA migration, or discuss cloud, zero trust and AI security.">
+    <title>Contact YugamGroup | Book a PQC Readiness Assessment</title>
+    <link rel="canonical" href="https://yugamgroup.com/contact.html">
     <script>document.documentElement.classList.add('js');</script>
     <link rel="preconnect" href="https://api.fontshare.com">
     <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
@@ -29,7 +30,7 @@
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header">
-        <a class="brand" href="index.html" aria-label="YugamGroup, home">
+        <a class="brand" href="/" aria-label="YugamGroup, home">
             <svg viewBox="0 0 698.96 190.31" aria-hidden="true"><use href="logo-mono.svg#logo"></use></svg>
         </a>
         <nav class="site-nav" aria-label="Main">
@@ -268,14 +269,20 @@
         const contactForm = document.getElementById('contactForm');
         const successMessage = document.getElementById('successMessage');
 
-        // Preselect the subject when linked with ?subject=pqc-assessment etc.
-        if (contactForm) {
-            const wanted = new URLSearchParams(window.location.search).get('subject');
+        // Preselect the subject when linked with contact.html#pqc-assessment
+        // (older ?subject=pqc-assessment links still work).
+        function preselectSubject() {
+            if (!contactForm) return;
+            let wanted = window.location.hash.slice(1);
+            try { wanted = decodeURIComponent(wanted); } catch (e) {}
+            wanted = wanted || new URLSearchParams(window.location.search).get('subject');
             const select = contactForm.querySelector('select[name="subject"]');
             if (wanted && select && select.querySelector('option[value="' + CSS.escape(wanted) + '"]')) {
                 select.value = wanted;
             }
         }
+        preselectSubject();
+        window.addEventListener('hashchange', preselectSubject);
 
         if (contactForm) {
             contactForm.addEventListener('submit', async function(e) {
