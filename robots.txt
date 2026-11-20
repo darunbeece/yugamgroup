@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /tools/
+Disallow: /*.bak
+
+Sitemap: https://yugamgroup.com/sitemap.xml
