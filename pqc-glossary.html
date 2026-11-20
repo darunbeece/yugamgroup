@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A glossary of post-quantum cryptography terms: CRQC, Q-Day, ML-KEM, ML-DSA, SLH-DSA, lattice-based cryptography, KEM, CBOM, crypto agility, hybrid key exchange, QKD and more.">
+    <title>Post-Quantum Cryptography Glossary of Terms | YugamGroup</title>
+    <link rel="canonical" href="https://yugamgroup.com/pqc-glossary.html">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Post-Quantum Cryptography Glossary of Terms | YugamGroup">
+    <meta property="og:description" content="A glossary of post-quantum cryptography terms: CRQC, Q-Day, ML-KEM, ML-DSA, SLH-DSA, lattice-based cryptography, KEM, CBOM, crypto agility, hybrid key exchange, QKD and more.">
+    <meta property="og:url" content="https://yugamgroup.com/pqc-glossary.html">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Post-quantum cryptography glossary", "description": "A glossary of post-quantum cryptography terms: CRQC, Q-Day, ML-KEM, ML-DSA, SLH-DSA, lattice-based cryptography, KEM, CBOM, crypto agility, hybrid key exchange, QKD and more.", "datePublished": "2026-11-20", "dateModified": "2026-11-20", "mainEntityOfPage": "https://yugamgroup.com/pqc-glossary.html", "author": {"@type": "Organization", "name": "YugamGroup", "url": "https://yugamgroup.com/"}, "publisher": {"@type": "Organization", "name": "YugamGroup", "url": "https://yugamgroup.com/", "logo": {"@type": "ImageObject", "url": "https://yugamgroup.com/logo.png"}}}</script>
+    <script>document.documentElement.classList.add('js');</script>
+    <link rel="preconnect" href="https://api.fontshare.com">
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2N37B1BJ4F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        var gaConsent = 'denied';
+        try { if (localStorage.getItem('yugam_analytics_consent') === 'true') gaConsent = 'granted'; } catch (e) {}
+        gtag('consent', 'default', { analytics_storage: gaConsent, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+        gtag('js', new Date());
+        gtag('config', 'G-2N37B1BJ4F');
+    </script>
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+        <a class="brand" href="/" aria-label="YugamGroup, home">
+            <svg viewBox="0 0 698.96 190.31" aria-hidden="true"><use href="logo-mono.svg#logo"></use></svg>
+        </a>
+        <nav class="site-nav" aria-label="Main">
+            <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-list">Menu</button>
+            <ul id="nav-list">
+                <li><a href="services.html">Services</a></li>
+                <li><a href="case-studies.html">Case studies</a></li>
+                <li><a href="insights.html">Insights</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="careers.html">Careers</a></li>
+            </ul>
+            <a class="btn" href="contact.html">Book a consultation</a>
+        </nav>
+    </header>
+
+    <main id="main">
+
+    <section class="page-header field-navy">
+        <div class="container">
+            <h1 class="page-title">Post-quantum cryptography glossary</h1>
+            <p class="page-subtitle">Plain-English definitions of the terms you will meet in a PQC program.</p>
+        </div>
+    </section>
+
+    <section class="section legal-section">
+        <div class="container legal-content guide-content">
+
+            <p class="lead">Post-quantum security comes with a lot of new vocabulary. This glossary explains the terms most often used in quantum-safe migration projects, standards and vendor material.</p>
+
+            <h2>Asymmetric (public-key) cryptography</h2>
+            <p>Cryptography that uses a public key and a private key, such as RSA and elliptic-curve cryptography. It is used for key exchange and digital signatures, and it is the part a quantum computer threatens.</p>
+
+            <h2>CBOM (cryptographic bill of materials)</h2>
+            <p>A machine-readable list of the cryptographic assets in a system: algorithms, keys, certificates, libraries and protocols. It is the output of a <a href="crypto-agility.html">cryptographic inventory</a>.</p>
+
+            <h2>CNSA 2.0</h2>
+            <p>The NSA&rsquo;s Commercial National Security Algorithm Suite 2.0, which sets quantum-resistant algorithms and deadlines for national security systems. See <a href="cnsa-2-0.html">CNSA 2.0 explained</a>.</p>
+
+            <h2>Composite certificate</h2>
+            <p>A certificate whose key and signature combine a classical and a post-quantum algorithm, valid only if both verify. See <a href="post-quantum-pki.html">post-quantum PKI</a>.</p>
+
+            <h2>CRQC (cryptographically relevant quantum computer)</h2>
+            <p>A quantum computer large and reliable enough to break RSA or elliptic-curve cryptography in a practical time.</p>
+
+            <h2>Crypto agility</h2>
+            <p>The ability to change cryptographic algorithms and keys quickly without redesigning systems.</p>
+
+            <h2>Cryptographic posture management</h2>
+            <p>Continuous monitoring of an organization&rsquo;s cryptography, including weak algorithms, expiring certificates and policy violations, built on top of an up-to-date inventory.</p>
+
+            <h2>FIPS 203, 204 and 205</h2>
+            <p>The NIST standards, published in August 2024, that define ML-KEM, ML-DSA and SLH-DSA. See <a href="nist-pqc-standards.html">NIST PQC standards</a>.</p>
+
+            <h2>Grover&rsquo;s algorithm</h2>
+            <p>A quantum algorithm that speeds up brute-force search. It roughly halves the effective strength of symmetric keys, which is why AES-256 is recommended.</p>
+
+            <h2>Harvest now, decrypt later (HNDL)</h2>
+            <p>Collecting encrypted data today to decrypt it once quantum computers can. See <a href="harvest-now-decrypt-later.html">harvest now, decrypt later</a>.</p>
+
+            <h2>HSM (hardware security module)</h2>
+            <p>Tamper-resistant hardware that generates and protects cryptographic keys. See <a href="hsm-key-management.html">HSM key management</a>.</p>
+
+            <h2>Hybrid key exchange</h2>
+            <p>Combining a classical algorithm, such as X25519, with a post-quantum one, such as ML-KEM, so a connection stays secure if either holds. It is the usual first step in TLS and VPN migration.</p>
+
+            <h2>KEM (key encapsulation mechanism)</h2>
+            <p>A method for two parties to agree a shared secret key using public-key cryptography. ML-KEM is a KEM.</p>
+
+            <h2>Lattice-based cryptography</h2>
+            <p>Cryptography built on hard problems involving high-dimensional lattices. ML-KEM, ML-DSA and FN-DSA are lattice-based.</p>
+
+            <h2>ML-KEM, ML-DSA and SLH-DSA</h2>
+            <p>The first three NIST post-quantum algorithms: ML-KEM for key establishment, ML-DSA for signatures and SLH-DSA as a hash-based signature backup.</p>
+
+            <h2>Mosca&rsquo;s theorem</h2>
+            <p>The rule that if the time your data must stay secret plus your migration time exceeds the time until a CRQC exists, you are already at risk.</p>
+
+            <h2>Post-quantum cryptography (PQC)</h2>
+            <p>Classical algorithms designed to resist attacks by both classical and quantum computers. See <a href="post-quantum-cryptography.html">post-quantum cryptography explained</a>.</p>
+
+            <h2>Q-Day</h2>
+            <p>The day a CRQC can break today&rsquo;s public-key cryptography. See <a href="q-day.html">what is Q-Day?</a></p>
+
+            <h2>QKD (quantum key distribution)</h2>
+            <p>Exchanging keys using quantum physics over dedicated optical links. See <a href="quantum-key-distribution.html">QKD vs PQC</a>.</p>
+
+            <h2>Quantum-safe</h2>
+            <p>Also quantum-resistant or quantum-proof: describes cryptography, products or systems that are expected to withstand attacks from quantum computers.</p>
+
+            <h2>Shor&rsquo;s algorithm</h2>
+            <p>The 1994 quantum algorithm that can factor large numbers and compute discrete logarithms efficiently, breaking RSA, Diffie-Hellman and ECC.</p>
+
+            <h2>Stateful hash-based signatures (LMS, XMSS)</h2>
+            <p>Quantum-safe signature schemes that must track which one-time keys have been used. They are approved for firmware signing in NIST SP 800-208.</p>
+
+            <h2>Talk to a post-quantum cryptography consultant</h2>
+            <p>YugamGroup is a Chicago-based post-quantum cryptography consultancy serving regulated enterprises across the US. If a term in your PQC program is unclear, our consultants can help you turn it into a plan. <a href="contact.html#pqc-assessment">Book a PQC readiness assessment</a> or read more about our <a href="services.html">PQC and cloud security consulting services</a>.</p>
+
+            <h2>Related guides</h2>
+            <ul>
+                <li><a href="post-quantum-cryptography.html">What is post-quantum cryptography?</a></li>
+                <li><a href="nist-pqc-standards.html">NIST PQC standards: ML-KEM, ML-DSA and SLH-DSA</a></li>
+                <li><a href="harvest-now-decrypt-later.html">Harvest now, decrypt later</a></li>
+                <li><a href="crypto-agility.html">Crypto agility and cryptographic inventory</a></li>
+                <li><a href="hsm-key-management.html">HSM key management and Azure Key Vault HSM</a></li>
+                <li><a href="agentic-ai-governance.html">Agentic AI governance</a></li>
+                <li><a href="pqc-migration-guide.html">PQC migration guide</a></li>
+                <li><a href="q-day.html">What is Q-Day?</a></li>
+                <li><a href="post-quantum-pki.html">Post-quantum PKI and quantum-safe certificates</a></li>
+                <li><a href="cnsa-2-0.html">CNSA 2.0 requirements and timeline</a></li>
+                <li><a href="quantum-key-distribution.html">Quantum key distribution vs post-quantum cryptography</a></li>
+            </ul>
+
+        </div>
+    </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-cols">
+            <div>
+                <h2>Post-quantum security</h2>
+                <ul>
+                    <li><a href="services.html#pqc">PQC readiness assessment</a></li>
+                    <li><a href="post-quantum-cryptography.html">Post-quantum cryptography</a></li>
+                    <li><a href="nist-pqc-standards.html">NIST PQC standards</a></li>
+                    <li><a href="harvest-now-decrypt-later.html">Harvest now, decrypt later</a></li>
+                    <li><a href="crypto-agility.html">Crypto agility</a></li>
+                    <li><a href="hsm-key-management.html">HSM key management</a></li>
+                    <li><a href="agentic-ai-governance.html">Agentic AI governance</a></li>
+                    <li><a href="insights.html">All PQC guides</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Cloud and engineering</h2>
+                <ul>
+                    <li><a href="services.html">Cloud migration</a></li>
+                    <li><a href="services.html">Cloud DevOps and automation</a></li>
+                    <li><a href="services.html">Application modernization</a></li>
+                    <li><a href="services.html">Product engineering</a></li>
+                    <li><a href="scanner.html">Website security scanner</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Company</h2>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="case-studies.html">Case studies</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Contact</h2>
+                <ul>
+                    <li><a href="tel:+12244420650">+1 (224) 442-0650</a></li>
+                    <li><a href="mailto:info@yugamgroup.com">info@yugamgroup.com</a></li>
+                    <li>Chicago, Illinois</li>
+                    <li>São Paulo, Brazil</li>
+                    <li>Chennai, India</li>
+                    <li><a href="https://www.linkedin.com/company/yugamllc" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://x.com/Yugamllc" target="_blank" rel="noopener">X</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-mark" aria-hidden="true">
+            <svg viewBox="0 0 698.96 190.31"><use href="logo-mono.svg#logo"></use></svg>
+        </div>
+        <div>
+            <div class="footer-legal">
+                <p>Post-quantum cryptography, cloud and agentic AI consulting for regulated enterprises. &copy; 2026 YugamGroup.</p>
+                <p><a href="privacy-policy.html">Privacy policy</a> &nbsp; <a href="#">Terms of service</a></p>
+            </div>
+            <p class="credits">Pictures and footage: Chicago skyline by Venti Views and network cabling by Taylor Vick, <a href="https://unsplash.com/license">Unsplash License</a>; <a href="https://commons.wikimedia.org/wiki/File:(2006)_Sao_Paulo_Skyline_(9557402041).jpg">São Paulo skyline</a> by Diego Torres Silvestre, <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a>; <a href="https://commons.wikimedia.org/wiki/File:Chennai_01.jpg">Chennai 01</a> by Ganesh Mohan T, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>; <a href="https://commons.wikimedia.org/wiki/File:BalticServers_data_center.jpg">BalticServers data center</a> by BalticServers.com, <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a>; <a href="https://commons.wikimedia.org/wiki/File:Fujikura_optic_fiber_at_Science_Museum.jpg">Fujikura optic fiber at Science Museum</a> by Syced, CC0; <a href="https://commons.wikimedia.org/wiki/File:Two_women_operating_ENIAC_(full_resolution).jpg">Two women operating ENIAC</a>, U.S. Army photo, public domain; <a href="https://commons.wikimedia.org/wiki/File:Animation_of_Rotating_Earth_at_Night.webm">Rotating Earth at Night</a> by NASA, public domain. Wikimedia Commons files via Wikimedia Commons.</p>
+        </div>
+    </footer>
+
+    <script src="site.js"></script>
+</body>
+
+</html>

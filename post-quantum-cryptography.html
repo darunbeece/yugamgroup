@@ -80,10 +80,14 @@
             </ul>
             <p>NIST is also standardizing FN-DSA (based on Falcon) for compact signatures and selected HQC in 2025 as a second, code-based key-establishment algorithm. Most of these quantum-resistant algorithms are lattice-based; their keys and signatures are larger than RSA or ECC, which is where most of the engineering work in a migration goes. Our guide to the <a href="nist-pqc-standards.html">NIST PQC standards</a> covers each one in more detail.</p>
 
+            <h2>Post-quantum cryptography and quantum cyber security</h2>
+            <p>Quantum cyber security is the broader effort to protect systems against the threats quantum computing creates. Post-quantum cryptography is its core, because it replaces the algorithms quantum computers break. Quantum-safe encryption programs also include crypto agility, key management, PKI modernization and supplier management. For the hardware-based alternative, see <a href="quantum-key-distribution.html">quantum key distribution vs PQC</a>.</p>
+
             <h2>How urgent is it?</h2>
-            <p>Nobody can say exactly when a cryptographically relevant quantum computer will arrive, but two facts make the timeline pressing now. First, attackers can record encrypted traffic today and decrypt it later, a threat known as <a href="harvest-now-decrypt-later.html">harvest now, decrypt later</a>. Second, governments have set deadlines. NIST&rsquo;s draft transition guidance (IR 8547) deprecates quantum-vulnerable algorithms such as RSA-2048 and P-256 after 2030 and disallows them after 2035, and the NSA&rsquo;s CNSA 2.0 sets similar dates for national security systems. Large migrations routinely take five years or more.</p>
+            <p>Nobody can say exactly when a cryptographically relevant quantum computer will arrive (a moment known as <a href="q-day.html">Q-Day</a>), but two facts make the timeline pressing now. First, attackers can record encrypted traffic today and decrypt it later, a threat known as <a href="harvest-now-decrypt-later.html">harvest now, decrypt later</a>. Second, governments have set deadlines. NIST&rsquo;s draft transition guidance (IR 8547) deprecates quantum-vulnerable algorithms such as RSA-2048 and P-256 after 2030 and disallows them after 2035, and the NSA&rsquo;s CNSA 2.0 sets similar dates for national security systems. Large migrations routinely take five years or more.</p>
 
             <h2>How to start a PQC migration</h2>
+            <p>Our full <a href="pqc-migration-guide.html">PQC migration guide</a> covers this in depth. In short:</p>
             <ol class="plain-steps">
                 <li><strong>Build a cryptographic inventory.</strong> Find where RSA and ECC are used across code, certificates, protocols, HSMs, cloud KMS and vendors. See <a href="crypto-agility.html">crypto agility and cryptographic inventory</a>.</li>
                 <li><strong>Prioritize by data lifespan.</strong> Systems that protect data that must stay secret for years go first.</li>
@@ -105,6 +109,12 @@
                 <li><a href="crypto-agility.html">Crypto agility and cryptographic inventory</a></li>
                 <li><a href="hsm-key-management.html">HSM key management and Azure Key Vault HSM</a></li>
                 <li><a href="agentic-ai-governance.html">Agentic AI governance</a></li>
+                <li><a href="pqc-migration-guide.html">PQC migration guide</a></li>
+                <li><a href="q-day.html">What is Q-Day?</a></li>
+                <li><a href="post-quantum-pki.html">Post-quantum PKI and quantum-safe certificates</a></li>
+                <li><a href="cnsa-2-0.html">CNSA 2.0 requirements and timeline</a></li>
+                <li><a href="quantum-key-distribution.html">Quantum key distribution vs post-quantum cryptography</a></li>
+                <li><a href="pqc-glossary.html">Post-quantum cryptography glossary</a></li>
             </ul>
 
         </div>
@@ -124,6 +134,7 @@
                     <li><a href="crypto-agility.html">Crypto agility</a></li>
                     <li><a href="hsm-key-management.html">HSM key management</a></li>
                     <li><a href="agentic-ai-governance.html">Agentic AI governance</a></li>
+                    <li><a href="insights.html">All PQC guides</a></li>
                 </ul>
             </div>
             <div>
