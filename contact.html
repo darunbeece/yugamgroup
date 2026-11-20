@@ -380,7 +380,7 @@
 
                 let sent = await postNetlify(15000);
                 if (!sent) {
-                    sent = await post('https://formsubmit.co/ajax/prasoonaarun@gmail.com', {
+                    const formsubmitBody = {
                         name: data.name,
                         email: data.email,
                         company: data.company || '-',
@@ -390,7 +390,16 @@
                         _subject: 'New YugamGroup enquiry: ' + subjectLabel + ' from ' + data.name,
                         _replyto: data.email,
                         _template: 'table'
-                    }, 120000);
+                    };
+                    const formsubmitUrl = 'https://formsubmit.co/ajax/prasoonaarun@gmail.com';
+                    const started = Date.now();
+                    sent = await post(formsubmitUrl, formsubmitBody, 120000);
+                    // A quick failure is usually a passing network or FormSubmit hiccup: try once more.
+                    // (Not after a long wait, which may mean the first one went through.)
+                    if (!sent && Date.now() - started < 20000) {
+                        await new Promise(resolve => setTimeout(resolve, 2000));
+                        sent = await post(formsubmitUrl, formsubmitBody, 120000);
+                    }
                 }
 
                 clearTimeout(slowNote);
