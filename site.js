@@ -165,5 +165,37 @@
         document.getElementById('cookieDecline')?.addEventListener('click', () => decide('false'));
     }
 
+    // ===== Liquid glass header (WebGL), only where it runs smoothly =====
+    // The CSS glass in styles.css is the baseline; this loads the refraction
+    // layer after the page has settled, so it never delays first paint.
+    function canLiquidGlass() {
+        if (reduceMotion || !header) return false;
+        if (window.matchMedia('(prefers-reduced-transparency: reduce)').matches) return false;
+        if (!window.matchMedia('(min-width: 901px) and (pointer: fine)').matches) return false;
+        if (navigator.connection && navigator.connection.saveData) return false;
+        if (navigator.deviceMemory && navigator.deviceMemory < 4) return false;
+        try {
+            const c = document.createElement('canvas');
+            return !!(window.WebGLRenderingContext && c.getContext('webgl'));
+        } catch (e) { return false; }
+    }
+    function loadScript(src) {
+        return new Promise((resolve, reject) => {
+            const s = document.createElement('script');
+            s.src = src; s.async = true; s.onload = resolve; s.onerror = reject;
+            document.head.appendChild(s);
+        });
+    }
+    if (canLiquidGlass()) {
+        const begin = () => loadScript('vendor/html2canvas/html2canvas.min.js')
+            .then(() => loadScript('vendor/liquid-glass/container.js'))
+            .then(() => loadScript('glass.js'))
+            .catch(() => { /* CSS glass stays */ });
+        const idle = window.requestIdleCallback || (fn => setTimeout(fn, 600));
+        const later = () => idle(begin, { timeout: 2500 });
+        if (document.readyState === 'complete') later();
+        else window.addEventListener('load', later, { once: true });
+    }
+
     root.classList.add('ready');
 })();
